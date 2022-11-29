@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from requests import request
 from .forms import FileForm
 from django.views import View
 from django.http import JsonResponse
@@ -31,6 +32,10 @@ class FileUploader(View):
         else:
             return JsonResponse({'data':'Something went wrong!!'})
 
+def allFile(request):
+    obj = File.objects.filter(user = request.user, is_delete=False)
+    return render(request, "allfiles.html", {'files':obj})
+
 def viewFile(request, url):
     file = get_object_or_404(File,url = url, is_delete=False)
     return render(request, "file.html", {"file":file})
@@ -57,7 +62,7 @@ def remFileView(request):
     context = {
         "files" : files
     }
-    return render(request, "fileUploader/myremovedfiles.html", context)
+    return render(request, "trash.html", context)
 
 @login_required
 def removeFile(request):

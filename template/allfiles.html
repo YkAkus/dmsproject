@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}Home{% endblock %}
+{% block home %}
+
+<div class="d-xl-flex">
+    <div class="w-100">
+        <div class="d-md-flex">
+            <div class="card filemanager-sidebar me-md-2">
+                <div class="card-body">
+                    <div class="d-flex flex-column h-100">
+                        <div class="mb-4">
+                            <div class="mb-3">
+                                <div class="dropdown">
+                                    <button class="btn btn-light w-100" type="button" data-bs-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-plus me-1"></i>
+                                        Upload
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#"><i class="fa fa-folder me-1"></i>
+                                            Folder</a>
+                                        {% comment %} <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> {% endcomment %}
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="#"><i class="fa fa-file me-1"></i>
+                                            File</a>
+                                    </div>
+                                </div>
+                            </div>
+ <!-- Modal -->
+ <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+      <form action="" id="file-upload-frm">
+          {% csrf_token %}
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            
+                <label for="myfile">Select a file:</label>
+                {% render_field form.file class="form-control" %}<br>
+                {% render_field form.title class="form-control" placeholder="Enter Title" %}<br>
+                {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
+                
+           
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit"class="btn btn-default">Save</button>
+        </div>
+      </div>
+       </form>
+    </div>
+  </div>
+                             
+                            <ul class="list-unstyled categories-list">
+                                <li>
+                                    <div class="custom-accordion">
+                                        <a class="text-body fw-medium py-1 d-flex align-items-center"
+                                            data-bs-toggle="collapse" href="#categories-collapse" role="button"
+                                            aria-expanded="false" aria-controls="categories-collapse">
+                                            <i class="fas fa-folder font-size-16 text-warning me-2"></i>
+                                            Files <i class="fas fa-chevron-up accor-down-icon ms-auto"></i>
+                                        </a>
+                                        <div class="collapse show" id="categories-collapse">
+                                            <div class="card border-0 shadow-none ps-2 mb-0">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li><a href="javascript: void(0);"
+                                                            class="d-flex align-items-center"><span
+                                                                class="me-auto">Design</span></a>
+                                                    </li>
+                                                    <li><a href="javascript: void(0);"
+                                                            class="d-flex align-items-center"><span
+                                                                class="me-auto">Development</span>
+                                                            <i class="fas fa-pin ms-auto"></i></a>
+                                                    </li>
+                                                    <li><a href="javascript: void(0);"
+                                                            class="d-flex align-items-center"><span
+                                                                class="me-auto">Project
+                                                                A</span></a>
+                                                    </li>
+                                                    <li><a href="javascript: void(0);"
+                                                            class="d-flex align-items-center"><span
+                                                                class="me-auto">Admin</span>
+                                                            <i class="fas fa-pin ms-auto"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="/trash/" class="text-body d-flex align-items-center">
+                                        <i class="fas fa-trash-can text-danger font-size-16 me-2"></i>
+                                        <span class="me-auto">Trash</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);" class="text-body d-flex align-items-center">
+                                        <i class="fas fa-cog text-muted font-size-16 me-2"></i>
+                                        <span class="me-auto">Setting</span><span
+                                            class="badge bg-success rounded-pill ms-2">01</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-auto">
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- filemanager-leftsidebar -->
+
+            <div class="w-100">
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            <div class="row mb-3">
+                                <div class="col-xl-3 col-sm-6">
+                                    <div class="mt-2">
+                                        <h5>All Files</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-9 col-sm-6">
+                                    <form class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
+                                        <div class="search-box mb-2 me-2">
+                                            <div class="position-relative">
+                                                <input type="text" class="form-control bg-light border-light rounded"
+                                                    placeholder="Search...">
+                                                <i class="fas fa-search-alt search-icon"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="dropdown mb-0">
+                                            <a class="btn btn-link text-muted mt-n2" role="button"
+                                                data-bs-toggle="dropdown" aria-haspopup="true">
+                                                <i class="fas fa-dots-vertical font-size-20"></i>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="#">Share
+                                                    Files</a>
+                                                <a class="dropdown-item" href="#">Share
+                                                    with me</a>
+                                                <a class="dropdown-item" href="#">Other
+                                                    Actions</a>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+
+                            <div class="table-responsive">
+                                <table class="table align-middle table-nowrap table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Date modified</th>
+                                            <th scope="col">Favourite</th>
+                                            <th scope="col" colspan="2">Size
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for file in files %}
+                                        <tr>
+                                            <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
+                                                        class="fas fa-file-document font-size-16 align-middle text-primary me-2"></i>
+                                                    {{file}}</a></td>
+                                            <td>{{file.date|date:'Y-m-d H:i'}}</td>
+                                            <td><i data-id="{{file.id}}" class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i></td>
+                                            <td>{{file.file.size|filesizeformat}}</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <a class="font-size-16 text-muted" role="button"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true">
+                                                        <i class="fas fa-ellipsis-h"></i>
+                                                    </a>
+
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a data-url="{{file.file.url}}" class="dropdown-item open-file" href="#">Open</a>
+                                                        <a class="dropdown-item" href="#">Edit</a>
+                                                        <a class="dropdown-item" href="#">Rename</a>
+                                                        <a data-url="{{file.url}}" class="dropdown-item share-file" href="#">Share</a>
+                                                        <div class="dropdown-divider">
+                                                        </div>
+                                                        <a data-id="{{file.id}}" class="dropdown-item remove-file" href="#">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end card -->
+            </div>
+            <!-- end w-100 -->
+        </div>
+    </div>
+
+</div>
+<!-- END layout-wrapper -->
+{% endblock %}

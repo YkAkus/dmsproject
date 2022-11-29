@@ -3,7 +3,7 @@ from dmsapp import views
 from django.contrib.auth.decorators import login_required
 urlpatterns = [
     path('', login_required(views.FileUploader.as_view()),name='index'),
-    path('files/', views.FileView, name="file-view"),
+    path('files/', views.allFile, name="file-view"),
     path('favourite/', views.favFileView, name="fav-file-view"),
     path('del-files/', views.deleteFile, name="del-file"),
     path('remove-files/', views.removeFile, name="remove-file"),

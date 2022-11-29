@@ -95,7 +95,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="javascript: void(0);" class="text-body d-flex align-items-center">
+                                    <a href="/trash/" class="text-body d-flex align-items-center">
                                         <i class="fas fa-trash-can text-danger font-size-16 me-2"></i>
                                         <span class="me-auto">Trash</span>
                                     </a>
@@ -496,6 +496,7 @@
                                                     </a>
 
                                                     <div class="dropdown-menu dropdown-menu-end">
+                                                        <a data-url="{{file.file.url}}" class="dropdown-item preview-pdf" href="#" data-toggle="modal" data-target="#pdfModal">Preview</a>
                                                         <a data-url="{{file.file.url}}" class="dropdown-item open-file" href="#">Open</a>
                                                         <a class="dropdown-item" href="#">Edit</a>
                                                         <a class="dropdown-item" href="#">Rename</a>

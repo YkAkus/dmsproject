@@ -1,3 +1,4 @@
+let embed = document.getElementById('embed1');
 var csrfcookie = function() {
     var cookieValue = null,
         name = 'csrftoken';
@@ -94,6 +95,12 @@ $(document).on("click", ".open-file", function() {
     var url = $(this).data("url");
     window.open(`${url}`, '_blank');
 })
+$(document).on("click", ".preview-pdf", function() {
+    var url = $(this).data("url");
+    console.log(url);
+    embed.src = url + "#toolbar=0";
+    // window.open(`${url}`, '_blank');
+})
 $(document).on("click", ".share-file", function() {
     url = $(this).data("url");
     base_url = window.location.origin;
@@ -114,8 +121,8 @@ $(document).on("click", ".make-favs", function() {
             "id": id,
         },
         success: function(response) {
-            me.removeClass("fa-heart")
-            me.addClass("fa-heart-o")
+            me.removeClass("text-warning")
+            me.addClass("text-secondary")
             me.parent().parent().remove();
         },
         error: function(error) {
@@ -170,8 +177,8 @@ $(document).on("click", ".restore-file", function() {
             "id": id,
         },
         success: function(response) {
-            me.removeClass("fa-heart")
-            me.addClass("fa-heart-o")
+            me.removeClass("text-warning")
+            me.addClass("text-secondary")
             me.parent().parent().remove();
         },
         error: function(error) {
