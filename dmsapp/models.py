@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .utils import create_shortened_url
 
 # Create your models here.
 class File(models.Model):
@@ -13,4 +14,9 @@ class File(models.Model):
     is_fav = models.BooleanField(default=False)
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.url:
+            self.url = create_shortened_url(self)
+        super().save(*args, **kwargs)
     
