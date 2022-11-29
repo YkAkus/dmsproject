@@ -33,7 +33,7 @@ class FileUploader(View):
 
 def viewFile(request, url):
     file = get_object_or_404(File,url = url, is_delete=False)
-    return render(request, "fileUploader/file.html", {"file":file})
+    return render(request, "file.html", {"file":file})
 
 @login_required
 def FileView(request):
