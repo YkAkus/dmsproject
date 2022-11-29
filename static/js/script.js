@@ -78,11 +78,11 @@ $(document).on("click", ".make-fav", function() {
         },
         success: function(response) {
             if (response["data"]) {
-                me.removeClass("fa-heart-o")
-                me.addClass("fa-heart")
+                me.removeClass("text-warning")
+                me.addClass("text-secondary")
             } else {
-                me.removeClass("fa-heart")
-                me.addClass("fa-heart-o")
+                me.removeClass("text-secondary")
+                me.addClass("text-warning")
             }
         },
         error: function(error) {
