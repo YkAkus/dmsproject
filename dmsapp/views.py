@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import FileForm
 from django.views import View
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from .models import File
 class FileUploader(View):
     def get(self, request, *args, **kwargs):
