@@ -1,0 +1,7 @@
+from dataclasses import fields
+from django.forms import ModelForm
+from .models import File
+class FileForm(ModelForm):
+    class Meta:
+        model = File
+        fields = ['title','desc','file']
