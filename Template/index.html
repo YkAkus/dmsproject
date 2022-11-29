@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block home %}
-{% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> {% endcomment %}
+{% comment %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> {% endcomment %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -22,39 +23,43 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#"><i class="fa fa-folder me-1"></i>
                                             Folder</a>
-                                        {% comment %} <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> {% endcomment %}
-                                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="#"><i class="fa fa-file me-1"></i>
+                                         <!-- <button type="button" class="btn btn-info btn-lg"
+                                            data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="#"><i
+                                                class="fa fa-file me-1"></i>
                                             File</a>
                                     </div>
                                 </div>
                             </div>
- <!-- Modal -->
- <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-            <form action="/action_page.php">
-                <label for="myfile">Select a file:</label>
-                <input type="file" id="myfile" name="myfile"><br>
-                <input class="form-control" type="text" placeholder="Enter tital" ><br>
-                <input class="form-control" type="text" placeholder="Enter Name" ><br>
-                
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit"class="btn btn-default" data-dismiss="modal">Save</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-                             
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/action_page.php">
+                                                <label for="myfile">Select a file:</label>
+                                                <input type="file" id="myfile" name="myfile"><br>
+                                                <input class="form-control" type="text" placeholder="Enter tital"><br>
+                                                <input class="form-control" type="text" placeholder="Enter Name"><br>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-default"
+                                                data-dismiss="modal">Save</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
                             <ul class="list-unstyled categories-list">
                                 <li>
                                     <div class="custom-accordion">
@@ -178,7 +183,8 @@
                                                     <a class="dropdown-item" href="#">Edit File</a>
                                                     <a class="dropdown-item" href="#">Enable Client View</a>
                                                     <a class="dropdown-item" href="#">Important (Mark)</a>
-                                                    <a class="dropdown-item" href="#">Mark favorites to Create Shortcut</a>
+                                                    <a class="dropdown-item" href="#">Mark favorites to Create
+                                                        Shortcut</a>
                                                     <a class="dropdown-item" href="#">Move</a>
                                                     <a class="dropdown-item" href="#">Download</a>
                                                     <a class="dropdown-item" href="#">Delete</a>
@@ -225,16 +231,27 @@
                                                 </a>
 
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Open</a>
-                                                    <a class="dropdown-item" href="#">Edit</a>
-                                                    <a class="dropdown-item" href="#">Rename</a>
-                                                    <div class="dropdown-divider">
-                                                    </div>
-                                                    <a class="dropdown-item" href="#">Remove</a>
+                                                    <a class="dropdown-item" href="#">Preview</a>
+                                                    <a class="dropdown-item" href="#">Upload file</a>
+                                                    <a class="dropdown-item" href="#">Create Folder</a>
+                                                    <a class="dropdown-item" href="#">Edit File</a>
+                                                    <a class="dropdown-item" href="#">Enable Client View</a>
+                                                    <a class="dropdown-item" href="#">Important (Mark)</a>
+                                                    <a class="dropdown-item" href="#">Mark favorites to Create
+                                                        Shortcut</a>
+                                                    <a class="dropdown-item" href="#">Move</a>
+                                                    <a class="dropdown-item" href="#">Download</a>
+                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                    <a class="dropdown-item" href="#">Rename </a>
+                                                    <a class="dropdown-item" href="#">Details/Properties </a>
+                                                    <a class="dropdown-item" href="#">Short </a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Send Mail Notification</a>
                                                 </div>
                                                 <div class="avatar-xs me-3 mb-3">
                                                     <div class="avatar-title bg-transparent rounded">
-                                                        <i class="fas fa-folder text-warning" style="font-size: 40px;"></i>
+                                                        <i class="fas fa-folder text-warning"
+                                                            style="font-size: 40px;"></i>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex">
@@ -271,18 +288,29 @@
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="#">Open</a>
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Rename</a>
-                                                            <div class="dropdown-divider">
-                                                            </div>
-                                                            <a class="dropdown-item" href="#">Remove</a>
+                                                            <a class="dropdown-item" href="#">Preview</a>
+                                                            <a class="dropdown-item" href="#">Upload file</a>
+                                                            <a class="dropdown-item" href="#">Create Folder</a>
+                                                            <a class="dropdown-item" href="#">Edit File</a>
+                                                            <a class="dropdown-item" href="#">Enable Client View</a>
+                                                            <a class="dropdown-item" href="#">Important (Mark)</a>
+                                                            <a class="dropdown-item" href="#">Mark favorites to Create
+                                                                Shortcut</a>
+                                                            <a class="dropdown-item" href="#">Move</a>
+                                                            <a class="dropdown-item" href="#">Download</a>
+                                                            <a class="dropdown-item" href="#">Delete</a>
+                                                            <a class="dropdown-item" href="#">Rename </a>
+                                                            <a class="dropdown-item" href="#">Details/Properties </a>
+                                                            <a class="dropdown-item" href="#">Short </a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="#">Send Mail Notification</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="avatar-xs me-3 mb-3">
                                                     <div class="avatar-title bg-transparent rounded">
-                                                        <i class="fas fa-folder text-warning" style="font-size: 40px;"></i>
+                                                        <i class="fas fa-folder text-warning"
+                                                            style="font-size: 40px;"></i>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex">
@@ -330,7 +358,8 @@
                                                 </div>
                                                 <div class="avatar-xs me-3 mb-3">
                                                     <div class="avatar-title bg-transparent rounded">
-                                                        <i class="fas fa-folder text-warning" style="font-size: 40px;"></i>
+                                                        <i class="fas fa-folder text-warning"
+                                                            style="font-size: 40px;"></i>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex">
@@ -365,18 +394,29 @@
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="#">Open</a>
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Rename</a>
-                                                            <div class="dropdown-divider">
-                                                            </div>
-                                                            <a class="dropdown-item" href="#">Remove</a>
+                                                            <a class="dropdown-item" href="#">Preview</a>
+                                                            <a class="dropdown-item" href="#">Upload file</a>
+                                                            <a class="dropdown-item" href="#">Create Folder</a>
+                                                            <a class="dropdown-item" href="#">Edit File</a>
+                                                            <a class="dropdown-item" href="#">Enable Client View</a>
+                                                            <a class="dropdown-item" href="#">Important (Mark)</a>
+                                                            <a class="dropdown-item" href="#">Mark favorites to Create
+                                                                Shortcut</a>
+                                                            <a class="dropdown-item" href="#">Move</a>
+                                                            <a class="dropdown-item" href="#">Download</a>
+                                                            <a class="dropdown-item" href="#">Delete</a>
+                                                            <a class="dropdown-item" href="#">Rename </a>
+                                                            <a class="dropdown-item" href="#">Details/Properties </a>
+                                                            <a class="dropdown-item" href="#">Short </a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="#">Send Mail Notification</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="avatar-xs me-3 mb-3">
                                                     <div class="avatar-title bg-transparent rounded">
-                                                        <i class="fas fa-folder text-warning" style="font-size: 40px;"></i>
+                                                        <i class="fas fa-folder text-warning"
+                                                            style="font-size: 40px;"></i>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex">
@@ -424,7 +464,8 @@
                                                 </div>
                                                 <div class="avatar-xs me-3 mb-3">
                                                     <div class="avatar-title bg-transparent rounded">
-                                                        <i class="fas fa-folder text-warning"style="font-size: 40px;"></i>
+                                                        <i class="fas fa-folder text-warning"
+                                                            style="font-size: 40px;"></i>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex">
@@ -491,12 +532,22 @@
                                                     </a>
 
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">Open</a>
-                                                        <a class="dropdown-item" href="#">Edit</a>
-                                                        <a class="dropdown-item" href="#">Rename</a>
-                                                        <div class="dropdown-divider">
-                                                        </div>
-                                                        <a class="dropdown-item" href="#">Remove</a>
+                                                        <a class="dropdown-item" href="#">Preview</a>
+                                                        <a class="dropdown-item" href="#">Upload file</a>
+                                                        <a class="dropdown-item" href="#">Create Folder</a>
+                                                        <a class="dropdown-item" href="#">Edit File</a>
+                                                        <a class="dropdown-item" href="#">Enable Client View</a>
+                                                        <a class="dropdown-item" href="#">Important (Mark)</a>
+                                                        <a class="dropdown-item" href="#">Mark favorites to Create
+                                                            Shortcut</a>
+                                                        <a class="dropdown-item" href="#">Move</a>
+                                                        <a class="dropdown-item" href="#">Download</a>
+                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                        <a class="dropdown-item" href="#">Rename </a>
+                                                        <a class="dropdown-item" href="#">Details/Properties </a>
+                                                        <a class="dropdown-item" href="#">Short </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Send Mail Notification</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -515,19 +566,29 @@
                                                     </a>
 
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">Open</a>
-                                                        <a class="dropdown-item" href="#">Edit</a>
-                                                        <a class="dropdown-item" href="#">Rename</a>
-                                                        <div class="dropdown-divider">
-                                                        </div>
-                                                        <a class="dropdown-item" href="#">Remove</a>
+                                                        <a class="dropdown-item" href="#">Preview</a>
+                                                    <a class="dropdown-item" href="#">Upload file</a>
+                                                    <a class="dropdown-item" href="#">Create Folder</a>
+                                                    <a class="dropdown-item" href="#">Edit File</a>
+                                                    <a class="dropdown-item" href="#">Enable Client View</a>
+                                                    <a class="dropdown-item" href="#">Important (Mark)</a>
+                                                    <a class="dropdown-item" href="#">Mark favorites to Create
+                                                        Shortcut</a>
+                                                    <a class="dropdown-item" href="#">Move</a>
+                                                    <a class="dropdown-item" href="#">Download</a>
+                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                    <a class="dropdown-item" href="#">Rename </a>
+                                                    <a class="dropdown-item" href="#">Details/Properties </a>
+                                                    <a class="dropdown-item" href="#">Short </a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Send Mail Notification</a>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
-                                                        class="fas fa-image font-size-16 align-middle text-muted me-2"></i>
+                                                        class="fas fa-picture-o font-size-16 align-middle text-muted me-2"></i>
                                                     Img-1.jpeg</a></td>
                                             <td>11-10-2020, 13:26</td>
                                             <td>86 KB</td>
@@ -539,12 +600,22 @@
                                                     </a>
 
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">Open</a>
-                                                        <a class="dropdown-item" href="#">Edit</a>
-                                                        <a class="dropdown-item" href="#">Rename</a>
-                                                        <div class="dropdown-divider">
-                                                        </div>
-                                                        <a class="dropdown-item" href="#">Remove</a>
+                                                        <a class="dropdown-item" href="#">Preview</a>
+                                                        <a class="dropdown-item" href="#">Upload file</a>
+                                                        <a class="dropdown-item" href="#">Create Folder</a>
+                                                        <a class="dropdown-item" href="#">Edit File</a>
+                                                        <a class="dropdown-item" href="#">Enable Client View</a>
+                                                        <a class="dropdown-item" href="#">Important (Mark)</a>
+                                                        <a class="dropdown-item" href="#">Mark favorites to Create
+                                                            Shortcut</a>
+                                                        <a class="dropdown-item" href="#">Move</a>
+                                                        <a class="dropdown-item" href="#">Download</a>
+                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                        <a class="dropdown-item" href="#">Rename </a>
+                                                        <a class="dropdown-item" href="#">Details/Properties </a>
+                                                        <a class="dropdown-item" href="#">Short </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Send Mail Notification</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -563,12 +634,22 @@
                                                     </a>
 
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">Open</a>
-                                                        <a class="dropdown-item" href="#">Edit</a>
-                                                        <a class="dropdown-item" href="#">Rename</a>
-                                                        <div class="dropdown-divider">
-                                                        </div>
-                                                        <a class="dropdown-item" href="#">Remove</a>
+                                                        <a class="dropdown-item" href="#">Preview</a>
+                                                        <a class="dropdown-item" href="#">Upload file</a>
+                                                        <a class="dropdown-item" href="#">Create Folder</a>
+                                                        <a class="dropdown-item" href="#">Edit File</a>
+                                                        <a class="dropdown-item" href="#">Enable Client View</a>
+                                                        <a class="dropdown-item" href="#">Important (Mark)</a>
+                                                        <a class="dropdown-item" href="#">Mark favorites to Create
+                                                            Shortcut</a>
+                                                        <a class="dropdown-item" href="#">Move</a>
+                                                        <a class="dropdown-item" href="#">Download</a>
+                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                        <a class="dropdown-item" href="#">Rename </a>
+                                                        <a class="dropdown-item" href="#">Details/Properties </a>
+                                                        <a class="dropdown-item" href="#">Short </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Send Mail Notification</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -587,12 +668,22 @@
                                                     </a>
 
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">Open</a>
-                                                        <a class="dropdown-item" href="#">Edit</a>
-                                                        <a class="dropdown-item" href="#">Rename</a>
-                                                        <div class="dropdown-divider">
-                                                        </div>
-                                                        <a class="dropdown-item" href="#">Remove</a>
+                                                        <a class="dropdown-item" href="#">Preview</a>
+                                                        <a class="dropdown-item" href="#">Upload file</a>
+                                                        <a class="dropdown-item" href="#">Create Folder</a>
+                                                        <a class="dropdown-item" href="#">Edit File</a>
+                                                        <a class="dropdown-item" href="#">Enable Client View</a>
+                                                        <a class="dropdown-item" href="#">Important (Mark)</a>
+                                                        <a class="dropdown-item" href="#">Mark favorites to Create
+                                                            Shortcut</a>
+                                                        <a class="dropdown-item" href="#">Move</a>
+                                                        <a class="dropdown-item" href="#">Download</a>
+                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                        <a class="dropdown-item" href="#">Rename </a>
+                                                        <a class="dropdown-item" href="#">Details/Properties </a>
+                                                        <a class="dropdown-item" href="#">Short </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Send Mail Notification</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -624,7 +715,7 @@
                                         </tr>
                                         <tr>
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
-                                                        class="fas fa-image font-size-16 align-middle text-success me-2"></i>
+                                                        class="fa fa-image font-size-16 align-middle text-success me-2"></i>
                                                     Img-2.png</a></td>
                                             <td>09-10-2020, 15:12</td>
                                             <td>31 KB</td>
@@ -704,6 +795,209 @@
                 <!-- end card -->
             </div>
             <!-- end w-100 -->
+        </div>
+    </div>
+    <div class="card filemanager-sidebar ms-lg-2">
+        <div class="card-body">
+            <div class="text-center" style="position: relative;">
+                <h5 class="font-size-15 mb-4">Storage</h5>
+                <div class="apex-charts" id="radial-chart" data-colors="[&quot;--bs-primary&quot;]"
+                    style="min-height: 66px;">
+                    <div id="apexchartsaxzkttyv" class="apexcharts-canvas apexchartsaxzkttyv apexcharts-theme-light"
+                        style="width: 240px; height: 66px;"><svg id="SvgjsSvg1025" width="240" height="66"
+                            xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            xmlns:svgjs="http://svgjs.com/svgjs" class="apexcharts-svg" xmlns:data="ApexChartsNS"
+                            transform="translate(0, 0)" style="background: transparent;">
+                            <g id="SvgjsG1027" class="apexcharts-inner apexcharts-graphical"
+                                transform="translate(45, -10)">
+                                <defs id="SvgjsDefs1026">
+                                    <clipPath id="gridRectMaskaxzkttyv">
+                                        <rect id="SvgjsRect1029" width="156" height="162" x="-3" y="-1" rx="0" ry="0"
+                                            opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff">
+                                        </rect>
+                                    </clipPath>
+                                    <clipPath id="gridRectMarkerMaskaxzkttyv">
+                                        <rect id="SvgjsRect1030" width="154" height="164" x="-2" y="-2" rx="0" ry="0"
+                                            opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff">
+                                        </rect>
+                                    </clipPath>
+                                </defs>
+                                <g id="SvgjsG1031" class="apexcharts-radialbar">
+                                    <g id="SvgjsG1032">
+                                        <g id="SvgjsG1033" class="apexcharts-tracks">
+                                            <g id="SvgjsG1034" class="apexcharts-radialbar-track apexcharts-track"
+                                                rel="1">
+                                                <path id="apexcharts-radialbarTrack-0"
+                                                    d="M 21.280487804878042 75 A 53.71951219512196 53.71951219512196 0 0 1 128.71951219512195 75"
+                                                    fill="none" fill-opacity="1" stroke="rgba(231,231,231,0.85)"
+                                                    stroke-opacity="1" stroke-linecap="butt"
+                                                    stroke-width="9.345121951219513" stroke-dasharray="0"
+                                                    class="apexcharts-radialbar-area"
+                                                    data:pathOrig="M 21.280487804878042 75 A 53.71951219512196 53.71951219512196 0 0 1 128.71951219512195 75">
+                                                </path>
+                                            </g>
+                                        </g>
+                                        <g id="SvgjsG1036">
+                                            <g id="SvgjsG1040" class="apexcharts-series apexcharts-radial-series"
+                                                seriesName="Storage" rel="1" data:realIndex="0">
+                                                <path id="SvgjsPath1041"
+                                                    d="M 21.280487804878042 75 A 53.71951219512196 53.71951219512196 0 0 1 114.28796409307861 38.36338077956944"
+                                                    fill="none" fill-opacity="0.85" stroke="rgba(85,110,230,0.85)"
+                                                    stroke-opacity="1" stroke-linecap="butt"
+                                                    stroke-width="9.634146341463415" stroke-dasharray="3"
+                                                    class="apexcharts-radialbar-area apexcharts-radialbar-slice-0"
+                                                    data:angle="137" data:value="76" index="0" j="0"
+                                                    data:pathOrig="M 21.280487804878042 75 A 53.71951219512196 53.71951219512196 0 0 1 114.28796409307861 38.36338077956944">
+                                                </path>
+                                            </g>
+                                            <circle id="SvgjsCircle1037" r="44.0469512195122" cx="75" cy="75"
+                                                class="apexcharts-radialbar-hollow" fill="transparent"></circle>
+                                            <g id="SvgjsG1038" class="apexcharts-datalabels-group"
+                                                transform="translate(0, 0) scale(1)" style="opacity: 1;"><text
+                                                    id="SvgjsText1039" font-family="Helvetica, Arial, sans-serif" x="75"
+                                                    y="73" text-anchor="middle" dominant-baseline="auto"
+                                                    font-size="16px" font-weight="400" fill="#373d3f"
+                                                    class="apexcharts-text apexcharts-datalabel-value"
+                                                    style="font-family: Helvetica, Arial, sans-serif;">76%</text></g>
+                                        </g>
+                                    </g>
+                                </g>
+                                <line id="SvgjsLine1042" x1="0" y1="0" x2="150" y2="0" stroke="#b6b6b6"
+                                    stroke-dasharray="0" stroke-width="1" class="apexcharts-ycrosshairs"></line>
+                                <line id="SvgjsLine1043" x1="0" y1="0" x2="150" y2="0" stroke-dasharray="0"
+                                    stroke-width="0" class="apexcharts-ycrosshairs-hidden"></line>
+                            </g>
+                            <g id="SvgjsG1028" class="apexcharts-annotations"></g>
+                        </svg>
+                        <div class="apexcharts-legend"></div>
+                    </div>
+                </div>
+
+                <p class="text-muted mt-4">48.02 GB (76%) of 64 GB used</p>
+                <div class="resize-triggers">
+                    <div class="expand-trigger">
+                        <div style="width: 241px; height: 153px;"></div>
+                    </div>
+                    <div class="contract-trigger"></div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <div class="card border shadow-none mb-2">
+                    <a href="javascript: void(0);" class="text-body">
+                        <div class="p-2">
+                            <div class="d-flex">
+                                <div class="avatar-xs align-self-center me-2">
+                                    <div class="avatar-title rounded bg-transparent text-success font-size-20">
+                                        <i class="mdi mdi-image"></i>
+                                    </div>
+                                </div>
+
+                                <div class="overflow-hidden me-auto">
+                                    <h5 class="font-size-13 text-truncate mb-1">Images</h5>
+                                    <p class="text-muted text-truncate mb-0">176 Files</p>
+                                </div>
+
+                                <div class="ms-2">
+                                    <p class="text-muted">6 GB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card border shadow-none mb-2">
+                    <a href="javascript: void(0);" class="text-body">
+                        <div class="p-2">
+                            <div class="d-flex">
+                                <div class="avatar-xs align-self-center me-2">
+                                    <div class="avatar-title rounded bg-transparent text-danger font-size-20">
+                                        <i class="mdi mdi-play-circle-outline"></i>
+                                    </div>
+                                </div>
+
+                                <div class="overflow-hidden me-auto">
+                                    <h5 class="font-size-13 text-truncate mb-1">Video</h5>
+                                    <p class="text-muted text-truncate mb-0">45 Files</p>
+                                </div>
+
+                                <div class="ms-2">
+                                    <p class="text-muted">4.1 GB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card border shadow-none mb-2">
+                    <a href="javascript: void(0);" class="text-body">
+                        <div class="p-2">
+                            <div class="d-flex">
+                                <div class="avatar-xs align-self-center me-2">
+                                    <div class="avatar-title rounded bg-transparent text-info font-size-20">
+                                        <i class="mdi mdi-music"></i>
+                                    </div>
+                                </div>
+
+                                <div class="overflow-hidden me-auto">
+                                    <h5 class="font-size-13 text-truncate mb-1">Music</h5>
+                                    <p class="text-muted text-truncate mb-0">21 Files</p>
+                                </div>
+
+                                <div class="ms-2">
+                                    <p class="text-muted">3.2 GB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card border shadow-none mb-2">
+                    <a href="javascript: void(0);" class="text-body">
+                        <div class="p-2">
+                            <div class="d-flex">
+                                <div class="avatar-xs align-self-center me-2">
+                                    <div class="avatar-title rounded bg-transparent text-primary font-size-20">
+                                        <i class="mdi mdi-file-document"></i>
+                                    </div>
+                                </div>
+
+                                <div class="overflow-hidden me-auto">
+                                    <h5 class="font-size-13 text-truncate mb-1">Document</h5>
+                                    <p class="text-muted text-truncate mb-0">21 Files</p>
+                                </div>
+
+                                <div class="ms-2">
+                                    <p class="text-muted">2 GB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card border shadow-none">
+                    <a href="javascript: void(0);" class="text-body">
+                        <div class="p-2">
+                            <div class="d-flex">
+                                <div class="avatar-xs align-self-center me-2">
+                                    <div class="avatar-title rounded bg-transparent text-warning font-size-20">
+                                        <i class="mdi mdi-folder"></i>
+                                    </div>
+                                </div>
+
+                                <div class="overflow-hidden me-auto">
+                                    <h5 class="font-size-13 text-truncate mb-1">Others</h5>
+                                    <p class="text-muted text-truncate mb-0">20 Files</p>
+                                </div>
+
+                                <div class="ms-2">
+                                    <p class="text-muted">1.4 GB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
