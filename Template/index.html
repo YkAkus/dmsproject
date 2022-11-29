@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block home %}
+{% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> {% endcomment %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <div class="d-xl-flex">
     <div class="w-100">
@@ -19,11 +22,37 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#"><i class="fa fa-folder me-1"></i>
                                             Folder</a>
-                                        <a class="dropdown-item" href="#"><i class="fa fa-file me-1"></i>
+                                        {% comment %} <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> {% endcomment %}
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="#"><i class="fa fa-file me-1"></i>
                                             File</a>
                                     </div>
                                 </div>
                             </div>
+ <!-- Modal -->
+ <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form action="/action_page.php">
+                <label for="myfile">Select a file:</label>
+                <input type="file" id="myfile" name="myfile"><br><br>
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit"class="btn btn-default" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+                             
                             <ul class="list-unstyled categories-list">
                                 <li>
                                     <div class="custom-accordion">
@@ -141,12 +170,21 @@
                                                 </a>
 
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Open</a>
-                                                    <a class="dropdown-item" href="#">Edit</a>
-                                                    <a class="dropdown-item" href="#">Rename</a>
-                                                    <div class="dropdown-divider">
-                                                    </div>
-                                                    <a class="dropdown-item" href="#">Remove</a>
+                                                    <a class="dropdown-item" href="#">Preview</a>
+                                                    <a class="dropdown-item" href="#">Upload file</a>
+                                                    <a class="dropdown-item" href="#">Create Folder</a>
+                                                    <a class="dropdown-item" href="#">Edit File</a>
+                                                    <a class="dropdown-item" href="#">Enable Client View</a>
+                                                    <a class="dropdown-item" href="#">Important (Mark)</a>
+                                                    <a class="dropdown-item" href="#">Mark favorites to Create Shortcut</a>
+                                                    <a class="dropdown-item" href="#">Move</a>
+                                                    <a class="dropdown-item" href="#">Download</a>
+                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                    <a class="dropdown-item" href="#">Rename </a>
+                                                    <a class="dropdown-item" href="#">Details/Properties </a>
+                                                    <a class="dropdown-item" href="#">Short </a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Send Mail Notification</a>
                                                 </div>
                                                 <div class="avatar-xs me-3 mb-3">
                                                     <div class="avatar-title bg-transparent rounded">
@@ -669,4 +707,6 @@
 
 </div>
 <!-- END layout-wrapper -->
+
+
 {% endblock %}
