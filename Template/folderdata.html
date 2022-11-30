@@ -20,45 +20,41 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#"><i class="fa fa-folder me-1"></i>
                                             Folder</a>
-                                        {% comment %} <button type="button" class="btn btn-info btn-lg"
-                                            data-toggle="modal" data-target="#myModal">Open Modal</button> {% endcomment %}
-                                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="#"><i
-                                                class="fa fa-file me-1"></i>
+                                        {% comment %} <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> {% endcomment %}
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="#"><i class="fa fa-file me-1"></i>
                                             File</a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Modal -->
-                            <div class="modal fade" id="myModal" role="dialog">
-                                <div class="modal-dialog">
-
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <form action="" id="file-upload-frm">
-                                            {% csrf_token %}
-                                            <div class="modal-header">
-                                                <button type="button" class="close"
-                                                    data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-
-                                                <label for="myfile">Select a file:</label>
-                                                {% render_field form.file class="form-control" %}<br>
-                                                {% render_field form.title class="form-control" placeholder="Enter Title" %}<br>
-                                                {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
-
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default"
-                                                    data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-default">Save</button>
-                                            </div>
-                                    </div>
-                                    </form>
-                                </div>
-                            </div>
-
+ <!-- Modal -->
+ <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+      <form action="" id="file-upload-frm">
+          {% csrf_token %}
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            
+                <label for="myfile">Select a file:</label>
+                {% render_field form.file class="form-control" %}<br>
+                {% render_field form.title class="form-control" placeholder="Enter Title" %}<br>
+                {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
+                
+           
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit"class="btn btn-default">Save</button>
+        </div>
+      </div>
+       </form>
+    </div>
+  </div>
+                             
                             <ul class="list-unstyled categories-list">
                                 <li>
                                     <div class="custom-accordion">
@@ -110,9 +106,14 @@
                                 </li>
                             </ul>
                         </div>
+
                         <div class="mt-auto">
+
+
+
                         </div>
                     </div>
+
                 </div>
             </div>
             <!-- filemanager-leftsidebar -->
@@ -129,28 +130,28 @@
                                 </div>
                                 <div class="col-xl-9 col-sm-6">
                                     <form class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
-                                        <div class="search-box mb-2 me-2">
+                                        {% comment %} <div class="search-box mb-2 me-2">
                                             <div class="position-relative">
                                                 <input type="text" class="form-control bg-light border-light rounded"
                                                     placeholder="Search...">
                                                 <i class="fas fa-search-alt search-icon"></i>
                                             </div>
-                                        </div>
+                                        </div> {% endcomment %}
 
-                                        <div class="dropdown mb-0">
+                                        {% comment %}<div class="dropdown mb-0">
                                             <a class="btn btn-link text-muted mt-n2" role="button"
                                                 data-bs-toggle="dropdown" aria-haspopup="true">
                                                 <i class="fas fa-dots-vertical font-size-20"></i>
                                             </a>
 
-                                            <div class="dropdown-menu dropdown-menu-end">
+                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <a class="dropdown-item" href="#">Share
                                                     Files</a>
                                                 <a class="dropdown-item" href="#">Share
                                                     with me</a>
                                                 <a class="dropdown-item" href="#">Other
                                                     Actions</a>
-                                            </div>
+                                            </div> {% endcomment %}
                                         </div>
 
 
@@ -161,7 +162,7 @@
 
                         <div class="mt-4">
 
-                            <div class="table-responsive" style="padding-bottom:200px;">
+                            <div class="table-responsive">
                                 <table class="table align-middle table-nowrap table-hover mb-0">
                                     <thead>
                                         <tr>
@@ -179,9 +180,7 @@
                                                         class="fas fa-file-document font-size-16 align-middle text-primary me-2"></i>
                                                     {{file}}</a></td>
                                             <td>{{file.date|date:'Y-m-d H:i'}}</td>
-                                            <td><i data-id="{{file.id}}"
-                                                    class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
-                                            </td>
+                                            <td><i data-id="{{file.id}}" class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i></td>
                                             <td>{{file.file.size|filesizeformat}}</td>
                                             <td>
                                                 <div class="dropdown">
@@ -191,16 +190,13 @@
                                                     </a>
 
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a data-url="{{file.file.url}}" class="dropdown-item open-file"
-                                                            href="#">Open</a>
+                                                        <a data-url="{{file.file.url}}" class="dropdown-item open-file" href="#">Open</a>
                                                         <a class="dropdown-item" href="#">Edit</a>
                                                         <a class="dropdown-item" href="#">Rename</a>
-                                                        <a data-url="{{file.url}}" class="dropdown-item share-file"
-                                                            href="#">Share</a>
+                                                        <a data-url="{{file.url}}" class="dropdown-item share-file" href="#">Share</a>
                                                         <div class="dropdown-divider">
                                                         </div>
-                                                        <a data-id="{{file.id}}" class="dropdown-item remove-file"
-                                                            href="#">Remove</a>
+                                                        <a data-id="{{file.id}}" class="dropdown-item remove-file" href="#">Remove</a>
                                                     </div>
                                                 </div>
                                             </td>

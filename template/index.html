@@ -3,6 +3,18 @@
 {% block title %}Home{% endblock %}
 {% block home %}
 {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> {% endcomment %}
+<style>
+    img {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 5px;
+      width: 150px;
+    }
+    
+    img:hover {
+      box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    }
+    </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -132,7 +144,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-9 col-sm-6">
-                                    <form class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
+                                    {% comment %} <form class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
                                         <div class="search-box mb-2 me-2">
                                             <div class="position-relative">
                                                 <input type="text" class="form-control bg-light border-light rounded"
@@ -156,16 +168,14 @@
                                                     Actions</a>
                                             </div>
                                         </div>
-
-
-                                    </form>
+                                    </form> {% endcomment %}
                                 </div>
                             </div>
                         </div>
 
                         <div>
                             <div class="row">
-                                <div class="col-xl-4 col-sm-6">
+                                <div class="col-xl-2 col-sm-6">
                                     <div class="card shadow-none border">
                                         <div class="card-body p-3">
                                             <div class="">
@@ -218,7 +228,7 @@
                                 </div>
                                 <!-- end col -->
 
-                                <div class="col-xl-4 col-sm-6">
+                                <div class="col-xl-2 col-sm-6">
                                     <div class="card shadow-none border">
                                         <div class="card-body p-3">
                                             <div class="">
@@ -262,7 +272,7 @@
                                 </div>
                                 <!-- end col -->
 
-                                <div class="col-xl-4 col-sm-6">
+                                <div class="col-xl-2 col-sm-6">
                                     <div class="card shadow-none border">
                                         <div class="card-body p-3">
                                             <div class="">
@@ -310,7 +320,7 @@
                                 </div>
                                 <!-- end col -->
 
-                                <div class="col-xl-4 col-sm-6">
+                                <div class="col-xl-2 col-sm-6">
                                     <div class="card shadow-none border">
                                         <div class="card-body p-3">
                                             <div class="">
@@ -356,7 +366,7 @@
                                 </div>
                                 <!-- end col -->
 
-                                <div class="col-xl-4 col-sm-6">
+                                <div class="col-xl-2 col-sm-6">
                                     <div class="card shadow-none border">
                                         <div class="card-body p-3">
                                             <div class="">
@@ -404,7 +414,7 @@
                                 </div>
                                 <!-- end col -->
 
-                                <div class="col-xl-4 col-sm-6">
+                                <div class="col-xl-2 col-sm-6">
                                     <div class="card shadow-none border">
                                         <div class="card-body p-3">
                                             <div class="">
@@ -456,21 +466,20 @@
                             <!-- end row -->
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-4" style="padding-bottom:200px;">
                             <div class="d-flex flex-wrap">
                                 <h5 class="font-size-16 me-3">Recent Files
                                 </h5>
 
                                 <div class="ms-auto">
-                                    <a href="/files/" class="fw-medium text-reset">View
-                                        All</a>
+                                    <a href="/files/" class="fw-medium text-reset">View All</a>
                                 </div>
                             </div>
                             <hr class="mt-2">
 
-                            <div class="table-responsive">
-                                <table class="table align-middle table-nowrap table-hover mb-0">
-                                    <thead>
+                            <div class="table-responsive" style="padding-bottom:200px;" >
+                                <table class="table align-middle table-nowrap table-hover mb-0" >
+                                    <thead >
                                         <tr>
                                             <th scope="col">Name</th>
                                             <th scope="col">Date modified</th>
@@ -479,7 +488,7 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody >
                                         {% for file in files %}
                                         <tr>
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
@@ -513,6 +522,7 @@
                                 </table>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
                 <!-- end card -->
@@ -520,6 +530,13 @@
             <!-- end w-100 -->
         </div>
     </div>
+</div>
+<!-- end row -->
+
+</div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
 
 </div>
 <!-- END layout-wrapper -->
@@ -577,4 +594,5 @@
         });
     });
 </script>
+
 {% endblock %}
