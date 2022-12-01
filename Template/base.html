@@ -11,9 +11,10 @@
     <meta name="author" content="">
 
     <title>{{title}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     {% comment %} <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script> {% endcomment %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- App favicon -->
     <!-- <link rel="shortcut icon" href="https://themesbrand.com/skote/layouts/assets/images/favicon.ico"> -->
     <!-- Custom fonts for this template-->
@@ -27,8 +28,9 @@
     <link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="{% static "js/ga.js" %}" type="text/javascript"></script>
 
-    {% comment %} <!-- Model file -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" crossorigin="anonymous"> {% endcomment %}
+    <!-- Model file -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    
     
 </head>
 
@@ -333,8 +335,7 @@
                                 <img class="img-profile rounded-circle" src="/static/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" style="margin-right: 20px;" aria-labelledby="userDropdown">
                                 {% comment %} <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
@@ -431,9 +432,7 @@
         {% comment %}
         <script src="static/vendor/jquery/jquery.min.js"></script> {% endcomment %}
         <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-        {% comment %}
-        <script src="{%static '' %}"></static > {% endcomment %}
-            <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
         <!-- Core plugin JavaScript-->
         <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>

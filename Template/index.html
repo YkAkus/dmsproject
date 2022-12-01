@@ -2,21 +2,54 @@
 {% load widget_tweaks %}
 {% block title %}Home{% endblock %}
 {% block home %}
-{% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> {% endcomment %}
+{% comment %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> {% endcomment %}
 <style>
+
     img {
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 5px;
-      width: 150px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 150px;
     }
-    
+
     img:hover {
-      box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
     }
-    </style>
+</style>
+<!-- jQuery should be at least version 1.7 -->
+{% comment %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> {% endcomment %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $(".dv_rc").bind('contextmenu', function (e) {
+            e.preventDefault(); // prevents default menu 
+
+            $(".popupRC").css({ position: "absolute", top: e.pageY, left: e.pageX, display: "block" });
+
+        });
+        $(document).bind("click", function (event) {
+            document.getElementsByClassName("popupRC").display="none";
+        })
+
+    });
+$(document).ready(function () {
+
+$(".dv_rc1").bind('contextmenu', function (e) {
+    e.preventDefault(); // prevents default menu 
+
+    $(".popupRC1").css({ position: "absolute", top: e.pageY, left: e.pageX, display: "block" });
+
+});
+$(document).bind("click", function (event) {
+    document.getElementsByClassName("popupRC1").display="none";
+})
+
+});
+</script>
 
 <div class="d-xl-flex">
     <div class="w-100">
@@ -33,43 +66,45 @@
                                         Upload
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#"><i class="fa fa-folder me-1"></i>
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#flModal" href="#"><i
+                                                class="fa fa-folder me-1"></i>
                                             Folder</a>
-                                        {% comment %} <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> {% endcomment %}
-                                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="#"><i class="fa fa-file me-1"></i>
-                                            File</a>
+                                        <!-- <button type="button" class="btn btn-info btn-lg"
+                                            data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa fa-file me-1"></i>File</a>
                                     </div>
                                 </div>
                             </div>
- <!-- Modal -->
- <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-      <form action="" id="file-upload-frm">
-          {% csrf_token %}
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-            
-                <label for="myfile">Select a file:</label>
-                {% render_field form.file class="form-control" %}<br>
-                {% render_field form.title class="form-control" placeholder="Enter Title" %}<br>
-                {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
-                
-           
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit"class="btn btn-default">Save</button>
-        </div>
-      </div>
-       </form>
-    </div>
-  </div>
-                             
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <form action="" id="file-upload-frm">
+                                            {% csrf_token %}
+                                            <div class="modal-header">
+                                                <button type="button" class="close"
+                                                    data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <label for="myfile">Select a file:</label>
+                                                {% render_field form.file class="form-control" %}<br>
+                                                {% render_field form.title class="form-control" placeholder="Enter
+                                                Title" %}<br>
+                                                {% render_field form.desc class="form-control" placeholder="Enter
+                                                Description" %}<br>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-default">Save</button>
+                                            </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+
                             <ul class="list-unstyled categories-list">
                                 <li>
                                     <div class="custom-accordion">
@@ -112,20 +147,16 @@
                                         <span class="me-auto">Trash</span>
                                     </a>
                                 </li>
-                                <li>
+                                {% comment %} <li>
                                     <a href="javascript: void(0);" class="text-body d-flex align-items-center">
                                         <i class="fas fa-cog text-muted font-size-16 me-2"></i>
                                         <span class="me-auto">Setting</span><span
                                             class="badge bg-success rounded-pill ms-2">01</span>
                                     </a>
-                                </li>
+                                </li> {% endcomment %}
                             </ul>
                         </div>
-
                         <div class="mt-auto">
-
-
-
                         </div>
                     </div>
 
@@ -144,7 +175,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-9 col-sm-6">
-                                    {% comment %} <form class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
+                                    <form class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
                                         <div class="search-box mb-2 me-2">
                                             <div class="position-relative">
                                                 <input type="text" class="form-control bg-light border-light rounded"
@@ -159,52 +190,60 @@
                                                 <i class="fas fa-dots-vertical font-size-20"></i>
                                             </a>
 
-                                            <div class="dropdown-menu dropdown-menu-end">
+                                            {% comment %} <div class="dropdown-menu dropdown-menu-end">
                                                 <a class="dropdown-item" href="#">Share
                                                     Files</a>
                                                 <a class="dropdown-item" href="#">Share
                                                     with me</a>
                                                 <a class="dropdown-item" href="#">Other
-                                                    Actions</a>
+                                                    Actions</a>{% endcomment %}
                                             </div>
                                         </div>
-                                    </form> {% endcomment %}
+                                    </form>
                                 </div>
                             </div>
                         </div>
-
                         <div>
                             <div class="row">
-                                <div class="col-xl-2 col-sm-6">
-                                    <div class="card shadow-none border">
+                                {% for i in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" %}
+                                <div class="col-xl-2 col-sm-6 dv_rc">
+                                    <div class="card shadow-none ">
                                         <div class="card-body p-3">
                                             <div class="">
-                                                <a class="font-size-16 text-muted" role="button"
-                                                    data-bs-toggle="dropdown" aria-haspopup="true">
-                                                    <i class="fas fa-ellipsis-h"></i>
-                                                </a>
+                                                <div class="float-end ms-2">
+                                                    {% comment %} <div id="popupRC" style="display:none;"
+                                                        class="panel panel-primary  ">
+                                                        <ul class="menu">
+                                                            <li class="form-control"><a href="#"><i class="fa fa-share"
+                                                                        aria-hidden="true"></i> Share</a></li>
+                                                            <li class="form-control"><a href="#"><i class="fa fa-pencil"
+                                                                        aria-hidden="true"></i> Rename</a></li>
+                                                            <li class="form-control"><a href="#"><i class="fa fa-link"
+                                                                        aria-hidden="true"></i> Copy Link Address</a>
+                                                            </li>
+                                                            <li class="form-control"><a href="#"><i class="fa fa-copy"
+                                                                        aria-hidden="true"></i> Copy to</a></li>
+                                                            <li class="form-control"><a href="#"><i class="fa fa-paste"
+                                                                        aria-hidden="true"></i> Move to</a></li>
+                                                            <li class="form-control"><a href="#"><i
+                                                                        class="fa fa-download" aria-hidden="true"></i>
+                                                                    Download</a></li>
+                                                            <li class="form-control"><a href="#"><i class="fa fa-trash"
+                                                                        aria-hidden="true"></i> Delete</a></li>
+                                                        </ul>
+                                                    </div> {% endcomment %}
 
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Preview</a>
-                                                    <a class="dropdown-item" href="#">Upload file</a>
-                                                    <a class="dropdown-item" href="#">Create Folder</a>
-                                                    <a class="dropdown-item" href="#">Edit File</a>
-                                                    <a class="dropdown-item" href="#">Enable Client View</a>
-                                                    <a class="dropdown-item" href="#">Important (Mark)</a>
-                                                    <a class="dropdown-item" href="#">Mark favorites to Create Shortcut</a>
-                                                    <a class="dropdown-item" href="#">Move</a>
-                                                    <a class="dropdown-item" href="#">Download</a>
-                                                    <a class="dropdown-item" href="#">Delete</a>
-                                                    <a class="dropdown-item" href="#">Rename </a>
-                                                    <a class="dropdown-item" href="#">Details/Properties </a>
-                                                    <a class="dropdown-item" href="#">Short </a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Send Mail Notification</a>
+                                                    <div class="dropdown mb-2 ">
+                                                        <!--  <a class="font-size-16 text-muted" role="button"
+                                                            data-bs-toggle="dropdown" aria-haspopup="true">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a> -->
+                                                    </div>
                                                 </div>
-                                                <div class="avatar-xs me-3 mb-3">
+                                                <div class="avatar-xs me-3 mb-3" id="box">
                                                     <div class="avatar-title bg-transparent rounded">
-                                                        <i class="fa fa-folder text-warning" style="font-size: 40px;">
-                                                        </i>
+                                                        <i class="fas fa-folder text-warning"
+                                                            style="font-size: 40px;"></i>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex">
@@ -226,310 +265,95 @@
 
                                     </div>
                                 </div>
+                                {% endfor %}
                                 <!-- end col -->
-
-                                <div class="col-xl-2 col-sm-6">
-                                    <div class="card shadow-none border">
-                                        <div class="card-body p-3">
-                                            <div class="">
-                                                <a class="font-size-16 text-muted" role="button"
-                                                    data-bs-toggle="dropdown" aria-haspopup="true">
-                                                    <i class="fas fa-ellipsis-h"></i>
-                                                </a>
-
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Open</a>
-                                                    <a class="dropdown-item" href="#">Edit</a>
-                                                    <a class="dropdown-item" href="#">Rename</a>
-                                                    <div class="dropdown-divider">
-                                                    </div>
-                                                    <a class="dropdown-item" href="#">Remove</a>
-                                                </div>
-                                                <div class="avatar-xs me-3 mb-3">
-                                                    <div class="avatar-title bg-transparent rounded">
-                                                        <i class="fas fa-folder text-warning" style="font-size: 40px;"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="overflow-hidden me-auto">
-                                                        <h5 class="font-size-14 text-truncate mb-1">
-                                                            <a href="javascript: void(0);"
-                                                                class="text-body">Development</a>
-                                                        </h5>
-                                                        <p class="text-muted text-truncate mb-0">
-                                                            20 Files</p>
-                                                    </div>
-                                                    <div class="align-self-end ms-2">
-                                                        <p class="text-muted mb-0">
-                                                            8GB</p>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- end col -->
-
-                                <div class="col-xl-2 col-sm-6">
-                                    <div class="card shadow-none border">
-                                        <div class="card-body p-3">
-                                            <div class="">
-                                                <div class="float-end ms-2">
-                                                    <div class="dropdown mb-2">
-                                                        <a class="font-size-16 text-muted" role="button"
-                                                            data-bs-toggle="dropdown" aria-haspopup="true">
-                                                            <i class="fa fa-ellipsis-h"></i>
-                                                        </a>
-
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="#">Open</a>
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Rename</a>
-                                                            <div class="dropdown-divider">
-                                                            </div>
-                                                            <a class="dropdown-item" href="#">Remove</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="avatar-xs me-3 mb-3">
-                                                    <div class="avatar-title bg-transparent rounded">
-                                                        <i class="fas fa-folder text-warning" style="font-size: 40px;"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="overflow-hidden me-auto">
-                                                        <h5 class="font-size-14 text-truncate mb-1">
-                                                            <a href="javascript: void(0);" class="text-body">Project
-                                                                A</a>
-                                                        </h5>
-                                                        <p class="text-muted text-truncate mb-0">
-                                                            06 Files</p>
-                                                    </div>
-                                                    <div class="align-self-end ms-2">
-                                                        <p class="text-muted mb-0">
-                                                            2GB</p>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- end col -->
-
-                                <div class="col-xl-2 col-sm-6">
-                                    <div class="card shadow-none border">
-                                        <div class="card-body p-3">
-                                            <div class="">
-                                                <div class="float-end ms-2">
-                                                    <div class="dropdown mb-2">
-                                                        <a class="font-size-16 text-muted" role="button"
-                                                            data-bs-toggle="dropdown" aria-haspopup="true">
-                                                            <i class="fas fa-ellipsis-h"></i>
-                                                        </a>
-
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="#">Open</a>
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Rename</a>
-                                                            <div class="dropdown-divider">
-                                                            </div>
-                                                            <a class="dropdown-item" href="#">Remove</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="avatar-xs me-3 mb-3">
-                                                    <div class="avatar-title bg-transparent rounded">
-                                                        <i class="fas fa-folder text-warning" style="font-size: 40px;"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="overflow-hidden me-auto">
-                                                        <h5 class="font-size-14 text-truncate mb-1">
-                                                            <a href="javascript: void(0);" class="text-body">Admin</a>
-                                                        </h5>
-                                                        <p class="text-muted text-truncate mb-0">
-                                                            08 Files</p>
-                                                    </div>
-                                                    <div class="align-self-end ms-2">
-                                                        <p class="text-muted mb-0">
-                                                            4GB</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- end col -->
-
-                                <div class="col-xl-2 col-sm-6">
-                                    <div class="card shadow-none border">
-                                        <div class="card-body p-3">
-                                            <div class="">
-                                                <div class="float-end ms-2">
-                                                    <div class="dropdown mb-2">
-                                                        <a class="font-size-16 text-muted" role="button"
-                                                            data-bs-toggle="dropdown" aria-haspopup="true">
-                                                            <i class="fas fa-ellipsis-h"></i>
-                                                        </a>
-
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="#">Open</a>
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Rename</a>
-                                                            <div class="dropdown-divider">
-                                                            </div>
-                                                            <a class="dropdown-item" href="#">Remove</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="avatar-xs me-3 mb-3">
-                                                    <div class="avatar-title bg-transparent rounded">
-                                                        <i class="fas fa-folder text-warning" style="font-size: 40px;"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="overflow-hidden me-auto">
-                                                        <h5 class="font-size-14 text-truncate mb-1">
-                                                            <a href="javascript: void(0);" class="text-body">Sketch
-                                                                Design</a>
-                                                        </h5>
-                                                        <p class="text-muted text-truncate mb-0">
-                                                            12 Files</p>
-                                                    </div>
-                                                    <div class="align-self-end ms-2">
-                                                        <p class="text-muted mb-0">
-                                                            6GB</p>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- end col -->
-
-                                <div class="col-xl-2 col-sm-6">
-                                    <div class="card shadow-none border">
-                                        <div class="card-body p-3">
-                                            <div class="">
-                                                <div class="float-end ms-2">
-                                                    <div class="dropdown mb-2">
-                                                        <a class="font-size-16 text-muted" role="button"
-                                                            data-bs-toggle="dropdown" aria-haspopup="true">
-                                                            <i class="fas fa-ellipsis-h"></i>
-                                                        </a>
-
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="#">Open</a>
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Rename</a>
-                                                            <div class="dropdown-divider">
-                                                            </div>
-                                                            <a class="dropdown-item" href="#">Remove</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="avatar-xs me-3 mb-3">
-                                                    <div class="avatar-title bg-transparent rounded">
-                                                        <i class="fas fa-folder text-warning"style="font-size: 40px;"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="overflow-hidden me-auto">
-                                                        <h5 class="font-size-14 text-truncate mb-1">
-                                                            <a href="javascript: void(0);"
-                                                                class="text-body">Applications</a>
-                                                        </h5>
-                                                        <p class="text-muted text-truncate mb-0">
-                                                            20 Files</p>
-                                                    </div>
-                                                    <div class="align-self-end ms-2">
-                                                        <p class="text-muted mb-0">
-                                                            8GB</p>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- end col -->
-
                             </div>
                             <!-- end row -->
                         </div>
+                    </div>
+                    <!-- menu -->
+                    <div class="panel panel-primary popupRC " style=" background-color:whitesmoke; display:none;">
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Upload
+                            file</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Preview</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Create
+                            Folder</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Edit
+                            File</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Enable
+                            Client View</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Important
+                            (Mark)</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Mark
+                            favorites to Create Shortcut</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Move</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Download</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Delete</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Rename </a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });"
+                            href="#">Details/Properties </a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Short </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Send Mail
+                            Notification</a>
+                    </div>
 
-                        <div class="mt-4" style="padding-bottom:200px;">
-                            <div class="d-flex flex-wrap">
-                                <h5 class="font-size-16 me-3">Recent Files
-                                </h5>
+                    <div class="mt-4" style="padding-bottom:200px;">
+                        <div class="d-flex flex-wrap">
+                            <h5 class="font-size-16 me-3">Recent Files
+                            </h5>
 
-                                <div class="ms-auto">
-                                    <a href="/files/" class="fw-medium text-reset">View All</a>
-                                </div>
-                            </div>
-                            <hr class="mt-2">
-
-                            <div class="table-responsive" style="padding-bottom:200px;" >
-                                <table class="table align-middle table-nowrap table-hover mb-0" >
-                                    <thead >
-                                        <tr>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Date modified</th>
-                                            <th scope="col">Favourite</th>
-                                            <th scope="col" colspan="2">Size
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody >
-                                        {% for file in files %}
-                                        <tr>
-                                            <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
-                                                        class="fas fa-file-document font-size-16 align-middle text-primary me-2"></i>
-                                                    {{file}}</a></td>
-                                            <td>{{file.date|date:'Y-m-d H:i'}}</td>
-                                            <td><i data-id="{{file.id}}" class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i></td>
-                                            <td>{{file.file.size|filesizeformat}}</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <a class="font-size-16 text-muted" role="button"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true">
-                                                        <i class="fas fa-ellipsis-h"></i>
-                                                    </a>
-
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a data-url="{{file.file.url}}" class="dropdown-item preview-pdf" href="#" data-toggle="modal" data-target="#pdfModal">Preview</a>
-                                                        <a data-url="{{file.file.url}}" class="dropdown-item open-file" href="#">Open</a>
-                                                        <a class="dropdown-item" href="#">Edit</a>
-                                                        <a class="dropdown-item" href="#">Rename</a>
-                                                        <a data-url="{{file.url}}" class="dropdown-item share-file" href="#">Share</a>
-                                                        <div class="dropdown-divider">
-                                                        </div>
-                                                        <a data-id="{{file.id}}" class="dropdown-item remove-file" href="#">Remove</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                            <div class="ms-auto">
+                                <a href="/files/" class="fw-medium text-reset">View All</a>
                             </div>
                         </div>
-                        
+                        <hr class="mt-2">
+
+                        <div class="table-responsive" style="padding-bottom:200px;">
+                            <table class="table align-middle table-nowrap table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Date modified</th>
+                                        <th scope="col">Favourite</th>
+                                        <th scope="col" colspan="2">Size
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for file in files %}
+                                    <tr class="dv_rc1">
+                                        <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
+                                                    class="fas fa-file-document font-size-16 align-middle text-primary me-2"></i>
+                                                {{file}}</a></td>
+                                        <td>{{file.date|date:'Y-m-d H:i'}}</td>
+                                        <td><i data-id="{{file.id}}"
+                                                class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
+                                        </td>
+                                        <td>{{file.file.size|filesizeformat}}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <!-- <a class="font-size-16 text-muted" role="button"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true">
+                                                    <i class="fas fa-ellipsis-h"></i>
+                                                </a> -->
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
                 </div>
-                <!-- end card -->
             </div>
-            <!-- end w-100 -->
+            <!-- end card -->
         </div>
+        <!-- end w-100 -->
     </div>
+</div>
 </div>
 <!-- end row -->
 
@@ -540,13 +364,27 @@
 
 </div>
 <!-- END layout-wrapper -->
+<div class="dropdown-menu dropdown-menu-end popupRC1 ">
+    <a data-url="{{file.file.url}}"onClick="$('.popupRC1').css({ display: 'none' });" class="dropdown-item preview-pdf"
+        href="#" data-toggle="modal" data-target="#pdfModal">Preview</a>
+    <a data-url="{{file.file.url}}"onClick="$('.popupRC1').css({ display: 'none' });" class="dropdown-item open-file"
+        href="#">Open</a>
+    <a class="dropdown-item"onClick="$('.popupRC1').css({ display: 'none' });" href="#">Edit</a>
+    <a class="dropdown-item"onClick="$('.popupRC1').css({ display: 'none' });" href="#">Rename</a>
+    <a data-url="{{file.url}}"onClick="$('.popupRC1').css({ display: 'none' });" class="dropdown-item share-file"
+        href="#">Share</a>
+    <div class="dropdown-divider">
+    </div>
+    <a data-id="{{file.id}}" onClick="$('.popupRC1').css({ display: 'none' });" class="dropdown-item remove-file"
+        href="#">Remove</a>
+</div>
 
 <script>
     const uploadForm = document.getElementById('file-upload-frm');
     const input_file = document.getElementById('id_file');
     //const progress_bar = document.getElementById('file-pb');
 
-    $("#file-upload-frm").submit(function(e) {
+    $("#file-upload-frm").submit(function (e) {
         e.preventDefault();
         $form = $(this)
         var formData = new FormData(this);
@@ -561,10 +399,10 @@
             url: '/',
             data: formData,
             dataType: 'json',
-            beforeSend: function() {
+            beforeSend: function () {
 
             },
-            xhr: function() {
+            xhr: function () {
                 const xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener('progress', e => {
                     if (e.lengthComputable) {
@@ -575,17 +413,17 @@
                 });
                 return xhr
             },
-            success: function(response) {
+            success: function (response) {
                 console.log(response);
                 uploadForm.reset()
-                window.setTimeout(function() {
+                window.setTimeout(function () {
                     //$("#fileName").addClass('hide-me')
                     //$("#fileSize").addClass('hide-me')
                     //$("#fileType").addClass('hide-me')
                     //progress_bar.classList.add('hide-me')
                 }, 2000)
             },
-            error: function(err) {
+            error: function (err) {
                 console.log(err);
             },
             cache: false,
@@ -594,5 +432,6 @@
         });
     });
 </script>
+
 
 {% endblock %}
