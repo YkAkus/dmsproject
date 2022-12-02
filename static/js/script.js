@@ -186,3 +186,9 @@ $(document).on("click", ".restore-file", function() {
         }
     })
 })
+
+$(document).on('click', function(e) {
+    if ($(e.target).closest(".my-drop-down").length === 0) {
+        $(".my-drop-down").hide();
+    }
+});
