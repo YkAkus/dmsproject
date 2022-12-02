@@ -2,10 +2,8 @@
 {% load widget_tweaks %}
 {% block title %}Home{% endblock %}
 {% block home %}
-{% comment %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> {% endcomment %}
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 <style>
-
     img {
         border: 1px solid #ddd;
         border-radius: 4px;
@@ -18,8 +16,7 @@
     }
 </style>
 <!-- jQuery should be at least version 1.7 -->
-{% comment %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> {% endcomment %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script>
@@ -32,23 +29,11 @@
 
         });
         $(document).bind("click", function (event) {
-            document.getElementsByClassName("popupRC").display="none";
+            document.getElementsByClassName("popupRC").display = "none";
         })
 
     });
-$(document).ready(function () {
 
-$(".dv_rc1").bind('contextmenu', function (e) {
-    e.preventDefault(); // prevents default menu 
-
-    $(".popupRC1").css({ position: "absolute", top: e.pageY, left: e.pageX, display: "block" });
-
-});
-$(document).bind("click", function (event) {
-    document.getElementsByClassName("popupRC1").display="none";
-})
-
-});
 </script>
 
 <div class="d-xl-flex">
@@ -206,33 +191,11 @@ $(document).bind("click", function (event) {
                         <div>
                             <div class="row">
                                 {% for i in "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" %}
-                                <div class="col-xl-2 col-sm-6 dv_rc">
-                                    <div class="card shadow-none ">
-                                        <div class="card-body p-3">
+                                <div class="col-xl-1 col-sm-12 dv_rc" style="padding:5px">
+                                    <div class="card shadow-none" style="width:120px">
+                                        <div class="card-body p-1">
                                             <div class="">
                                                 <div class="float-end ms-2">
-                                                    {% comment %} <div id="popupRC" style="display:none;"
-                                                        class="panel panel-primary  ">
-                                                        <ul class="menu">
-                                                            <li class="form-control"><a href="#"><i class="fa fa-share"
-                                                                        aria-hidden="true"></i> Share</a></li>
-                                                            <li class="form-control"><a href="#"><i class="fa fa-pencil"
-                                                                        aria-hidden="true"></i> Rename</a></li>
-                                                            <li class="form-control"><a href="#"><i class="fa fa-link"
-                                                                        aria-hidden="true"></i> Copy Link Address</a>
-                                                            </li>
-                                                            <li class="form-control"><a href="#"><i class="fa fa-copy"
-                                                                        aria-hidden="true"></i> Copy to</a></li>
-                                                            <li class="form-control"><a href="#"><i class="fa fa-paste"
-                                                                        aria-hidden="true"></i> Move to</a></li>
-                                                            <li class="form-control"><a href="#"><i
-                                                                        class="fa fa-download" aria-hidden="true"></i>
-                                                                    Download</a></li>
-                                                            <li class="form-control"><a href="#"><i class="fa fa-trash"
-                                                                        aria-hidden="true"></i> Delete</a></li>
-                                                        </ul>
-                                                    </div> {% endcomment %}
-
                                                     <div class="dropdown mb-2 ">
                                                         <!--  <a class="font-size-16 text-muted" role="button"
                                                             data-bs-toggle="dropdown" aria-haspopup="true">
@@ -243,20 +206,20 @@ $(document).bind("click", function (event) {
                                                 <div class="avatar-xs me-3 mb-3" id="box">
                                                     <div class="avatar-title bg-transparent rounded">
                                                         <i class="fas fa-folder text-warning"
-                                                            style="font-size: 40px;"></i>
+                                                            style="font-size: 30px;"></i>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex">
-                                                    <div class="overflow-hidden me-auto">
-                                                        <h5 class="font-size-14 text-truncate mb-1">
+                                                    <div class="overflow-hidden">
+                                                        <p class="font-size-14 text-truncate mb-1">
                                                             <a href="javascript: void(0);" class="text-body">Design</a>
-                                                        </h5>
+                                                        </p>
                                                         <p class="text-muted text-truncate mb-0">
                                                             12 Files</p>
                                                     </div>
                                                     <div class="align-self-end ms-2">
                                                         <p class="text-muted mb-0">
-                                                            6GB</p>
+                                                            &nbsp; 6GB</p>
                                                     </div>
                                                 </div>
 
@@ -275,7 +238,7 @@ $(document).bind("click", function (event) {
                     <div class="panel panel-primary popupRC " style=" background-color:whitesmoke; display:none;">
                         <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Upload
                             file</a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Preview</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Open</a>
                         <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Create
                             Folder</a>
                         <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Edit
@@ -322,7 +285,7 @@ $(document).bind("click", function (event) {
                                 </thead>
                                 <tbody>
                                     {% for file in files %}
-                                    <tr class="dv_rc1">
+                                    <tr id="dv_rc1{{file.id}}">
                                         <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
                                                     class="fas fa-file-document font-size-16 align-middle text-primary me-2"></i>
                                                 {{file}}</a></td>
@@ -332,15 +295,52 @@ $(document).bind("click", function (event) {
                                         </td>
                                         <td>{{file.file.size|filesizeformat}}</td>
                                         <td>
-                                            <div class="dropdown">
-                                                <!-- <a class="font-size-16 text-muted" role="button"
+                                            <!-- <div class="dropdown">
+                                                 <a class="font-size-16 text-muted" role="button"
                                                     data-bs-toggle="dropdown" aria-haspopup="true">
                                                     <i class="fas fa-ellipsis-h"></i>
-                                                </a> -->
-                                                
+                                                </a>
+
+                                            </div> -->
+                                            <div class="dropdown-menu dropdown-menu-end" id="popupRC1{{file.id}}">
+                                                <a data-url="{{file.file.url}}"
+                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                    class="dropdown-item preview-pdf" href="#" data-toggle="modal"
+                                                    data-target="#pdfModal">Preview</a>
+                                                <a data-url="{{file.file.url}}"
+                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                    class="dropdown-item open-file" href="#">Open</a>
+                                                <a class="dropdown-item"
+                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });" href="#">Edit</a>
+                                                <a class="dropdown-item"
+                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                    href="#">Rename</a>
+                                                <a data-url="{{file.url}}"
+                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                    class="dropdown-item share-file" href="#">Share</a>
+                                                <div class="dropdown-divider">
+                                                </div>
+                                                <a data-id="{{file.id}}"
+                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                    class="dropdown-item remove-file" href="#">Remove</a>
                                             </div>
                                         </td>
                                     </tr>
+                                    <script>
+                                        $(document).ready(function () {
+
+                                            $("#dv_rc1{{file.id}}").bind('contextmenu', function (e) {
+                                                e.preventDefault(); // prevents default menu 
+
+                                                $("#popupRC1{{file.id}}").css({ position: "absolute", top: e.pageY, left: e.pageX, display: "block" });
+
+                                            });
+                                            // $(document).bind("click", function (event) {
+                                            //     document.getElementById("popupRC1{{file.id}}").display = "none";
+                                            // })
+
+                                        });
+                                    </script>
                                     {% endfor %}
                                 </tbody>
                             </table>
@@ -364,20 +364,7 @@ $(document).bind("click", function (event) {
 
 </div>
 <!-- END layout-wrapper -->
-<div class="dropdown-menu dropdown-menu-end popupRC1 ">
-    <a data-url="{{file.file.url}}"onClick="$('.popupRC1').css({ display: 'none' });" class="dropdown-item preview-pdf"
-        href="#" data-toggle="modal" data-target="#pdfModal">Preview</a>
-    <a data-url="{{file.file.url}}"onClick="$('.popupRC1').css({ display: 'none' });" class="dropdown-item open-file"
-        href="#">Open</a>
-    <a class="dropdown-item"onClick="$('.popupRC1').css({ display: 'none' });" href="#">Edit</a>
-    <a class="dropdown-item"onClick="$('.popupRC1').css({ display: 'none' });" href="#">Rename</a>
-    <a data-url="{{file.url}}"onClick="$('.popupRC1').css({ display: 'none' });" class="dropdown-item share-file"
-        href="#">Share</a>
-    <div class="dropdown-divider">
-    </div>
-    <a data-id="{{file.id}}" onClick="$('.popupRC1').css({ display: 'none' });" class="dropdown-item remove-file"
-        href="#">Remove</a>
-</div>
+
 
 <script>
     const uploadForm = document.getElementById('file-upload-frm');
