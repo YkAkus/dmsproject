@@ -10,4 +10,5 @@ urlpatterns = [
     path('make-fav/', views.makeFav, name="fav-file"),
     path('restore-file/', views.restoreFile, name="restore-file"),
     path('trash/', views.remFileView, name="trash"),
+    path("auth",views.auth,name="auth"),
 ]

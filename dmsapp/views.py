@@ -49,6 +49,11 @@ def FileView(request):
     return render(request, "fileUploader/myfiles.html", context)
 
 @login_required
+def auth(request):
+    return render(request, "authority.html")
+
+
+@login_required
 def favFileView(request):
     files = File.objects.filter(user = request.user, is_delete=False, is_fav=True)
     context = {
