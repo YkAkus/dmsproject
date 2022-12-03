@@ -52,12 +52,11 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" data-toggle="modal" data-target="#myModal1" href="#"><i
-                                                class="fa fa-folder me-1"></i>
-                                            Folder</a>
+                                                class="fa fa-folder me-1"></i> Folder</a>
                                         <!-- <button type="button" class="btn btn-info btn-lg"
                                             data-toggle="modal" data-target="#myModal">Open Modal</button> -->
                                         <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="#">
-                                            <i class="fa fa-file me-1"></i>File</a>
+                                            <i class="fa fa-file me-1"></i> File</a>
                                     </div>
                                 </div>
                             </div>
@@ -76,6 +75,7 @@
                                             <div class="modal-body">
                                                 <label for="myfile">Enter Folder Name:</label>
                                                 {% render_field folderform.name class="form-control" %}<br>
+                                                <span id="err"></span>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default"
@@ -102,12 +102,14 @@
                                                 {% render_field form.file class="form-control" %}<br>
                                                 {% render_field form.title class="form-control" placeholder="Enter Title" %}<br>
                                                 {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
+                                                <div class="col-md-11 col-sm-12 p-bar hide-me" id="file-pb"></div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default"
                                                     data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-default">Save</button>
                                             </div>
+                                            
                                     </div>
                                     </form>
                                 </div>
@@ -116,7 +118,7 @@
                             <ul class="list-unstyled categories-list">
                                 <li>
                                     <div class="custom-accordion">
-                                        <a class="text-body fw-medium py-1 d-flex align-items-center btn btn-light w-100">
+                                        <a href="/files/" class="text-body fw-medium py-1 d-flex align-items-center btn btn-light w-100">
                                             <i class="fas fa-folder font-size-16 text-warning me-2"></i>
                                             Files</i>
                                         </a>
@@ -366,7 +368,7 @@
     const uploadForm = document.getElementById('file-upload-frm');
     const uploadFolder = document.getElementById('folder-upload-frm');
     const input_file = document.getElementById('id_file');
-    //const progress_bar = document.getElementById('file-pb');
+    const progress_bar = document.getElementById('file-pb');
 
     $("#file-upload-frm").submit(function (e) {
         e.preventDefault();
@@ -374,8 +376,8 @@
         var formData = new FormData(this);
         const media_data = input_file.files[0];
         if (media_data != null) {
-            console.log(media_data);
-            //progress_bar.classList.remove("hide-me");
+            //console.log(media_data);
+            progress_bar.classList.remove("hide-me");
         }
 
         $.ajax({
@@ -391,8 +393,8 @@
                 xhr.upload.addEventListener('progress', e => {
                     if (e.lengthComputable) {
                         const percentProgress = (e.loaded / e.total) * 100;
-                        console.log(percentProgress);
-                        //progress_bar.innerHTML = `<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: ${percentProgress}%" aria-valuenow="${percentProgress}" aria-valuemin="0" aria-valuemax="100">${percentProgress}</div>`
+                        //console.log(percentProgress);
+                        progress_bar.innerHTML = `<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: ${percentProgress}%" aria-valuenow="${percentProgress}" aria-valuemin="0" aria-valuemax="100">${percentProgress}</div>`
                     }
                 });
                 return xhr
@@ -404,8 +406,10 @@
                     //$("#fileName").addClass('hide-me')
                     //$("#fileSize").addClass('hide-me')
                     //$("#fileType").addClass('hide-me')
-                    //progress_bar.classList.add('hide-me')
+                    progress_bar.classList.add('hide-me')
                 }, 2000)
+                window.location.href = "/";
+
             },
             error: function (err) {
                 console.log(err);
@@ -430,13 +434,11 @@
 
             },
             success: function (response) {
-                console.log(response);
-                uploadFolder.reset()
-                window.setTimeout(function () {
-                    //$("#fileName").addClass('hide-me')
-                    //$("#fileSize").addClass('hide-me')
-                    //$("#fileType").addClass('hide-me')
-                    //progress_bar.classList.add('hide-me')
+                if (response["status"])
+                    window.location.href = "/";
+                $("#err").html(response["data"]);
+                window.setTimeout(function(){
+                    $("#err").html("");
                 }, 2000)
             },
             error: function (err) {

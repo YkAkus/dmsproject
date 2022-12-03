@@ -26,9 +26,9 @@ class FileUploader(View):
                 frm = form.save(commit=False)
                 frm.user = request.user
                 frm.save()
-                return JsonResponse({'data':'Data uploaded'})
+                return JsonResponse({'status':True,'data':'Folder Created'})
             else:
-                return JsonResponse({'data':'Something went wrong!!'})
+                return JsonResponse({'status':False,'data':'Folder with same name already exists'})
         
         form = FileForm(request.POST, request.FILES)
         title = request.POST.get("title",None)
@@ -41,9 +41,9 @@ class FileUploader(View):
                     ext = "."+frm.file.url.split(".")[-1]
                 frm.file.name = title+ext
             frm.save()
-            return JsonResponse({'data':'Data uploaded'})
+            return JsonResponse({'status':True,'data':'File uploaded'})
         else:
-            return JsonResponse({'data':'Something went wrong!!'})
+            return JsonResponse({'status':False,'data':'Something went wrong!!'})
 
 def openFolder(request, name):
     if request.method == "POST":
@@ -59,9 +59,9 @@ def openFolder(request, name):
                     ext = "."+frm.file.url.split(".")[-1]
                 frm.file.name = title+ext
             frm.save()
-            return JsonResponse({'data':'Data uploaded'})
+            return JsonResponse({'status':True,'data':'Data uploaded'})
         else:
-            return JsonResponse({'data':'Something went wrong!!'})
+            return JsonResponse({'status':False,'data':'Something went wrong!!'})
     obj = FolderFile.objects.filter(folder = Folder.objects.get(name = name),is_delete = False)
     form = FolderFileForm()
 
@@ -69,8 +69,24 @@ def openFolder(request, name):
 
     
 def allFile(request):
+    if request.method == "POST":
+        form = FileForm(request.POST, request.FILES)
+        title = request.POST.get("title",None)
+        if form.is_valid():
+            frm = form.save(commit=False)
+            frm.user = request.user
+            if title:
+                ext = ""
+                if "." in frm.file.url:
+                    ext = "."+frm.file.url.split(".")[-1]
+                frm.file.name = title+ext
+            frm.save()
+            return JsonResponse({'status':True,'data':'File uploaded'})
+        else:
+            return JsonResponse({'status':False,'data':'Something went wrong!!'})
+    form = FileForm()
     obj = File.objects.filter(user = request.user, is_delete=False)
-    return render(request, "allfiles.html", {'files':obj})
+    return render(request, "allfiles.html", {'files':obj, 'form':form})
 
 def viewFile(request, url):
     file = get_object_or_404(File,url = url, is_delete=False)

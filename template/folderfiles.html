@@ -49,7 +49,7 @@
                                                 {% render_field form.file class="form-control" %}<br>
                                                 {% render_field form.title class="form-control" placeholder="Enter Title" %}<br>
                                                 {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
-
+                                                <div class="col-md-11 col-sm-12 p-bar hide-me" id="file-pb"></div>
 
                                             </div>
                                             <div class="modal-footer">
@@ -65,7 +65,7 @@
                             <ul class="list-unstyled categories-list">
                                 <li>
                                     <div class="custom-accordion">
-                                        <a class="text-body fw-medium py-1 d-flex align-items-center btn btn-light w-100">
+                                        <a href="/files/" class="text-body fw-medium py-1 d-flex align-items-center btn btn-light w-100">
                                             <i class="fas fa-folder font-size-16 text-warning me-2"></i>
                                             Files</i>
                                         </a>
@@ -194,7 +194,7 @@
     const uploadForm = document.getElementById('file-upload-frm');
     //const uploadFolder = document.getElementById('folder-upload-frm');
     const input_file = document.getElementById('id_file');
-    //const progress_bar = document.getElementById('file-pb');
+    const progress_bar = document.getElementById('file-pb');
     const name = JSON.parse(document.getElementById('name').textContent);
     $("#file-upload-frm").submit(function (e) {
         e.preventDefault();
@@ -202,8 +202,8 @@
         var formData = new FormData(this);
         const media_data = input_file.files[0];
         if (media_data != null) {
-            console.log(media_data);
-            //progress_bar.classList.remove("hide-me");
+            //console.log(media_data);
+            progress_bar.classList.remove("hide-me");
         }
 
         $.ajax({
@@ -220,7 +220,7 @@
                     if (e.lengthComputable) {
                         const percentProgress = (e.loaded / e.total) * 100;
                         console.log(percentProgress);
-                        //progress_bar.innerHTML = `<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: ${percentProgress}%" aria-valuenow="${percentProgress}" aria-valuemin="0" aria-valuemax="100">${percentProgress}</div>`
+                        progress_bar.innerHTML = `<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: ${percentProgress}%" aria-valuenow="${percentProgress}" aria-valuemin="0" aria-valuemax="100">${percentProgress}</div>`
                     }
                 });
                 return xhr
@@ -232,8 +232,9 @@
                     //$("#fileName").addClass('hide-me')
                     //$("#fileSize").addClass('hide-me')
                     //$("#fileType").addClass('hide-me')
-                    //progress_bar.classList.add('hide-me')
+                    progress_bar.classList.add('hide-me')
                 }, 2000)
+                window.location.href = '/folder/'+name+'/';
             },
             error: function (err) {
                 console.log(err);
