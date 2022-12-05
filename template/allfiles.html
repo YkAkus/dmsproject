@@ -62,14 +62,16 @@
                             </div>
 
                             <ul class="list-unstyled categories-list">
+                                {% for fol in folders %}
                                 <li>
                                     <div class="custom-accordion">
-                                        <a class="text-body fw-medium py-1 d-flex align-items-center btn btn-light w-100">
+                                        <a href="/folder/{{fol.name}}" class="text-body fw-medium py-1 d-flex align-items-center btn btn-light w-100">
                                             <i class="fas fa-folder font-size-16 text-warning me-2"></i>
-                                            Files</i>
+                                            {{fol}}</i>
                                         </a>
                                     </div>
                                 </li>
+                                {% endfor %}
                                 <li>
                                     <a href="/trash/" class="text-body d-flex align-items-center btn btn-light w-100">
                                         <i class="fas fa-trash-can text-danger font-size-16 me-2"></i>
