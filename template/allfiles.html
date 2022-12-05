@@ -147,7 +147,7 @@
                                     </thead>
                                     <tbody>
                                         {% for file in files %}
-                                        <tr>
+                                        <tr id="dv_rca{{file.id}}">
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
                                                         class="fas fa-file-document font-size-16 align-middle text-primary me-2"></i>
                                                     {{file}}</a></td>
@@ -157,27 +157,49 @@
                                             </td>
                                             <td>{{file.file.size|filesizeformat}}</td>
                                             <td>
-                                                <div class="dropdown">
-                                                    <a class="font-size-16 text-muted" role="button"
+                                                <!-- <div class="dropdown">
+                                                     <a class="font-size-16 text-muted" role="button"
                                                         data-bs-toggle="dropdown" aria-haspopup="true">
                                                         <i class="fas fa-ellipsis-h"></i>
                                                     </a>
-
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a data-url="{{file.file.url}}" class="dropdown-item open-file"
-                                                            href="#">Open</a>
-                                                        <a class="dropdown-item" href="#">Edit</a>
-                                                        <a class="dropdown-item" href="#">Rename</a>
-                                                        <a data-url="{{file.url}}" class="dropdown-item share-file"
-                                                            href="#">Share</a>
-                                                        <div class="dropdown-divider">
-                                                        </div>
-                                                        <a data-id="{{file.id}}" class="dropdown-item remove-file"
-                                                            href="#">Remove</a>
+                                                </div> -->
+                                                <div class="dropdown-menu dropdown-menu-end my-drop-down" id="popupRCA{{file.id}}">
+                                                    <a data-url="{{file.file.url}}"
+                                                        onClick="$('#popupRCA{{file.id}}').css({ display: 'none' });"
+                                                        class="dropdown-item preview-pdf" href="#" data-toggle="modal"
+                                                        data-target="#pdfModal">Preview</a>
+                                                    <a data-url="{{file.file.url}}"
+                                                        onClick="$('#popupRCA{{file.id}}').css({ display: 'none' });"
+                                                        class="dropdown-item open-file" href="#">Open</a>
+                                                    <a class="dropdown-item"
+                                                        onClick="$('#popupRCA{{file.id}}').css({ display: 'none' });" href="#">Edit</a>
+                                                    <a class="dropdown-item"
+                                                        onClick="$('#popupRCA{{file.id}}').css({ display: 'none' });"
+                                                        href="#">Rename</a>
+                                                    <a data-url="{{file.url}}"
+                                                        onClick="$('#popupRCA{{file.id}}').css({ display: 'none' });"
+                                                        class="dropdown-item share-file" href="#">Share</a>
+                                                    <div class="dropdown-divider">
                                                     </div>
+                                                    <a data-id="{{file.id}}"
+                                                        onClick="$('#popupRCA{{file.id}}').css({ display: 'none' });"
+                                                        class="dropdown-item remove-file" href="#">Remove</a>
                                                 </div>
+                                               
                                             </td>
                                         </tr>
+                                        <script>
+                                            $(document).ready(function () {
+                                        
+                                                $("#dv_rca{{file.id}}").bind('contextmenu', function (e) {
+                                                    e.preventDefault(); // prevents default menu
+                                                    $("#popupRCA{{file.id}}").css({ position: "absolute", top: e.pageY-90, left: e.pageX-230, display: "block" });
+                                                });
+                                                // $(document).bind("click", function (event) {
+                                                //     document.getElementById("popupRC1{{file.id}}").display = "none";
+                                                // })
+                                            });
+                                        </script>
                                         {% endfor %}
                                     </tbody>
                                 </table>

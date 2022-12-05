@@ -4,6 +4,14 @@ from django.contrib.auth.models import User
 from .utils import create_shortened_url
 
 # Create your models here.
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    img = models.FileField(upload_to='user/',blank=True,null=True)
+    mobile = models.CharField(max_length=30,blank=True,null=True)
+
+    def __str__(self):
+        return str(self.user)
+
 class Folder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, default='New Folder', unique=True)
@@ -44,4 +52,3 @@ class File(models.Model):
         if not self.url:
             self.url = create_shortened_url(self)
         super().save(*args, **kwargs)
-    

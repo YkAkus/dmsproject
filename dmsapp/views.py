@@ -1,11 +1,13 @@
+from allauth.account.forms import SignupForm
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from requests import request
 from .forms import FileForm, FolderForm, FolderFileForm
+from django.contrib.auth.models import User
 from django.views import View
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from .models import File, Folder, FolderFile
+from .models import File, Folder, FolderFile,Profile
 class FileUploader(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -44,6 +46,32 @@ class FileUploader(View):
             return JsonResponse({'status':True,'data':'File uploaded'})
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
+def auth(request):
+    if request.method == "POST":
+        u=User.objects.get(username=request.user)
+        try:
+            print("i'am not running")
+            obj= Profile.objects.get(user=request.user)
+        except:
+            print("i'm running")
+            obj= Profile.objects.create(user=request.user)
+        #obj.user=request.user
+        u.first_name=request.POST.get("firstName",None)
+        u.last_name=request.POST.get("lastName",None)
+        #obj.img=img
+        obj.mobile=request.POST.get("mobile",None)
+        #obj.password=request.POST.get("password",None)
+        u.save()
+        obj.save()
+        #return render(request, 'auth.html' )  
+        return redirect("/auth")
+    try:
+        print("i'am not running")
+        obj= Profile.objects.get(user=request.user)
+    except:
+        print("i'm running")
+        obj= Profile.objects.create(user=request.user)
+    return render(request,"auth.html",{"obj":obj})
 
 def openFolder(request, name):
     if request.method == "POST":
@@ -100,9 +128,9 @@ def FileView(request):
     }
     return render(request, "fileUploader/myfiles.html", context)
 
-@login_required
-def auth(request):
-    return render(request, "authority.html")
+# @login_required
+# def auth(request):
+#     return render(request, "authority.html")
 
 
 @login_required
