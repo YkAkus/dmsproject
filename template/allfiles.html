@@ -87,12 +87,15 @@
 
             <div class="w-100">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 80px;">
                         <div>
                             <div class="row mb-3">
                                 <div class="col-xl-3 col-sm-6">
-                                    <div class="mt-2">
-                                        <h5>All Files</h5>
+                                    <div class="mt-2"style="display:flex ;">
+                                        <a href="{%url 'index'%}" class="btn"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                        <button onclick="history.back()"class="btn"><i class="fa fa-arrow-left" aria-hidden="true"></i></button> &nbsp;&nbsp; 
+                                        <h5>All Files</h5>&nbsp;&nbsp;
+                                        <button onclick="history.forward()"class="btn"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                                 <div class="col-xl-9 col-sm-6">
