@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class FileForm(ModelForm):
     class Meta:
         model = File
-        fields = ['title','desc','file']
+        fields = ['desc','file']
 
 class FolderFileForm(ModelForm):
     class Meta:

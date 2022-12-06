@@ -34,15 +34,15 @@ class FileUploader(View):
                 return JsonResponse({'status':False,'data':'Folder with same name already exists'})
         
         form = FileForm(request.POST, request.FILES)
-        title = request.POST.get("title",None)
+        # title = request.POST.get("title",None)
         if form.is_valid():
             frm = form.save(commit=False)
             frm.user = request.user
-            if title:
-                ext = ""
-                if "." in frm.file.url:
-                    ext = "."+frm.file.url.split(".")[-1]
-                frm.file.name = title+ext
+            ext = ""
+            if "/" in frm.file.url:
+                ext = frm.file.url.split("/")[-1]
+            frm.name = ext
+            frm.file.name = ext
             frm.save()
             return JsonResponse({'status':True,'data':'File uploaded'})
         else:
@@ -97,15 +97,15 @@ def openFolder(request, name):
 def allFile(request):
     if request.method == "POST":
         form = FileForm(request.POST, request.FILES)
-        title = request.POST.get("title",None)
+        
         if form.is_valid():
             frm = form.save(commit=False)
             frm.user = request.user
-            if title:
-                ext = ""
-                if "." in frm.file.url:
-                    ext = "."+frm.file.url.split(".")[-1]
-                frm.file.name = title+ext
+            ext = ""
+            if "/" in frm.file.url:
+                ext = frm.file.url.split("/")[-1]
+            frm.name = ext
+            frm.file.name = ext
             frm.save()
             return JsonResponse({'status':True,'data':'File uploaded'})
         else:
