@@ -46,7 +46,7 @@
 
                                                 <label for="myfile">Select a file:</label>
                                                 {% render_field form.file class="form-control" %}<br>
-                                                {% render_field form.title class="form-control" placeholder="Enter Title" %}<br>
+                                                {% comment %} {% render_field form.title class="form-control" placeholder="Enter Title" %}<br> {% endcomment %}
                                                 {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
                                                 <div class="col-md-11 col-sm-12 p-bar hide-me" id="file-pb"></div>
 

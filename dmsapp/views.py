@@ -8,6 +8,7 @@ from django.views import View
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from .models import File, Folder, FolderFile,Profile
+
 class FileUploader(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -47,31 +48,28 @@ class FileUploader(View):
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
 def auth(request):
+    pho=Profile.objects.all()
     if request.method == "POST":
         u=User.objects.get(username=request.user)
-        try:
-            print("i'am not running")
-            obj= Profile.objects.get(user=request.user)
-        except:
-            print("i'm running")
-            obj= Profile.objects.create(user=request.user)
-        #obj.user=request.user
         u.first_name=request.POST.get("firstName",None)
         u.last_name=request.POST.get("lastName",None)
-        #obj.img=img
-        obj.mobile=request.POST.get("mobile",None)
-        #obj.password=request.POST.get("password",None)
         u.save()
+        try:
+            obj= Profile.objects.get(user=request.user)
+        except:
+            obj= Profile.objects.create(user=request.user)
+        obj.mobile=request.POST.get("mobile",None)
+        img=request.FILES.getlist("uploadimg")
+        
+        for i in img:
+            obj.img=i
         obj.save()
-        #return render(request, 'auth.html' )  
-        return redirect("/auth")
+        return redirect("/auth",{"pho":pho})
     try:
-        print("i'am not running")
         obj= Profile.objects.get(user=request.user)
     except:
-        print("i'm running")
         obj= Profile.objects.create(user=request.user)
-    return render(request,"auth.html",{"obj":obj})
+    return render(request,"auth.html",{"pho":pho})
 
 def openFolder(request, name):
     if request.method == "POST":

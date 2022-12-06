@@ -626,8 +626,10 @@
                 <div class="module-inner">
                     <div class="side-bar">
                         <div class="user-info">
-                            <img class="img-profile img-circle img-responsive center-block"
-                                src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                            {% for i in pho %} 
+                            <img  class="img-profile img-circle img-responsive center-block"
+                            src="media/{{i.img}}" alt="No profile pic">
+                             {% endfor %}
                             <ul class="meta list list-unstyled">
                                 <li class="name">{{request.user}}
                                     {% comment %} <label class="label label-info">Web Designer</label> {% endcomment %}
@@ -651,20 +653,23 @@
                     </div>
                     <div class="content-panel">
                         <h2 class="title">Profile<span class="pro-label label label-warning">Admin</span></h2>
-                        <form class="form-horizontal" method="post" action="" >
+                        <form class="form-horizontal" enctype="multipart/form-data" method="post" action="" >
                             {% csrf_token %}
                             <fieldset class="fieldset">
                                 <h3 class="fieldset-title">Personal Info</h3>
                                 <div class="form-group avatar">
                                     <figure class="figure col-md-2 col-sm-3 col-xs-12">
-                                        <img class="img-rounded img-responsive"
-                                            src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                        
+                                           {% for i in pho %} 
+                                           <img  class="img-rounded img-responsive"
+                                           src="media/{{i.img}}" alt="No profile pic">
+                                            {% endfor %}
                                     </figure>
                                     <div class="form-inline col-md-10 col-sm-9 col-xs-12">
-                                        <input type="file" class="file-uploader pull-left">
-                                        <button type="submit"
+                                        <input type="file"  multiple name="uploadimg" class="file-uploader pull-left">
+                                        {% comment %} <button type="submit"
                                             class="btn btn-sm btn-default-alt btn-primary pull-left ">Update
-                                            Image</button>
+                                            Image</button> {% endcomment %}
                                     </div>
                                 </div>
                                 <div class="form-group">
