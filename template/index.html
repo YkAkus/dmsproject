@@ -285,7 +285,7 @@
                                 </thead>
                                 <tbody>
                                     {% for file in files %}
-                                    <tr id="dv_rc1{{file.id}}">
+                                    <tr data-url="{{file.file.url}}" class="db-click" id="dv_rc1{{file.id}}" >
                                         <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
                                                     class="fas fa-file-document font-size-16 align-middle text-primary me-2"></i>
                                                 {{file}}</a></td>
