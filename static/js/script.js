@@ -101,6 +101,12 @@ $(document).on("click", ".preview-pdf", function() {
     embed.src = url + "#toolbar=0";
     // window.open(`${url}`, '_blank');
 })
+$(document).on("dblclick", ".db-click", function() {
+    var url = $(this).data("url");
+    console.log(url);
+    //embed.src = url + "#toolbar=0";
+    window.open(`${url}`, '_blank');
+})
 $(document).on("click", ".share-file", function() {
     url = $(this).data("url");
     base_url = window.location.origin;
