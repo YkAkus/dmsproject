@@ -97,8 +97,10 @@
                                             <div class="modal-body">
                                                 <label for="myfile">Select a file:</label>
                                                 {% render_field form.file class="form-control" %}<br>
-                                                {% comment %} {% render_field form.title class="form-control" placeholder="Enter Title" %}<br> {% endcomment %}
-                                                {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
+                                                {% comment %} {% render_field form.title class="form-control"
+                                                placeholder="Enter Title" %}<br> {% endcomment %}
+                                                {% render_field form.desc class="form-control" placeholder="Enter
+                                                Description" %}<br>
                                                 <div class="col-md-11 col-sm-12 p-bar hide-me" id="file-pb"></div>
                                             </div>
                                             <div class="modal-footer">
@@ -106,7 +108,7 @@
                                                     data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-default">Save</button>
                                             </div>
-                                            
+
                                     </div>
                                     </form>
                                 </div>
@@ -116,7 +118,8 @@
                                 {% for fol in folders %}
                                 <li>
                                     <div class="custom-accordion">
-                                        <a href="/folder/{{fol.name}}" class="text-body fw-medium py-1 d-flex align-items-center btn btn-light w-100">
+                                        <a href="/folder/{{fol.name}}"
+                                            class="text-body fw-medium py-1 d-flex align-items-center btn btn-light w-100">
                                             <i class="fas fa-folder font-size-16 text-warning me-2"></i>
                                             {{fol}}</i>
                                         </a>
@@ -153,10 +156,13 @@
                             <div class="row mb-3">
                                 <div class="col-xl-3 col-sm-6">
                                     <div class="mt-2" style="display:flex ;">
-                                        <a href="{%url 'index'%}" class="btn"><i class="fa fa-home" aria-hidden="true"></i></a>
-                                        <button onclick="history.back()" class="btn"><i class="fa fa-arrow-left" aria-hidden="true"></i></button> &nbsp;&nbsp; 
+                                        <a href="{%url 'index'%}" class="btn"><i class="fa fa-home"
+                                                aria-hidden="true"></i></a>
+                                        <button onclick="history.back()" class="btn"><i class="fa fa-arrow-left"
+                                                aria-hidden="true"></i></button> &nbsp;&nbsp;
                                         <h5>My folders</h5>&nbsp;&nbsp;
-                                        <button onclick="history.forward()" class="btn"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                                        <button onclick="history.forward()" class="btn"><i class="fa fa-arrow-right"
+                                                aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                                 <div class="col-xl-9 col-sm-6">
@@ -191,7 +197,8 @@
                         <div>
                             <div class="row">
                                 {% for folder in folders %}
-                                <div class="col-xl-1 col-sm-12 dv_rc openfolder" style="padding:5px" data-name = "{{folder.name}}">
+                                <div class="col-xl-1 col-sm-12 dv_rc openfolder" style="padding:5px"
+                                    data-name="{{folder.name}}">
                                     <div class="card shadow-none" style="width:100px">
                                         <div class="card-body p-1">
                                             <div class="">
@@ -208,10 +215,13 @@
                                                 <div class="d-flex">
                                                     <div class="overflow-hidden">
                                                         <p class="font-size-14 mb-1">
-                                                            <a href="javascript: void(0);" class="text-body">{{folder.name}}</a>
+                                                            <a href="javascript: void(0);"
+                                                                class="text-body">{{folder.name}}</a>
                                                         </p>
                                                         <p class="text-muted mb-0">
-                                                            {% if folder.totalFolder == 0 %}Empty{% elif folder.totalFolder > 1 %}{{folder.totalFolder}} Files{% else %}{{folder.totalFolder}} File{% endif %} </p>
+                                                            {% if folder.totalFolder == 0 %}Empty{% elif
+                                                            folder.totalFolder > 1 %}{{folder.totalFolder}} Files{% else
+                                                            %}{{folder.totalFolder}} File{% endif %} </p>
                                                     </div>
                                                     <!--<div class="align-self-end ms-2">
                                                         <p class="text-muted mb-0">
@@ -226,7 +236,8 @@
                                 </div>
                                 {% empty %}
                                 <div class="col">
-                                <a class="dropdown-item" data-toggle="modal" data-target="#myModal1" href="#"><i class="fa fa-plus me-1"></i>Create Folder</a>
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#myModal1" href="#"><i
+                                            class="fa fa-plus me-1"></i>Create Folder</a>
                                 </div>
                                 {% endfor %}
                                 <!-- end col -->
@@ -235,7 +246,8 @@
                         </div>
                     </div>
                     <!-- menu -->
-                    <div class="panel panel-primary my-drop-down popupRC " style=" background-color:whitesmoke; display:none;">
+                    <div class="panel panel-primary my-drop-down popupRC "
+                        style=" background-color:whitesmoke; display:none;">
                         <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Upload
                             file</a>
                         <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Open</a>
@@ -284,8 +296,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for file in files %}
-                                    <tr data-url="{{file.file.url}}" class="db-click" id="dv_rc1{{file.id}}" >
+                        {% for file in files %}
+                                    <tr data-url="{{file.file.url}}" class="db-click" id="dv_rc1{{file.id}}">
                                         <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
                                                     class="fas fa-file-document font-size-16 align-middle text-primary me-2"></i>
                                                 {{file}}</a></td>
@@ -301,7 +313,8 @@
                                                     <i class="fas fa-ellipsis-h"></i>
                                                 </a>
                                             </div> -->
-                                            <div class="dropdown-menu dropdown-menu-end my-drop-down" id="popupRC1{{file.id}}">
+                                            <div class="dropdown-menu dropdown-menu-end my-drop-down"
+                                                id="popupRC1{{file.id}}">
                                                 <a data-url="{{file.file.url}}"
                                                     onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
                                                     class="dropdown-item preview-pdf" href="#" data-toggle="modal"
@@ -310,7 +323,8 @@
                                                     onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
                                                     class="dropdown-item open-file" href="#">Open</a>
                                                 <a class="dropdown-item"
-                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });" href="#">Edit</a>
+                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                    href="#">Edit</a>
                                                 <a class="dropdown-item"
                                                     onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
                                                     href="#">Rename</a>
@@ -339,7 +353,7 @@
                                             // })
                                         });
                                     </script>
-                                {% endfor %}
+                        {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -437,7 +451,7 @@
                 if (response["status"])
                     window.location.href = "/";
                 $("#err").html(response["data"]);
-                window.setTimeout(function(){
+                window.setTimeout(function () {
                     $("#err").html("");
                 }, 2000)
             },
@@ -451,9 +465,9 @@
     });
 
 
-    $(document).on("click", ".openfolder", function(){
+    $(document).on("click", ".openfolder", function () {
         var name = $(this).data("name");
-         window.open("/folder/"+name+"/"); 
+        window.open("/folder/" + name + "/");
     })
 </script>
 
