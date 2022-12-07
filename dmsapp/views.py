@@ -14,10 +14,11 @@ class FileUploader(View):
         if not request.user.is_authenticated:
             return redirect("login")
         obj = File.objects.filter(user = request.user, is_delete=False)
+        pho = Profile.objects.filter(user = request.user)
         folder = Folder.objects.filter(user = request.user, is_delete=False)
         form = FileForm()
         folderForm = FolderForm()
-        return render(request, 'index.html', {'form': form,'folderform':folderForm, 'files':obj, 'folders':folder})
+        return render(request, 'index.html', {'form': form,'folderform':folderForm, 'files':obj, 'folders':folder,"pho":pho})
 
     def post(self, request):
         if not request.user.is_authenticated:
@@ -48,7 +49,7 @@ class FileUploader(View):
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
 def auth(request):
-    pho=Profile.objects.all()
+    pho=Profile.objects.filter(user = request.user)
     if request.method == "POST":
         u=User.objects.get(username=request.user)
         u.first_name=request.POST.get("firstName",None)
