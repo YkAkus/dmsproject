@@ -617,6 +617,42 @@
             display: inline-block
         }
     }
+    /* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
 </style>
 <div class="row p-3 justify-content-center">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -640,18 +676,17 @@
                         </div>
                         <nav class="side-menu">
                             <ul class="nav">
-                                <li class="active"><a data-toggle="tab" href="#"><span class="fa fa-user"></span>
-                                        Profile</a></li>
-                                <li><a data-toggle="tab" href="#"><span class="fa fa-cog"></span> Settings</a></li>
-                                <li><a data-toggle="tab" href="#"><span class="fa fa-envelope"></span> Messages</a></li>
+                                <li><a data-toggle="tab" onclick="openCity(event, 'Profile')"><span class="fa fa-user"></span>Profile</a></li>
+                                <li><a data-toggle="tab" onclick="openCity(event, 'Settings')"><span class="fa fa-cog"></span> Settings</a></li>
+                                <li><a data-toggle="tab" onclick="openCity(event, 'Messages')"><span class="fa fa-envelope"></span> Messages</a></li>
 
                                 <li><a data-toggle="tab" href="user-drive.html"><span class="fa fa-th"></span> Drive</a>
                                 </li>
-                                <li><a data-toggle="tab" href="#"><span class="fa fa-clock-o"></span> Reminders</a></li>
+                                <li><a data-toggle="tab" onclick="openCity(event, 'Reminders')"><span class="fa fa-clock-o"></span> Reminders</a></li>
                             </ul>
                         </nav>
                     </div>
-                    <div class="content-panel">
+                    <div class="content-panel tabcontent" id="Profile">
                         <h2 class="title">Profile<span class="pro-label label label-warning">Admin</span></h2>
                         <form class="form-horizontal" enctype="multipart/form-data" method="post" action="" >
                             {% csrf_token %}
@@ -716,6 +751,9 @@
                         </form>
                     </div>
                 </div>
+                <div  id="Settings" class="content-panel tabcontent">
+                    <h1> Settings</h1>
+                </div>
             </section>
         </div>
     </div>
@@ -730,5 +768,20 @@
         }
     }
 </script>
+<script>
+    function openCity(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    </script>
 
 {% endblock %}
