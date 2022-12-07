@@ -617,45 +617,7 @@
             display: inline-block
         }
     }
-
-    /* Style the tab */
-    .tab {
-        overflow: hidden;
-        border: 1px solid #ccc;
-        background-color: #f1f1f1;
-    }
-
-    /* Style the buttons inside the tab */
-    .tab button {
-        background-color: inherit;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 14px 16px;
-        transition: 0.3s;
-        font-size: 17px;
-    }
-
-    /* Change background color of buttons on hover */
-    .tab button:hover {
-        background-color: #ddd;
-    }
-
-    /* Create an active/current tablink class */
-    .tab button.active {
-        background-color: #ccc;
-    }
-
-    /* Style the tab content */
-    .tabcontent {
-        display: none;
-        padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-top: none;
-    }
 </style>
-
 <div class="row p-3 justify-content-center">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="container">
@@ -664,10 +626,10 @@
                 <div class="module-inner">
                     <div class="side-bar">
                         <div class="user-info">
-                            {% for i in pho %}
-                            <img class="img-profile img-circle img-responsive center-block" src="media/{{i.img}}"
-                                alt="No profile pic">
-                            {% endfor %}
+                            {% for i in pho %} 
+                            <img  class="img-profile img-circle img-responsive center-block"
+                            src="media/{{i.img}}" alt="No profile pic">
+                             {% endfor %}
                             <ul class="meta list list-unstyled">
                                 <li class="name">{{request.user}}
                                     {% comment %} <label class="label label-info">Web Designer</label> {% endcomment %}
@@ -678,34 +640,33 @@
                         </div>
                         <nav class="side-menu">
                             <ul class="nav">
-                                <li ><a data-toggle="tab" href="#" onclick="openCity(event, 'Profile')" class=" active"><span class="fa fa-user"></span>
+                                <li class="active"><a data-toggle="tab" href="#"><span class="fa fa-user"></span>
                                         Profile</a></li>
-                                <li><a data-toggle="tab"  href="#" onclick="openCity(event, 'Settings')"><span class="fa fa-cog"></span>
-                                        Settings</a></li>
-                                <li><a data-toggle="tab" href="#" onclick="openCity(event, 'Messages')"><span class="fa fa-envelope"></span> Messages</a></li>
+                                <li><a data-toggle="tab" href="#"><span class="fa fa-cog"></span> Settings</a></li>
+                                <li><a data-toggle="tab" href="#"><span class="fa fa-envelope"></span> Messages</a></li>
 
-                                <!-- <li><a data-toggle="tab" href="user-drive.html"><span class="fa fa-th"></span> Drive</a> -->
+                                <li><a data-toggle="tab" href="user-drive.html"><span class="fa fa-th"></span> Drive</a>
                                 </li>
-                                <li><a data-toggle="tab" href="#" onclick="openCity(event, 'Reminders')" ><span class="fa fa-clock-o"></span> Reminders</a></li>
+                                <li><a data-toggle="tab" href="#"><span class="fa fa-clock-o"></span> Reminders</a></li>
                             </ul>
                         </nav>
                     </div>
-                    <div id="Profile" class="content-panel tabcontent">
+                    <div class="content-panel">
                         <h2 class="title">Profile<span class="pro-label label label-warning">Admin</span></h2>
-                        <form class="form-horizontal" enctype="multipart/form-data" method="post" action="">
+                        <form class="form-horizontal" enctype="multipart/form-data" method="post" action="" >
                             {% csrf_token %}
                             <fieldset class="fieldset">
                                 <h3 class="fieldset-title">Personal Info</h3>
                                 <div class="form-group avatar">
                                     <figure class="figure col-md-2 col-sm-3 col-xs-12">
-
-                                        {% for i in pho %}
-                                        <img class="img-rounded img-responsive" src="media/{{i.img}}"
-                                            alt="No profile pic" style="height: 80px; width: 80px;">
-                                        {% endfor %}
+                                        
+                                           {% for i in pho %} 
+                                           <img  class="img-rounded img-responsive"
+                                           src="media/{{i.img}}" alt="No profile pic">
+                                            {% endfor %}
                                     </figure>
                                     <div class="form-inline col-md-10 col-sm-9 col-xs-12">
-                                        <input type="file" multiple name="uploadimg" class="file-uploader pull-left">
+                                        <input type="file"  multiple name="uploadimg" class="file-uploader pull-left">
                                         {% comment %} <button type="submit"
                                             class="btn btn-sm btn-default-alt btn-primary pull-left ">Update
                                             Image</button> {% endcomment %}
@@ -714,23 +675,20 @@
                                 <div class="form-group">
                                     <label class="col-md-2 col-sm-3 col-xs-12 control-label">User Name</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" name="username" value="{{request.user}}"
-                                            placeholder="Enter user name">
+                                        <input type="text" class="form-control" name="username" value="{{request.user}}" placeholder="Enter user name">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 col-sm-3 col-xs-12 control-label">First Name</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" name="firstName"
-                                            value="{{request.user.first_name}}" placeholder="Enter First Name">
+                                        <input type="text" class="form-control" name="firstName" value="{{request.user.first_name}}" placeholder="Enter First Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 col-sm-3 col-xs-12 control-label">Last Name</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" name="lastName"
-                                            value="{{request.user.last_name}}" placeholder="Enter Last Name">
+                                        <input type="text" class="form-control" name="lastName" value="{{request.user.last_name}}" placeholder="Enter Last Name">
                                     </div>
                                 </div>
                             </fieldset>
@@ -739,8 +697,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2  col-sm-3 col-xs-12 control-label">Mobile</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" name="mobile" value="{{obj.mobile}}"
-                                            placeholder="Enter Mobile Number">
+                                        <input type="text" class="form-control" name="mobile"  value="{{obj.mobile}}" placeholder="Enter Mobile Number">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -759,16 +716,6 @@
                         </form>
                     </div>
                 </div>
-                <div class="tabcontent content-panel" id="Settings">
-                    <h1>Settings</h1>
-                    <h2>{{request.user.User_permission}}</h2>
-                </div>
-                <div class="tabcontent content-panel" id="Messages">
-                    <h1>Messages</h1>
-                </div>
-                <div class="tabcontent content-panel" id="Reminders">
-                    <h1>Reminders</h1>
-                </div>
             </section>
         </div>
     </div>
@@ -781,21 +728,6 @@
         } else {
             x.type = "password";
         }
-    }
-</script>
-<script>
-    function openCity(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
     }
 </script>
 
