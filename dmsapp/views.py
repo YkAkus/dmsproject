@@ -64,7 +64,6 @@ def auth(request):
             obj= Profile.objects.create(user=request.user)
         obj.mobile=request.POST.get("mobile",None)
         img=request.FILES.getlist("uploadimg")
-        
         for i in img:
             obj.img=i
         obj.save()
