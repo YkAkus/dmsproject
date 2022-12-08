@@ -417,7 +417,7 @@
         <!-- PDF Modal-->
         <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog" role="document" style="max-width: 529px;">
+            <div class="modal-dialog" role="document" style="max-width: 729px;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Preview</h5>
@@ -426,7 +426,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                    <iframe src="" height="700px" width="500px" id="embed1"></iframe>
+                    <embed src="" height="500px" width="700px" type="application/pdf" id="embed1"></embed>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -434,6 +434,13 @@
                 </div>
             </div>
         </div>
+        <!-- <script>
+            function embed2({
+                out=document.getElementById(embed1).src;
+                console.login(out);
+                document.getElementById(embed2).href=out
+            });
+        </script> -->
         <!-- Bootstrap core JavaScript-->
         <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
         <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

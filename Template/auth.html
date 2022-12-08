@@ -671,7 +671,7 @@
                                     {% comment %} <label class="label label-info">Web Designer</label> {% endcomment %}
                                 </li>
                                 <li class="email"><a href="#">test@test.com</a></li>
-                                <li class="activity">Last logged in: {{request.user.last_login}}</li>
+                                <li class="activity">Last logged in: {{request.user.last_login|date:'Y-m-d H:i'}}</li>
                             </ul>
                         </div>
                         <nav class="side-menu">
@@ -753,6 +753,9 @@
                 </div>
                 <div  id="Settings" class="content-panel tabcontent">
                     <h1> Settings</h1>
+                    <p>
+                        {{request.user.has_perm}}
+                    </p>
                 </div>
             </section>
         </div>

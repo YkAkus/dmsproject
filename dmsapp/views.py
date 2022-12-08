@@ -9,6 +9,9 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from .models import File, Folder, FolderFile,Profile
 
+
+
+
 class FileUploader(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

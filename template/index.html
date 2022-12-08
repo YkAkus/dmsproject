@@ -97,10 +97,8 @@
                                             <div class="modal-body">
                                                 <label for="myfile">Select a file:</label>
                                                 {% render_field form.file class="form-control" %}<br>
-                                                {% comment %} {% render_field form.title class="form-control"
-                                                placeholder="Enter Title" %}<br> {% endcomment %}
-                                                {% render_field form.desc class="form-control" placeholder="Enter
-                                                Description" %}<br>
+                                                {% comment %} {% render_field form.title class="form-control placeholder="Enter Title" %}<br> {% endcomment %}
+                                                {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
                                                 <div class="col-md-11 col-sm-12 p-bar hide-me" id="file-pb"></div>
                                             </div>
                                             <div class="modal-footer">
@@ -361,6 +359,18 @@
             </div>
             <!-- end card -->
         </div>
+        {% comment %} <div class="card filemanager-sidebar ms-lg-3">
+            <div class="card-body" style="width:700px;">
+                <embed src="" height="700px" width="500px" type="application/pdf" id="embed1"></embed>
+            </div>
+        </div> {% endcomment %}
+    </div> 
+    <!-- end row -->
+    
+</div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
         <!-- end w-100 -->
     </div>
 </div>
@@ -406,7 +416,7 @@
                     if (e.lengthComputable) {
                         const percentProgress = (e.loaded / e.total) * 100;
                         //console.log(percentProgress);
-                        progress_bar.innerHTML = `<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: ${percentProgress}%" aria-valuenow="${percentProgress}" aria-valuemin="0" aria-valuemax="100">${percentProgress}</div>`
+                        progress_bar.innerHTML = `<div class="progress-bar progress-bar-striped bg-success" type="application/pdf" role="progressbar" style="width: ${percentProgress}%" aria-valuenow="${percentProgress}" aria-valuemin="0" aria-valuemax="100">${percentProgress}</div>`
                     }
                 });
                 return xhr
