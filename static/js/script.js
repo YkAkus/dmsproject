@@ -37,7 +37,7 @@ $(document).on(" click ", ".remove-file", function() {
     id = me.data("id");
     Swal.fire({
         title: 'Are you sure?',
-        text: "You can recover you file from Trash!",
+        text: "You can remove your file from Trash!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -56,6 +56,41 @@ $(document).on(" click ", ".remove-file", function() {
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',
+                        'success'
+                    )
+                    me.parent().parent().parent().parent().remove();
+                },
+                error: function(error) {
+                    console.log(error);
+                },
+            });
+        }
+    })
+})
+$(document).on(" click ", ".remove-folder", function() {
+    me = $(this);
+    id = me.data("id");
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You can remove your folder from Trash!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                "url": "/remove-folders/",
+                "type": "POST",
+                "data": {
+                    "csrfmiddlewaretoken": csrfcookie(),
+                    "id": id
+                },
+                success: function(response) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your folder has been deleted.',
                         'success'
                     )
                     me.parent().parent().parent().parent().remove();
@@ -153,41 +188,6 @@ $(document).on(" click ", ".delete-file", function() {
         if (result.isConfirmed) {
             $.ajax({
                 "url": "/del-files/",
-                "type": "POST",
-                "data": {
-                    "csrfmiddlewaretoken": csrfcookie(),
-                    "id": id
-                },
-                success: function(response) {
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                    me.parent().parent().remove();
-                },
-                error: function(error) {
-                    console.log(error);
-                },
-            });
-        }
-    })
-})
-$(document).on(" click ", ".delete-folder", function() {
-    me = $(this);
-    id = me.data("id");
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won 't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                "url": "/del-folder/",
                 "type": "POST",
                 "data": {
                     "csrfmiddlewaretoken": csrfcookie(),

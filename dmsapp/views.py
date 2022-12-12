@@ -153,6 +153,13 @@ def removeFile(request):
     file.is_delete = True
     file.save()
     return JsonResponse({"data":True})
+@login_required
+def removeFolder(request):
+    fid = request.POST["id", False]
+    fol = Folder.objects.get(id = id)
+    fol.is_delete = True
+    fol.save()
+    return JsonResponse({"data":True})
 
 @login_required
 def deleteFile(request):

@@ -143,7 +143,7 @@
                                     </thead>
                                     <tbody>
                                 {% for folder in folders %}
-                                        <tr data-url="{{folder.folder.url}}" class="db-click openfolder dv_rc" data-name="{{folder.name}}">
+                                        <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
                                                     {{folder}}</a></td>
                                             <td>{{folder.date|date:'Y-m-d H:i'}}</td><td></td>
@@ -170,7 +170,7 @@
                                             favorites to Create Shortcut</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Move</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Download</a>
-                                        <a class="dropdown-item delete-folder" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Delete</a>
+                                        <a data-id="{{folder.id}}"  onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" class="dropdown-item remove-folder"  href="#">Delete</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Rename </a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
                                             href="#">Details/Properties </a>
@@ -182,16 +182,14 @@
                                     <script>
                                         $(document).ready(function () {
                                     
-                                            $(".dv_rc").bind('contextmenu', function (e) {
+                                            $("#dv_rc{{folder.id}}").bind('contextmenu', function (e) {
                                                 e.preventDefault(); // prevents default menu 
                                     
                                                 $("#popupRC{{folder.id}}").css({ position: "absolute", top: e.pageY-90, left: e.pageX-250, display: "block" });
-                                    
                                             });
                                             $(document).bind("click", function (event) {
                                                 document.getElementsByClassName("popupRC").display = "none";
                                             })
-                                    
                                         });
                                     
                                     </script>
