@@ -126,17 +126,10 @@
 
             <div class="w-100">
                 <div class="card" style="padding-left: 8px;">
-                    <div class="card-body" style="height: 80px;">
-                        <div>
-                        </div>
-                        <div>
-                            <div class="row">
-                                <div class="ms-auto">
-                                    <a href="/files/" class="fw-medium text-reset">View all File</a>
-                                </div>
-                            </div>
-                            <hr class="mt-2">
-    
+                    <div class="card-body">
+                        {% comment %} {% for fd in folders %}
+                        <a href="{{fd}}">{{fd}}</a>
+                        {% endfor %}  {% endcomment %}
                             <div class="table-responsive" style="padding-bottom:200px;">
                                 <table class="table align-middle table-nowrap table-hover mb-0">
                                     <thead>
@@ -150,21 +143,21 @@
                                     </thead>
                                     <tbody>
                                 {% for folder in folders %}
-                                        <tr data-url="{{folder.folder.url}}" class="db-click dv_rc">
+                                        <tr data-url="{{folder.folder.url}}" class="db-click openfolder dv_rc" data-name="{{folder.name}}">
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
                                                     {{folder}}</a></td>
-                                            <td>{{folder.date|date:'Y-m-d H:i'}}</td>
-                                            <td><i data-id="{{folder.id}}"
+                                            <td>{{folder.date|date:'Y-m-d H:i'}}</td><td></td>
+                                            {% comment %} <td><i data-id="{{folder.id}}"
                                                     class='fa fa-star make-fav {% if folder.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
-                                            </td>
+                                            </td> {% endcomment %}
                                             <td>{{folder.folder.size|filesizeformat}}</td>
                                         </tr>
                                         <!-- menu -->
                                         <div class="panel panel-primary my-drop-down" id="popupRC{{folder.id}}"
                                         style=" background-color:whitesmoke; display:none;">
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Upload
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" data-toggle="modal" data-target="#myModal" href="#">Upload
                                             file</a>
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Open</a>
+                                        <a class="dropdown-item openfolder" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"  data-name="{{folder.name}}" href="#">Open</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Create
                                             Folder</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Edit
@@ -177,7 +170,7 @@
                                             favorites to Create Shortcut</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Move</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Download</a>
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Delete</a>
+                                        <a class="dropdown-item delete-folder" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Delete</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Rename </a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
                                             href="#">Details/Properties </a>
@@ -205,7 +198,7 @@
 
                             {% endfor %}
                             {% for file in files %}
-                                        <tr data-url="{{file.file.url}}" class="db-click dv_rc1">
+                                        <tr data-url="{{file.file.url}}" class="db-click" id= "dv_rc1{{file.id}}">
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
                                                 class="fa fa-file font-size-16 align-middle text-primary me-2"></i>
                                                     {{file}}</a></td>
@@ -250,7 +243,7 @@
                                         <script>
                                             $(document).ready(function () {
     
-                                                $(".dv_rc1").bind('contextmenu', function (e) {
+                                                $("#dv_rc1{{file.id}}").bind('contextmenu', function (e) {
                                                     e.preventDefault(); // prevents default menu 
     
                                                     $("#popupRC1{{file.id}}").css({ position: "absolute", top: e.pageY-90, left: e.pageX-250, display: "block" });

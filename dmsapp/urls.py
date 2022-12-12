@@ -7,6 +7,7 @@ urlpatterns = [
     path('files/', views.allFile, name="file-view"),
     path('favourite/', views.favFileView, name="fav-file-view"),
     path('del-files/', views.deleteFile, name="del-file"),
+    path('del-folder/', views.deleteFolder, name="del-folder"),
     path('remove-files/', views.removeFile, name="remove-file"),
     path('make-fav/', views.makeFav, name="fav-file"),
     path('restore-file/', views.restoreFile, name="restore-file"),

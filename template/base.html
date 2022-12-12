@@ -92,14 +92,14 @@
                                         aria-hidden="true"></i></a>
                                 <button onclick="history.back()" class="btn"><i class="fa fa-arrow-left"
                                         aria-hidden="true"></i></button> &nbsp;&nbsp;
-                                <h5>My folders</h5>&nbsp;&nbsp;
+                                <h5>{{name}}</h5>&nbsp;&nbsp;
                                 <button onclick="history.forward()" class="btn"><i class="fa fa-arrow-right"
                                         aria-hidden="true"></i></button>
                             </div>
                         </div>
                         <div class="col-xl-6 col-sm-6">
                             <form class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
-                                <div class="search-box mb-2 me-2" style="display:flex;">
+                                <div class="search-box mb-2 me-2" style="display:flex; width:400px;">
                                         <input type="text" class="form-control bg-light border-light rounded"
                                             placeholder="Search...">
                                             <i class="fa fa-search" aria-hidden="true" style="font-size: 20px;padding: 3px;"></i>
@@ -270,15 +270,17 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
+                    {% csrf_token %}
                         <h5 class="modal-title" id="exampleModalLabel">Preview</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body" >
-                    <embed src="" height="500px" width="700px" type="application/pdf" id="embed1"></embed>
+                    <embed src="" height="500px" width="750px" type="application/pdf" id="embed1" name="pdf_src"></embed>
                     </div>
                     <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Upload</button>
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>

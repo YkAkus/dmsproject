@@ -67,6 +67,7 @@ $(document).on(" click ", ".remove-file", function() {
         }
     })
 })
+
 $(document).on("click", ".make-fav", function() {
     me = $(this);
     id = me.data("id");
@@ -93,7 +94,7 @@ $(document).on("click", ".make-fav", function() {
 })
 $(document).on("click", ".open-file", function() {
     var url = $(this).data("url");
-    window.open(`${url}`, '_blank');
+    window.open(`${url}`,'_blank');
 })
 $(document).on("click", ".preview-pdf", function() {
     var url = $(this).data("url");
@@ -152,6 +153,41 @@ $(document).on(" click ", ".delete-file", function() {
         if (result.isConfirmed) {
             $.ajax({
                 "url": "/del-files/",
+                "type": "POST",
+                "data": {
+                    "csrfmiddlewaretoken": csrfcookie(),
+                    "id": id
+                },
+                success: function(response) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                    me.parent().parent().remove();
+                },
+                error: function(error) {
+                    console.log(error);
+                },
+            });
+        }
+    })
+})
+$(document).on(" click ", ".delete-folder", function() {
+    me = $(this);
+    id = me.data("id");
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won 't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                "url": "/del-folder/",
                 "type": "POST",
                 "data": {
                     "csrfmiddlewaretoken": csrfcookie(),
