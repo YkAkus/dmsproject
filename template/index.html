@@ -16,22 +16,6 @@
     }
 </style>
 <!-- jQuery should be at least version 1.7 -->
-<script>
-    $(document).ready(function () {
-
-        $(".dv_rc").bind('contextmenu', function (e) {
-            e.preventDefault(); // prevents default menu 
-
-            $(".popupRC").css({ position: "absolute", top: e.pageY, left: e.pageX, display: "block" });
-
-        });
-        $(document).bind("click", function (event) {
-            document.getElementsByClassName("popupRC").display = "none";
-        })
-
-    });
-
-</script>
 
 <div class="d-xl-flex">
     <div class="w-100">
@@ -106,9 +90,9 @@
                                                     data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-default">Save</button>
                                             </div>
-
-                                    </div>
+                                       
                                     </form>
+                                </div>
                                 </div>
                             </div>
 
@@ -130,13 +114,6 @@
                                         <span class="me-auto">Trash</span>
                                     </a>
                                 </li>
-                                {% comment %} <li>
-                                    <a href="javascript: void(0);" class="text-body d-flex align-items-center">
-                                        <i class="fas fa-cog text-muted font-size-16 me-2"></i>
-                                        <span class="me-auto">Setting</span><span
-                                            class="badge bg-success rounded-pill ms-2">01</span>
-                                    </a>
-                                </li> {% endcomment %}
                             </ul>
                         </div>
                         <div class="mt-auto">
@@ -151,50 +128,141 @@
                 <div class="card" style="padding-left: 8px;">
                     <div class="card-body" style="height: 80px;">
                         <div>
-                            <div class="row mb-3">
-                                <div class="col-xl-3 col-sm-6">
-                                    <div class="mt-2" style="display:flex ;">
-                                        <a href="{%url 'index'%}" class="btn"><i class="fa fa-home"
-                                                aria-hidden="true"></i></a>
-                                        <button onclick="history.back()" class="btn"><i class="fa fa-arrow-left"
-                                                aria-hidden="true"></i></button> &nbsp;&nbsp;
-                                        <h5>My folders</h5>&nbsp;&nbsp;
-                                        <button onclick="history.forward()" class="btn"><i class="fa fa-arrow-right"
-                                                aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                                <div class="col-xl-9 col-sm-6">
-                                    <form class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
-                                        <div class="search-box mb-2 me-2">
-                                            <div class="position-relative">
-                                                <input type="text" class="form-control bg-light border-light rounded"
-                                                    placeholder="Search...">
-                                                <i class="fas fa-search-alt search-icon"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="dropdown mb-0">
-                                            <a class="btn btn-link text-muted mt-n2" role="button"
-                                                data-bs-toggle="dropdown" aria-haspopup="true">
-                                                <i class="fas fa-dots-vertical font-size-20"></i>
-                                            </a>
-
-                                            {% comment %} <div class="dropdown-menu  my-drop-down">
-                                                <a class="dropdown-item" href="#">Share
-                                                    Files</a>
-                                                <a class="dropdown-item" href="#">Share
-                                                    with me</a>
-                                                <a class="dropdown-item" href="#">Other
-                                                    Actions</a>{% endcomment %}
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                         </div>
                         <div>
                             <div class="row">
+                                <div class="ms-auto">
+                                    <a href="/files/" class="fw-medium text-reset">View all File</a>
+                                </div>
+                            </div>
+                            <hr class="mt-2">
+    
+                            <div class="table-responsive" style="padding-bottom:200px;">
+                                <table class="table align-middle table-nowrap table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Date modified</th>
+                                            <th scope="col">Favourite</th>
+                                            <th scope="col" colspan="2">Size
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                 {% for folder in folders %}
+                                        <tr data-url="{{folder.folder.url}}" class="db-click dv_rc">
+                                            <td><a href="javascript: void(0);" class="text-dark fw-medium"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
+                                                    {{folder}}</a></td>
+                                            <td>{{folder.date|date:'Y-m-d H:i'}}</td>
+                                            <td><i data-id="{{folder.id}}"
+                                                    class='fa fa-star make-fav {% if folder.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
+                                            </td>
+                                            <td>{{folder.folder.size|filesizeformat}}</td>
+                                        </tr>
+                                        <!-- menu -->
+                                        <div class="panel panel-primary my-drop-down" id="popupRC{{folder.id}}"
+                                        style=" background-color:whitesmoke; display:none;">
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Upload
+                                            file</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Open</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Create
+                                            Folder</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Edit
+                                            File</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Enable
+                                            Client View</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Important
+                                            (Mark)</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Mark
+                                            favorites to Create Shortcut</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Move</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Download</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Delete</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Rename </a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
+                                            href="#">Details/Properties </a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Short </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Send Mail
+                                            Notification</a>
+                                    </div>
+                                    <script>
+                                        $(document).ready(function () {
+                                    
+                                            $(".dv_rc").bind('contextmenu', function (e) {
+                                                e.preventDefault(); // prevents default menu 
+                                    
+                                                $("#popupRC{{folder.id}}").css({ position: "absolute", top: e.pageY-90, left: e.pageX-250, display: "block" });
+                                    
+                                            });
+                                            $(document).bind("click", function (event) {
+                                                document.getElementsByClassName("popupRC").display = "none";
+                                            })
+                                    
+                                        });
+                                    
+                                    </script>
+
+                            {% endfor %}
+                            {% for file in files %}
+                                        <tr data-url="{{file.file.url}}" class="db-click dv_rc1">
+                                            <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
+                                                class="fa fa-file font-size-16 align-middle text-primary me-2"></i>
+                                                    {{file}}</a></td>
+                                            <td>{{file.date|date:'Y-m-d H:i'}}</td>
+                                            <td><i data-id="{{file.id}}"
+                                                    class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
+                                            </td>
+                                            <td>{{file.file.size|filesizeformat}}</td>
+                                            <td>
+                                                <!-- <div class="dropdown">
+                                                     <a class="font-size-16 text-muted" role="button"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true">
+                                                        <i class="fas fa-ellipsis-h"></i>
+                                                    </a>
+                                                </div> -->
+                                                <div class="dropdown-menu dropdown-menu-end my-drop-down"
+                                                    id="popupRC1{{file.id}}">
+                                                    <a data-url="{{file.file.url}}"
+                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        class="dropdown-item preview-pdf" href="#" data-toggle="modal"
+                                                        data-target="#pdfModal">Preview</a>
+                                                    <a data-url="{{file.file.url}}"
+                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        class="dropdown-item open-file" href="#">Open</a>
+                                                    <a class="dropdown-item"
+                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        href="#">Edit</a>
+                                                    <a class="dropdown-item"
+                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        href="#">Rename</a>
+                                                    <a data-url="{{file.url}}"
+                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        class="dropdown-item share-file" href="#">Share</a>
+                                                    <div class="dropdown-divider">
+                                                    </div>
+                                                    <a data-id="{{file.id}}"
+                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        class="dropdown-item remove-file" href="#">Remove</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <script>
+                                            $(document).ready(function () {
+    
+                                                $(".dv_rc1").bind('contextmenu', function (e) {
+                                                    e.preventDefault(); // prevents default menu 
+    
+                                                    $("#popupRC1{{file.id}}").css({ position: "absolute", top: e.pageY-90, left: e.pageX-250, display: "block" });
+    
+                                                });
+                                                // $(document).bind("click", function (event) {
+                                                //     document.getElementById("popupRC1{{file.id}}").display = "none";
+                                                // })
+                                            });
+                                        </script>
+                            {% endfor %}
+                                {% comment %} {% for folder in folders %}
                                 <div class="col-xl-1 col-sm-12 dv_rc openfolder" style="padding:5px"
                                     data-name="{{folder.name}}">
                                     <div class="card shadow-none" style="width:100px">
@@ -237,12 +305,49 @@
                                 </div>
                                 {% endfor %}
                                 <!-- end col -->
-                            </div>
+                                <!-- file tab start-->
+                                {% for file in files %}
+                                <div class="col-xl-1 col-sm-12 db-click dv_rc1" data-url="{{file.file.url}}" style="padding:5px" data-name="{{file.name}}">
+                                    <div class="card shadow-none" style="width:100px">
+                                        <div class="card-body p-1">
+                                            <div class="">
+                                                <div class="float-end ms-2">
+                                                    <div class="dropdown mb-2 ">
+                                                    </div>
+                                                </div>
+                                                <div class="avatar-xs me-3 mb-3" id="box">
+                                                    <div class="avatar-title bg-transparent rounded">
+                                                        <i class="fa fa-file" aria-hidden="true" style="font-size: 30px;"></i>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <div class="overflow-hidden">
+                                                        <p class="font-size-14 mb-1">
+                                                            <a href="javascript: void(0);"
+                                                                class="text-body">{{file.name}}</a>
+                                                        </p>
+                                                        <p class="text-muted mb-0">
+                                                            {% if file.totalfile == 0 %}Empty{% elif file.totalfile > 1 %}{{file.totalfile}} Files{% else %}{{file.totalfile}} File{% endif %} </p>
+                                                    </div>
+                                                    <!--<div class="align-self-end ms-2">
+                                                        <p class="text-muted mb-0">
+                                                            &nbsp; 6GB</p>
+                                                    </div>-->
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                {% empty %}
+                                {% endfor %} {% endcomment %}
                             <!-- end row -->
                         </div>
                     </div>
                     <!-- menu -->
-                    <div class="panel panel-primary my-drop-down popupRC "
+                    {% comment %} <div class="panel panel-primary my-drop-down popupRC "
                         style=" background-color:whitesmoke; display:none;">
                         <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Upload
                             file</a>
@@ -268,93 +373,66 @@
                         <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Send Mail
                             Notification</a>
                     </div>
+                    <script>
+                        $(document).ready(function () {
+                    
+                            $(".dv_rc").bind('contextmenu', function (e) {
+                                e.preventDefault(); // prevents default menu 
+                    
+                                $(".popupRC").css({ position: "absolute", top: e.pageY-90, left: e.pageX-250, display: "block" });
+                    
+                            });
+                            $(document).bind("click", function (event) {
+                                document.getElementsByClassName("popupRC").display = "none";
+                            })
+                    
+                        });
+                    
+                    </script> 
 
-                    <div class="mt-4" style="padding-bottom:200px;">
-                        <div class="d-flex flex-wrap">
-                            <h5 class="font-size-16 me-3">My Files
-                            </h5>
-
-                            <div class="ms-auto">
-                                <a href="/files/" class="fw-medium text-reset">View All</a>
-                            </div>
+                    <div class="dropdown-menu dropdown-menu-end my-drop-down popupRC1">
+                        <a data-url="{{file.file.url}}"
+                            onClick="$('.popupRC1').css({ display: 'none' });"
+                            class="dropdown-item preview-pdf" href="#" data-toggle="modal"
+                            data-target="#pdfModal">Preview</a>
+                        <a data-url="{{file.file.url}}"
+                            onClick="$('.popupRC1').css({ display: 'none' });"
+                            class="dropdown-item open-file" href="#">Open</a>
+                        <a class="dropdown-item"
+                            onClick="$('.popupRC1').css({ display: 'none' });"
+                            href="#">Edit</a>
+                        <a class="dropdown-item"
+                            onClick="$('.popupRC1').css({ display: 'none' });"
+                            href="#">Rename</a>
+                        <a data-url="{{file.url}}"
+                            onClick="$('.popupRC1').css({ display: 'none' });"
+                            class="dropdown-item share-file" href="#">Share</a>
+                        <div class="dropdown-divider">
                         </div>
-                        <hr class="mt-2">
+                        <a data-id="{{file.id}}"
+                            onClick="$('.popupRC1{{file.id}}').css({ display: 'none' });"
+                            class="dropdown-item remove-file" href="#">Remove</a>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
 
-                        <div class="table-responsive" style="padding-bottom:200px;">
-                            <table class="table align-middle table-nowrap table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Date modified</th>
-                                        <th scope="col">Favourite</th>
-                                        <th scope="col" colspan="2">Size
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                        {% for file in files %}
-                                    <tr data-url="{{file.file.url}}" class="db-click" id="dv_rc1{{file.id}}">
-                                        <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
-                                                    class="fas fa-file-document font-size-16 align-middle text-primary me-2"></i>
-                                                {{file}}</a></td>
-                                        <td>{{file.date|date:'Y-m-d H:i'}}</td>
-                                        <td><i data-id="{{file.id}}"
-                                                class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
-                                        </td>
-                                        <td>{{file.file.size|filesizeformat}}</td>
-                                        <td>
-                                            <!-- <div class="dropdown">
-                                                 <a class="font-size-16 text-muted" role="button"
-                                                    data-bs-toggle="dropdown" aria-haspopup="true">
-                                                    <i class="fas fa-ellipsis-h"></i>
-                                                </a>
-                                            </div> -->
-                                            <div class="dropdown-menu dropdown-menu-end my-drop-down"
-                                                id="popupRC1{{file.id}}">
-                                                <a data-url="{{file.file.url}}"
-                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
-                                                    class="dropdown-item preview-pdf" href="#" data-toggle="modal"
-                                                    data-target="#pdfModal">Preview</a>
-                                                <a data-url="{{file.file.url}}"
-                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
-                                                    class="dropdown-item open-file" href="#">Open</a>
-                                                <a class="dropdown-item"
-                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
-                                                    href="#">Edit</a>
-                                                <a class="dropdown-item"
-                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
-                                                    href="#">Rename</a>
-                                                <a data-url="{{file.url}}"
-                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
-                                                    class="dropdown-item share-file" href="#">Share</a>
-                                                <div class="dropdown-divider">
-                                                </div>
-                                                <a data-id="{{file.id}}"
-                                                    onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
-                                                    class="dropdown-item remove-file" href="#">Remove</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <script>
-                                        $(document).ready(function () {
+                            $(".dv_rc1").bind('contextmenu', function (e) {
+                                e.preventDefault(); // prevents default menu 
 
-                                            $("#dv_rc1{{file.id}}").bind('contextmenu', function (e) {
-                                                e.preventDefault(); // prevents default menu 
+                                $(".popupRC1").css({ position: "absolute", top: e.pageY-90, left: e.pageX-250, display: "block" });
 
-                                                $("#popupRC1{{file.id}}").css({ position: "absolute", top: e.pageY, left: e.pageX, display: "block" });
+                            });
+                        });
+                    </script>{% endcomment %}
+                </div>
 
-                                            });
-                                            // $(document).bind("click", function (event) {
-                                            //     document.getElementById("popupRC1{{file.id}}").display = "none";
-                                            // })
-                                        });
-                                    </script>
-                        {% endfor %}
+                    </div>
+
+                    
+                                    
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-
                 </div>
             </div>
             <!-- end card -->

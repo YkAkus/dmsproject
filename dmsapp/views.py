@@ -10,8 +10,6 @@ from django.shortcuts import get_object_or_404
 from .models import File, Folder, FolderFile,Profile
 
 
-
-
 class FileUploader(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -43,8 +41,7 @@ class FileUploader(View):
             frm = form.save(commit=False)
             frm.user = request.user
             ext = ""
-            if "/" in frm.file.url:
-                ext = frm.file.url.split("/")[-1]
+            ext = frm.file.name
             frm.name = ext
             frm.file.name = ext
             frm.save()
@@ -75,6 +72,7 @@ def auth(request):
     return render(request,"auth.html",{"pho":pho})
 
 def openFolder(request, name):
+    pho=Profile.objects.filter(user = request.user)
     if request.method == "POST":
         form = FolderFileForm(request.POST, request.FILES)
         title = request.POST.get("title",None)
@@ -93,9 +91,7 @@ def openFolder(request, name):
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
     obj = FolderFile.objects.filter(folder = Folder.objects.get(name = name),is_delete = False)
     form = FolderFileForm()
-
-    return render(request, "folderfiles.html", {'files':obj, 'form':form, 'folder':Folder.objects.get(name = name).id, 'name':name})
-
+    return render(request, "folderfiles.html", {'files':obj, 'form':form, 'folder':Folder.objects.get(name = name).id, 'name':name,'pho':pho})
     
 def allFile(request):
     if request.method == "POST":
