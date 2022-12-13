@@ -129,11 +129,11 @@ $(document).on("click", ".make-fav", function() {
 })
 $(document).on("click", ".open-file", function() {
     var url = $(this).data("url");
-    window.open(`${url}`,'_blank');
+    window.open(`${url}`,'');
 })
 $(document).on("click", ".preview-pdf", function() {
     var url = $(this).data("url");
-    console.log(url);
+    //console.log(url);
     embed.src = url + "#toolbar=1";
     // window.open(`${url}`, '_blank');
 })

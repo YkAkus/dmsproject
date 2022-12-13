@@ -147,10 +147,7 @@
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
                                                     {{folder}}</a></td>
                                             <td>{{folder.date|date:'Y-m-d H:i'}}</td><td></td>
-                                            {% comment %} <td><i data-id="{{folder.id}}"
-                                                    class='fa fa-star make-fav {% if folder.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
-                                            </td> {% endcomment %}
-                                            <td>{{folder.folder.size|filesizeformat}}</td>
+                                            <td>{% if folder.totalFolder == 0 %}Empty{% elif folder.totalFolder > 1 %}{{folder.totalFolder}} Files{% else %}{{folder.totalFolder}} File{% endif %}</td>
                                         </tr>
                                         <!-- menu -->
                                         <div class="panel panel-primary my-drop-down" id="popupRC{{folder.id}}"
@@ -185,7 +182,7 @@
                                             $("#dv_rc{{folder.id}}").bind('contextmenu', function (e) {
                                                 e.preventDefault(); // prevents default menu 
                                     
-                                                $("#popupRC{{folder.id}}").css({ position: "absolute", top: e.pageY-90, left: e.pageX-250, display: "block" });
+                                                $("#popupRC{{folder.id}}").css({ position: "absolute", top: e.pageY-145, left: e.pageX-250, display: "block" });
                                             });
                                             $(document).bind("click", function (event) {
                                                 document.getElementsByClassName("popupRC").display = "none";
@@ -244,7 +241,7 @@
                                                 $("#dv_rc1{{file.id}}").bind('contextmenu', function (e) {
                                                     e.preventDefault(); // prevents default menu 
     
-                                                    $("#popupRC1{{file.id}}").css({ position: "absolute", top: e.pageY-90, left: e.pageX-250, display: "block" });
+                                                    $("#popupRC1{{file.id}}").css({ position: "absolute", top: e.pageY-145, left: e.pageX-250, display: "block" });
     
                                                 });
                                                 // $(document).bind("click", function (event) {
@@ -465,7 +462,7 @@
         e.preventDefault();
         $form = $(this)
         var formData = new FormData(this);
-        const media_data = input_file.files[0];
+        const media_data = input_file.files[0] || src;
         if (media_data != null) {
             //console.log(media_data);
             progress_bar.classList.remove("hide-me");
@@ -477,7 +474,6 @@
             data: formData,
             dataType: 'json',
             beforeSend: function () {
-
             },
             xhr: function () {
                 const xhr = new window.XMLHttpRequest();
@@ -500,7 +496,6 @@
                     progress_bar.classList.add('hide-me')
                 }, 2000)
                 window.location.href = "/";
-
             },
             error: function (err) {
                 console.log(err);

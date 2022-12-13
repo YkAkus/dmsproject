@@ -92,7 +92,7 @@
                                         aria-hidden="true"></i></a>
                                 <button onclick="history.back()" class="btn"><i class="fa fa-arrow-left"
                                         aria-hidden="true"></i></button> &nbsp;&nbsp;
-                                <h5>{{name}}</h5>&nbsp;&nbsp;
+                                <h5>{%if name %}{{name}}{% else %} root {% endif %} </h5>&nbsp;&nbsp;
                                 <button onclick="history.forward()" class="btn"><i class="fa fa-arrow-right"
                                         aria-hidden="true"></i></button>
                             </div>
@@ -139,9 +139,12 @@
                                         </div>
                                     </form>
                                 </div>
+                                
                             </li>
-    
-                            <div class="topbar-divider d-none d-sm-block"></div>
+                                
+                            <div class="topbar-divider d-none d-sm-block">
+                                
+                            </div>
     
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
@@ -150,24 +153,14 @@
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{request.user}}</span>
                                     {% for i in pho %} 
                                 <img  class="img-profile img-circle"
-                                src="media/{{i.img}}" alt="No profile pic">
+                                src="../../../../../../../../../../../../media/{{i.img}}" alt="No profile pic">
                                  {% endfor %}
-                                    {% comment %} <img class="img-profile rounded-circle" src="/static/img/undraw_profile.svg"> {% endcomment %}
                                 </a>
-                                <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" style="margin-right: 20px;" aria-labelledby="userDropdown">
-                                    {% comment %} <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Profile
-                                    </a> {% endcomment %}
                                     <a class="dropdown-item" href="{% url "auth" %}">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
-                                    {% comment %} <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Activity Log
-                                    </a> {% endcomment %}
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -178,30 +171,24 @@
     
                         </ul>
                     </div>
-                    {% comment %} <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
+                    <!-- Topbar Navbar -->
+                </nav>
+                <div class="containor">
+                    <div class="breadcrumb">
+                        <div class="btn-group dropright">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                root
+                            </button>
+                            <div class="dropdown-menu">
+                                {% for fl in folders %}
+                                    <li data-url="{{fl.fl.url}}"><a href="/folder/{{fl.name}}"> {{fl}} </a></li>
+                                {% endfor %}
                             </div>
                         </div>
-                    </form> {% endcomment %}
-
-                    <!-- Topbar Navbar -->
-                    
-
-                </nav>
+                    </div>
+                </div>
                 <!-- End of Topbar -->
                 {% block home %}
-
-
-
-
 
 
                 {% endblock %}
@@ -268,6 +255,7 @@
 
             <div class="modal fade bd-example-modal-lg" id="pdfModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
+                <form action="" type = 'post' enctype = "multipart/form-data" id="file-upload-frm" >
                 <div class="modal-content">
                 <div class="modal-header">
                     {% csrf_token %}
@@ -280,19 +268,69 @@
                     <embed src="" height="500px" width="750px" type="application/pdf" id="embed1" name="pdf_src"></embed>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Upload</button>
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" type="submit"  >Upload</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal" >Cancel</button>
                     </div>
                 </div>
+                </div>
+            </form>
             </div>
             </div>
-        <!-- <script>
-            function embed2({
-                out=document.getElementById(embed1).src;
-                console.login(out);
-                document.getElementById(embed2).href=out
-            });
-        </script> -->
+        <script>
+    const uploadForm = document.getElementById('file-upload-frm');
+    const input_file = document.getElementById('id_file');
+    const progress_bar = document.getElementById('file-pb');
+
+    $("#file-upload-frm").submit(function (e) {
+        e.preventDefault();
+        $form = $(this)
+        var formData = new FormData(this);
+        const media_data = input_file.files[0] || src;
+        console.log("----------------------------",media_data)
+        if (media_data != null) {
+            console.log(media_data);
+            progress_bar.classList.remove("hide-me");
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/',
+            data: formData,
+            dataType: 'json',
+            beforeSend: function () {
+            },
+            xhr: function () {
+                const xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener('progress', e => {
+                    if (e.lengthComputable) {
+                        const percentProgress = (e.loaded / e.total) * 100;
+                        //console.log(percentProgress);
+                        progress_bar.innerHTML = `<div class="progress-bar progress-bar-striped bg-success" type="application/pdf" role="progressbar" style="width: ${percentProgress}%" aria-valuenow="${percentProgress}" aria-valuemin="0" aria-valuemax="100">${percentProgress}</div>`
+                    }
+                });
+                return xhr
+            },
+            success: function (response) {
+                console.log(response);
+                uploadForm.reset()
+                window.setTimeout(function () {
+                    //$("#fileName").addClass('hide-me')
+                    //$("#fileSize").addClass('hide-me')
+                    //$("#fileType").addClass('hide-me')
+                    progress_bar.classList.add('hide-me')
+                }, 2000)
+                window.location.href = "/";
+            },
+            error: function (err) {
+                console.log(err);
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+        });
+    });
+
+        </script> 
         <!-- Bootstrap core JavaScript-->
         <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
         <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

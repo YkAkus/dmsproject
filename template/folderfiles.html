@@ -71,7 +71,7 @@
                                                 <label for="myfile">Select a file:</label>
                                                 <input type="hidden" name="folder" value="{{folder}}">
                                                 {% render_field form.file class="form-control" %}<br>
-                                                {% comment %} {% render_field form.title class="form-control" placeholder="Enter Title" %}<br> {% endcomment %}
+                                                {% render_field form.title class="form-control" placeholder="Enter Title" %}<br>
                                                 {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
                                                 <div class="col-md-11 col-sm-12 p-bar hide-me" id="file-pb"></div>
 
@@ -114,48 +114,6 @@
 
             <div class="w-100">
                 <div class="card">
-                    <div class="card-body" style="height:80px;">
-                        <div>
-                            <div class="row mb-3">
-                                <div class="col-xl-3 col-sm-6">
-                                    <div class="mt-2" style="display:flex ;">
-                                        <a href="{%url 'index'%}" class="btn"><i class="fa fa-home" aria-hidden="true"></i></a>
-                                        <button onclick="history.back()" class="btn"><i class="fa fa-arrow-left" aria-hidden="true"></i></button> &nbsp;&nbsp; 
-                                        <h5>{{name}}</h5>&nbsp;&nbsp;
-                                        <button onclick="history.forward()" class="btn"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                                <div class="col-xl-9 col-sm-6">
-                                    <form class="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
-                                        <div class="search-box mb-2 me-2">
-                                            <div class="position-relative">
-                                                <input type="text" class="form-control bg-light border-light rounded"
-                                                    placeholder="Search...">
-                                                <i class="fas fa-search-alt search-icon"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="dropdown mb-0">
-                                            <a class="btn btn-link text-muted mt-n2" role="button"
-                                                data-bs-toggle="dropdown" aria-haspopup="true">
-                                                <i class="fas fa-dots-vertical font-size-20"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Share
-                                                    Files</a>
-                                                <a class="dropdown-item" href="#">Share
-                                                    with me</a>
-                                                <a class="dropdown-item" href="#">Other
-                                                    Actions</a>
-                                            </div>
-                                        </div>
-
-
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="mt-4">
 
@@ -218,7 +176,7 @@
                                         
                                                 $("#dv_rca{{file.id}}").bind('contextmenu', function (e) {
                                                     e.preventDefault(); // prevents default menu
-                                                    $("#popupRCA{{file.id}}").css({ position: "absolute", top: e.pageY-90, left: e.pageX-230, display: "block" });
+                                                    $("#popupRCA{{file.id}}").css({ position: "absolute", top: e.pageY-140, left: e.pageX-230, display: "block" });
                                                 });
                                                 // $(document).bind("click", function (event) {
                                                 //     document.getElementById("popupRC1{{file.id}}").display = "none";
@@ -232,6 +190,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
                 <!-- end card -->
             </div>

@@ -75,16 +75,14 @@ def openFolder(request, name):
     pho=Profile.objects.filter(user = request.user)
     if request.method == "POST":
         form = FolderFileForm(request.POST, request.FILES)
-        title = request.POST.get("title",None)
         folder = request.POST.get("folder",None)
         if form.is_valid():
             frm = form.save(commit=False)
-            frm.folder = Folder.objects.get(id = folder)
-            if title:
-                ext = ""
-                if "." in frm.file.url:
-                    ext = "."+frm.file.url.split(".")[-1]
-                frm.file.name = title+ext
+            frm.user = request.user
+            ext = ""
+            ext = frm.file.name
+            frm.name = ext
+            frm.file.name = ext
             frm.save()
             return JsonResponse({'status':True,'data':'Data uploaded'})
         else:
@@ -96,13 +94,11 @@ def openFolder(request, name):
 def allFile(request):
     if request.method == "POST":
         form = FileForm(request.POST, request.FILES)
-        
         if form.is_valid():
             frm = form.save(commit=False)
             frm.user = request.user
             ext = ""
-            if "/" in frm.file.url:
-                ext = frm.file.url.split("/")[-1]
+            ext = frm.file.name
             frm.name = ext
             frm.file.name = ext
             frm.save()
@@ -124,10 +120,6 @@ def FileView(request):
         "files" : files
     }
     return render(request, "fileUploader/myfiles.html", context)
-
-# @login_required
-# def auth(request):
-#     return render(request, "authority.html")
 
 
 @login_required
