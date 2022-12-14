@@ -219,10 +219,15 @@
                         <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             root
-                        </button>
+                    </button>
+                    {% if name %}
+                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false"> {{name}}
+                    {% endif %}
+                </button>
                         <div class="dropdown-menu">
                             {% for fl in folders %}
-                            <li data-url="{{fl.fl.url}}"><a href="/folder/{{fl.name}}"> {{fl}} </a></li>
+                            <li data-url="{{fl.fl.url}}"><a href="/folder/{{fl.name}}"> {{fl}}  </a></li>
                             {% endfor %}
                         </div>
                     </div>

@@ -34,7 +34,6 @@ class FileUploader(View):
                 return JsonResponse({'status':True,'data':'Folder Created'})
             else:
                 return JsonResponse({'status':False,'data':'Folder with same name already exists'})
-        
         form = FileForm(request.POST, request.FILES)
         # title = request.POST.get("title",None)
         if form.is_valid():
@@ -48,7 +47,6 @@ class FileUploader(View):
             return JsonResponse({'status':True,'data':'File uploaded'})
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
-    
 def auth(request):
     pho=Profile.objects.filter(user = request.user)
     if request.method == "POST":
@@ -90,7 +88,7 @@ def openFolder(request, name):
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
     obj = FolderFile.objects.filter(folder = Folder.objects.get(name = name),is_delete = False)
     form = FolderFileForm()
-    return render(request, "folderfiles.html", {'files':obj, 'form':form, 'folder':Folder.objects.get(name = name).id, 'name':name,'pho':pho})
+    return render(request, "folderfiles.html", {'files':obj, 'form':form, 'folder':Folder.objects.get(name = name).id,'name':name,'pho':pho})
     
 def allFile(request):
     if request.method == "POST":
