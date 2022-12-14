@@ -108,12 +108,12 @@
                                     </div>
                                 </li>
                                 {% endfor %}
-                                <li>
+                                {% comment %} <li>
                                     <a href="/trash/" class="text-body d-flex align-items-center btn btn-light w-100">
                                         <i class="fas fa-trash-can text-danger font-size-16 me-2"></i>
                                         <span class="me-auto">Trash</span>
                                     </a>
-                                </li>
+                                </li> {% endcomment %}
                             </ul>
                         </div>
                         <div class="mt-auto">
@@ -227,11 +227,17 @@
                                                     <a data-url="{{file.url}}"
                                                         onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
                                                         class="dropdown-item share-file" href="#">Share</a>
+                                                    <a class="dropdown-item"
+                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        href="#">permission</a>
+                                                    <a class="dropdown-item"
+                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        href="#">Groups</a>
                                                     <div class="dropdown-divider">
                                                     </div>
                                                     <a data-id="{{file.id}}"
                                                         onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
-                                                        class="dropdown-item remove-file" href="#">Remove</a>
+                                                        class="dropdown-item remove-file" href="#">Delete</a>
                                                 </div>
                                             </td>
                                         </tr>

@@ -134,7 +134,7 @@ $(document).on("click", ".open-file", function() {
 $(document).on("click", ".preview-pdf", function() {
     var url = $(this).data("url");
     //console.log(url);
-    embed.src = url + "#toolbar=1";
+    embed.src = url + "#toolbar=1"; 
     // window.open(`${url}`, '_blank');
 })
 $(document).on("dblclick", ".db-click", function() {

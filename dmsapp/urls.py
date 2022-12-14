@@ -14,5 +14,6 @@ urlpatterns = [
     path('restore-file/', views.restoreFile, name="restore-file"),
     path('trash/', views.remFileView, name="trash"),
     path("auth",views.auth,name="auth"),
+    path("search",views.search,name="search"),
     path("folder/<str:name>/",views.openFolder,name="folder-data"),
 ]

@@ -48,6 +48,7 @@ class FileUploader(View):
             return JsonResponse({'status':True,'data':'File uploaded'})
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
+    
 def auth(request):
     pho=Profile.objects.filter(user = request.user)
     if request.method == "POST":
@@ -186,3 +187,12 @@ def makeFav(request):
         file.is_fav = True
     file.save()
     return JsonResponse({"data":file.is_fav})
+def search(request):
+    pho=Profile.objects.filter(user = request.user)
+    if request.method=="POST":
+        searched=request.POST['searched']
+        serfol= Folder.objects.filter(name__contains=searched)
+        serfil=File.objects.filter(name__contains=searched)
+        return render(request,"search.html",{'searched':searched,'serfol':serfol,"serfil":serfil,'pho':pho})
+    else:
+        return render(request,"search.html")

@@ -162,11 +162,17 @@
                                                     <a data-url="{{file.url}}"
                                                         onClick="$('#popupRCA{{file.id}}').css({ display: 'none' });"
                                                         class="dropdown-item share-file" href="#">Share</a>
-                                                    <div class="dropdown-divider">
+                                                    <a class="dropdown-item"
+                                                        onClick="$('#popupRCA{{file.id}}').css({ display: 'none' });"
+                                                        href="#">permission</a>
+                                                    <a class="dropdown-item"
+                                                        onClick="$('#popupRCA{{file.id}}').css({ display: 'none' });"
+                                                        href="#">Groups</a>
+                                                        <div class="dropdown-divider">
                                                     </div>
                                                     <a data-id="{{file.id}}"
                                                         onClick="$('#popupRCA{{file.id}}').css({ display: 'none' });"
-                                                        class="dropdown-item remove-file" href="#">Remove</a>
+                                                        class="dropdown-item remove-file" href="#">Delete</a>
                                                 </div>
                                                
                                             </td>
