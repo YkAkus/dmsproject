@@ -6,6 +6,7 @@
 
 {% if searched %}
 <h1> You have search '{{searched}}' </h1>
+
 <div class="table-responsive" style="padding-bottom:200px;">
     <table class="table align-middle table-nowrap table-hover mb-0">
         <thead>
@@ -18,6 +19,7 @@
             </tr>
         </thead>
         <tbody>
+            {% if serfol %}
             {% for folder in serfol %}
             <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{folder.id}}"
                 data-name="{{folder.name}}">
@@ -80,6 +82,7 @@
             </script>
 
             {% endfor %}
+            {% endif %}
             {% if serfil %}
             {% for file in serfil %}
             <tr data-url="{{file.file.url}}" class="db-click" id="dv_rc1{{file.id}}">
@@ -137,7 +140,6 @@
             </script>
             {% endfor %}
             {% else %}
-            <h4> No file  </h4>
             {% endif %}
         </tbody>
     </table>
