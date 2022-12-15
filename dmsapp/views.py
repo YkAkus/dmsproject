@@ -35,16 +35,27 @@ class FileUploader(View):
             else:
                 return JsonResponse({'status':False,'data':'Folder with same name already exists'})
         form = FileForm(request.POST, request.FILES)
-        # title = request.POST.get("title",None)
+        check=request.POST.get("coupon_question",None)
         if form.is_valid():
             frm = form.save(commit=False)
             frm.user = request.user
-            ext = ""
-            ext = frm.file.name
-            frm.name = ext
-            frm.file.name = ext
-            frm.save()
-            return JsonResponse({'status':True,'data':'File uploaded'})
+            if check == "1":
+                name = request.POST.get("name",None)
+                print("---------------------",name)
+                if name:
+                    ext = ""
+                    if "." in frm.file.url:
+                        ext = "."+frm.file.url.split(".")[-1]
+                    frm.file.name = name+ext
+                    frm.save()
+                return JsonResponse({'status':True,'data':'File uploaded'})
+            else:
+                ext = ""
+                ext = frm.file.name
+                frm.name = ext
+                frm.file.name = ext
+                frm.save()
+                return JsonResponse({'status':True,'data':'File uploaded'})
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
 def auth(request):

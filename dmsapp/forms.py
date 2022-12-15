@@ -1,11 +1,14 @@
 from dataclasses import fields
 from django.forms import ModelForm,forms
+from django import forms
 from .models import File, Folder, FolderFile,Profile
 from django.contrib.auth.models import User
 class FileForm(ModelForm):
+    name = forms.CharField(required=False)
     class Meta:
         model = File
-        fields = ['desc','file']
+        fields = ['name','desc','file']
+
 
 class FolderFileForm(ModelForm):
     class Meta:

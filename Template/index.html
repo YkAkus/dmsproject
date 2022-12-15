@@ -14,9 +14,17 @@
     img:hover {
         box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
     }
+    .answer { display:none }
 </style>
+<script>
+    $(function() {
+        $("#coupon_question").on("click",function() {
+          $(".answer").toggle(this.checked);
+        });
+      });
+</script>
 <!-- jQuery should be at least version 1.7 -->
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <div class="d-xl-flex">
     <div class="w-100">
         <div class="d-md-flex">
@@ -81,7 +89,16 @@
                                             <div class="modal-body">
                                                 <label for="myfile">Select a file:</label>
                                                 {% render_field form.file class="form-control" %}<br>
-                                                {% comment %} {% render_field form.title class="form-control placeholder="Enter Title" %}<br> {% endcomment %}
+                                                <fieldset class="question">
+                                                    <label for="coupon_question">Do you want to Edit a file name?</label>
+                                                    <input id="coupon_question" type="checkbox" name="coupon_question" value="1" />
+                                                    <span class="item-text">Yes</span>
+                                                  </fieldset>
+                                                  <fieldset class="answer">
+                                                    {% comment %} <input type="text" class="form-control" name="name" placeholder="Enter Name" id="coupon_field" />  {% endcomment %}
+                                                    {% render_field form.name class="form-control" placeholder="Enter Name" %} <br>
+                                                  </fieldset>
+                                                
                                                 {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
                                                 <div class="col-md-11 col-sm-12 p-bar hide-me" id="file-pb"></div>
                                             </div>

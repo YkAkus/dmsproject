@@ -234,3 +234,4 @@ $(document).on('click', function(e) {
         $(".my-drop-down").hide();
     }
 });
+
