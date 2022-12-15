@@ -41,14 +41,20 @@ class FileUploader(View):
             frm.user = request.user
             if check == "1":
                 name = request.POST.get("name",None)
-                print("---------------------",name)
                 if name:
                     ext = ""
                     if "." in frm.file.url:
                         ext = "."+frm.file.url.split(".")[-1]
                     frm.file.name = name+ext
                     frm.save()
-                return JsonResponse({'status':True,'data':'File uploaded'})
+                    return JsonResponse({'status':True,'data':'File uploaded'})
+                else:
+                    ext = ""
+                    ext = frm.file.name
+                    frm.name = ext
+                    frm.file.name = ext
+                    frm.save()
+                    return JsonResponse({'status':True,'data':'File uploaded'})
             else:
                 ext = ""
                 ext = frm.file.name

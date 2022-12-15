@@ -22,9 +22,16 @@
           $(".answer").toggle(this.checked);
         });
       });
+      function toggle(source) {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i] != source)
+                checkboxes[i].checked = source.checked;
+        }
+    }
 </script>
 <!-- jQuery should be at least version 1.7 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <div class="d-xl-flex">
     <div class="w-100">
         <div class="d-md-flex">
@@ -95,10 +102,8 @@
                                                     <span class="item-text">Yes</span>
                                                   </fieldset>
                                                   <fieldset class="answer">
-                                                    {% comment %} <input type="text" class="form-control" name="name" placeholder="Enter Name" id="coupon_field" />  {% endcomment %}
                                                     {% render_field form.name class="form-control" placeholder="Enter Name" %} <br>
                                                   </fieldset>
-                                                
                                                 {% render_field form.desc class="form-control" placeholder="Enter Description" %}<br>
                                                 <div class="col-md-11 col-sm-12 p-bar hide-me" id="file-pb"></div>
                                             </div>
@@ -151,18 +156,20 @@
                                 <table class="table align-middle table-nowrap table-hover mb-0">
                                     <thead>
                                         <tr>
+                                            <th scope="col" style="width:120px;"><input type="checkbox" onclick="toggle(this);" /> Select all?<br /></th>
                                             <th scope="col">Name</th>
+                                            <th scope="col">Description</th>
                                             <th scope="col">Date modified</th>
                                             <th scope="col">Favourite</th>
-                                            <th scope="col" colspan="2">Size
-                                            </th>
+                                            <th scope="col" colspan="2">Size</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                 {% for folder in folders %}
-                                        <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
+                                        <tr data-url="{{folder.folder.url}}" class="db-click" id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
+                                            <td><input type="checkbox" /></td>
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
-                                                    {{folder}}</a></td>
+                                                    {{folder}}</a></td><td></td>
                                             <td>{{folder.date|date:'Y-m-d H:i'}}</td><td></td>
                                             <td>{% if folder.totalFolder == 0 %}Empty{% elif folder.totalFolder > 1 %}{{folder.totalFolder}} Files{% else %}{{folder.totalFolder}} File{% endif %}</td>
                                         </tr>
@@ -211,9 +218,11 @@
                             {% endfor %}
                             {% for file in files %}
                                         <tr data-url="{{file.file.url}}" class="db-click" id= "dv_rc1{{file.id}}">
+                                            <td><input type="checkbox" /></td>
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
                                                 class="fa fa-file font-size-16 align-middle text-primary me-2"></i>
                                                     {{file}}</a></td>
+                                            <td>{{file.desc}} </td>
                                             <td>{{file.date|date:'Y-m-d H:i'}}</td>
                                             <td><i data-id="{{file.id}}"
                                                     class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
