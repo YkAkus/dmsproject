@@ -161,7 +161,6 @@ def deleteFile(request):
 @login_required
 def deleteFolder(request):
     id = request.POST["id"]
-    print("------------------------------------------------",id)
     folder = Folder.objects.get(id = id)
     folder.delete()
     return JsonResponse({"data":True})
