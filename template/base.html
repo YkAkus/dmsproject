@@ -227,7 +227,7 @@
                 </button>
                         <div class="dropdown-menu">
                             {% for fl in folders %}
-                            <li data-url="{{fl.fl.url}}"><a href="/folder/{{fl.name}}"> {{fl}}  </a></li>
+                            <li data-url="{{fl.fl.url}}"><a class="dropdown-item" href="/folder/{{fl.name}}"> {{fl}}  </a></li>
                             {% endfor %}
                         </div>
                     </div>

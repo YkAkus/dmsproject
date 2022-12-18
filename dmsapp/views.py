@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from requests import request
 from .forms import FileForm, FolderForm, FolderFileForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.views import View
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -14,12 +14,15 @@ class FileUploader(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect("login")
-        obj = File.objects.filter(user = request.user, is_delete=False)
+        obj = File.objects.filter( is_delete=False)
         pho = Profile.objects.filter(user = request.user)
-        folder = Folder.objects.filter(user = request.user, is_delete=False)
+        folder = Folder.objects.filter( is_delete=False)
+        group = Group.objects.get(name="client")
+        permission = group.permissions.all()
         form = FileForm()
         folderForm = FolderForm()
-        return render(request, 'index.html', {'form': form,'folderform':folderForm, 'files':obj, 'folders':folder,"pho":pho})
+        return render(request, 'index.html', {'form': form,'folderform':folderForm, 'files':obj, 'folders':folder,
+                                            "pho":pho, "permissions":permission,})
 
     def post(self, request):
         if not request.user.is_authenticated:
@@ -65,7 +68,20 @@ class FileUploader(View):
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
 def auth(request):
+    if request.method == 'POST':
+        
+        group = request.POST.get('group')
+        user = request.POST.get('user')
+        User.objects.get(id = user).groups.clear()
+        get_group = Group.objects.get(name=group)
+        get_group.user_set.add(user)
+        # for i in User.objects.get(id = user).groups.all():
+        #     get_group = Group.objects.get(name=i)
+        #     user.groups.remove()
+        return redirect("/auth")
     pho=Profile.objects.filter(user = request.user)
+    groups=Group.objects.all()
+    alluser=User.objects.all()
     if request.method == "POST":
         u=User.objects.get(username=request.user)
         u.first_name=request.POST.get("firstName",None)
@@ -85,7 +101,7 @@ def auth(request):
         obj= Profile.objects.get(user=request.user)
     except:
         obj= Profile.objects.create(user=request.user)
-    return render(request,"auth.html",{"pho":pho})
+    return render(request,"auth.html",{"pho":pho,"groups":groups,"alluser":alluser})
 
 def openFolder(request, name):
     pho=Profile.objects.filter(user = request.user)
@@ -122,7 +138,7 @@ def allFile(request):
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
     form = FileForm()
-    obj = File.objects.filter(user = request.user, is_delete=False)
+    obj = File.objects.filter( is_delete=False)
     return render(request, "allfiles.html", {'files':obj, 'form':form})
 
 def viewFile(request, url):
@@ -131,7 +147,7 @@ def viewFile(request, url):
 
 @login_required
 def FileView(request):
-    files = File.objects.filter(user = request.user, is_delete=False)
+    files = File.objects.filter( is_delete=False)
     context = {
         "files" : files
     }
@@ -140,7 +156,7 @@ def FileView(request):
 
 @login_required
 def favFileView(request):
-    files = File.objects.filter(user = request.user, is_delete=False, is_fav=True)
+    files = File.objects.filter( is_delete=False, is_fav=True)
     context = {
         "files" : files
     }
@@ -148,7 +164,7 @@ def favFileView(request):
 
 @login_required
 def remFileView(request):
-    files = File.objects.filter(user = request.user, is_delete=True)
+    files = File.objects.filter( is_delete=True)
     context = {
         "files" : files
     }
