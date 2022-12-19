@@ -16,10 +16,10 @@ class FileUploader(View):
             return redirect("login")
         obj = File.objects.filter( is_delete=False)
         pho = Profile.objects.filter(user = request.user)
-        folder = Folder.objects.filter( is_delete=False)
+        folder = Folder.objects.filter(is_delete=False)
         form = FileForm()
         folderForm = FolderForm()
-        group = Group.objects.get(name="admin")
+        group = Group.objects.get(name="client")
         permission = group.permissions.all()
         return render(request, 'index.html', {'form': form,'folderform':folderForm, 'files':obj, 'folders':folder,
                                             "pho":pho, "permissions":permission,})
@@ -72,6 +72,8 @@ def auth(request):
         # for i in User.objects.get(id = user).groups.all():
         #     get_group = Group.objects.get(name=i)
         #     user.groups.remove()
+    tfile=File.objects.filter( is_delete=False).count()
+    tfolder = Folder.objects.filter(is_delete=False).count()
     pho=Profile.objects.filter(user = request.user)
     groups=Group.objects.all()
     alluser=User.objects.all()
@@ -95,12 +97,12 @@ def auth(request):
             User.objects.get(id = user).groups.clear()
             get_group = Group.objects.get(name=group)
             get_group.user_set.add(user)
-        return redirect("/auth",{"pho":pho})
+        return redirect("/auth",{"pho":pho,'tfile':tfile,'tfolder':tfolder})
     try:
         obj= Profile.objects.get(user=request.user)
     except:
         obj= Profile.objects.create(user=request.user)
-    return render(request,"auth.html",{"pho":pho,"groups":groups,"alluser":alluser})
+    return render(request,"auth.html",{"pho":pho,"groups":groups,"alluser":alluser,'tfile':tfile,'tfolder':tfolder})
 
 def openFolder(request, name):
     pho=Profile.objects.filter(user = request.user)

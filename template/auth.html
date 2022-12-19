@@ -654,6 +654,42 @@
         border: 1px solid #ccc;
         border-top: none;
     }
+    /* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 5px;
+}
+
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #444;
+  color: white;
+}
+
+.fa {font-size:50px;}
+
 </style>
 <div class="row p-3 justify-content-center">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -681,13 +717,12 @@
                                             class="fa fa-user"></span>Profile</a></li>
                                 <li><a data-toggle="tab" onclick="openCity(event, 'Settings')"><span
                                             class="fa fa-cog"></span> Settings</a></li>
+                                <li><a data-toggle="tab" onclick="openCity(event, 'admin_tools')"><span
+                                            class="fa fa-envelope"></span> Admin Tools</a></li>
                                 <li><a data-toggle="tab" onclick="openCity(event, 'Messages')"><span
                                             class="fa fa-envelope"></span> Messages</a></li>
-
                                 <li><a data-toggle="tab" href="user-drive.html"><span class="fa fa-th"></span> Drive</a>
                                 </li>
-                                <li><a data-toggle="tab" onclick="openCity(event, 'Reminders')"><span
-                                            class="fa fa-clock-o"></span> Reminders</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -707,9 +742,6 @@
                                     </figure>
                                     <div class="form-inline col-md-10 col-sm-9 col-xs-12">
                                         <input type="file" multiple name="uploadimg" class="file-uploader pull-left">
-                                        {% comment %} <button type="submit"
-                                            class="btn btn-sm btn-default-alt btn-primary pull-left ">Update
-                                            Image</button> {% endcomment %}
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -759,36 +791,77 @@
                             </div>
                         </form>
                     </div>
-                </div>
-                {% if request.user.is_superuser %}
-                <div id="Settings" class="content-panel tabcontent">
-                    <h1> Settings</h1>
-                    <form action="" method="post">
-                        {% csrf_token %}
-                         <div class="card" style="width: 18rem; display: flex;">
-                        <select class="dropdown-toggle form-control" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="user">
-                        <option class="dropdown-item" value="">Select</option>
-                        {% for au in alluser %}
-                        <option class="dropdown-item" value="{{au}}">{{au}}</option>
-                        {% endfor %}
-                    </select>
-                    <select class="dropdown-toggle form-control" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="group">
-                    <option class="dropdown-item" value="">Select</option>
-                            {% for gr in groups %}
-                            <option class="dropdown-item" value="{{gr}}">{{gr}}</option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit" class="btn btn-success">Save</button>
-                    </form>
-                </div>
-            </br></br></br></br></br>
-            <a href="{% url 'perm' %}"> <button type="button" class="btn btn-secondary btn-lg btn-block" href="">Get permission</button></a>
-                {% endif %}
+
+                    {% if request.user.is_superuser %}
+                    <div id="Settings" class="content-panel tabcontent">
+                        <h1> Settings</h1>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="card" style="width: 36rem; display: flex; flex-direction: row;">
+                                <select class="dropdown-toggle form-control" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="user">
+                                    <option class="dropdown-item" value="">Select</option>
+                                    {% for au in alluser %}
+                                    <option class="dropdown-item" value="{{au}}">{{au}}</option>
+                                    {% endfor %}
+                                </select>
+                                <select class="dropdown-toggle form-control" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="group">
+                                    <option class="dropdown-item" value="">Select</option>
+                                    {% for gr in groups %}
+                                    <option class="dropdown-item" value="{{gr}}">{{gr}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </form>
+                        </br></br></br>
+                        <a href="{% url 'perm' %}"> <button type="button" class="btn btn-secondary btn-lg btn-block"
+                                href="">Get permission</button></a>
+                        {% endif %}
             </section>
+            {% if request.user.is_superuser %}
+            <div id="admin_tools" class="content-panel tabcontent">
+                <h1>Admin Tools</h1>
+                <div class="row">
+                    <div class="column">
+                      <div class="card">
+                        <p><i class="fa fa-folder"></i></p>
+                        <h3>{{tfolder}}</h3>
+                        <p>Total Folder</p>
+                      </div>
+                    </div>
+                  
+                    <div class="column">
+                      <div class="card">
+                        <p><i class="fa fa-file"></i></p>
+                        <h3>{{tfile}}</h3>
+                        <p>Total Files</p>
+                      </div>
+                    </div>
+                    
+                    <div class="column">
+                      <div class="card">
+                        <p><i class="fa fa-smile-o"></i></p>
+                        <h3>100+</h3>
+                        <p>Happy Clients</p>
+                      </div>
+                    </div>
+                    
+                    <div class="column">
+                      <div class="card">
+                        <p><i class="fa fa-coffee"></i></p>
+                        <h3>100+</h3>
+                        <p>Meetings</p>
+                      </div>
+                    </div>
+                  </div>
+                
+            </div>
+            {% endif %}
         </div>
     </div>
+</div>
 </div>
 <script>
     function myFunction() {
