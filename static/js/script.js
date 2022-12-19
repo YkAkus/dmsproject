@@ -37,7 +37,7 @@ $(document).on(" click ", ".remove-file", function() {
     id = me.data("id");
     Swal.fire({
         title: 'Are you sure?',
-        text: "You can recover you file from Trash!",
+        text: "You can remove your file from Trash!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -67,6 +67,42 @@ $(document).on(" click ", ".remove-file", function() {
         }
     })
 })
+$(document).on(" click ", ".remove-folder", function() {
+    me = $(this);
+    id = me.data("id");
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You can remove your folder from Trash!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                "url": "/remove-folders/",
+                "type": "POST",
+                "data": {
+                    "csrfmiddlewaretoken": csrfcookie(),
+                    "id": id
+                },
+                success: function(response) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your folder has been deleted.',
+                        'success'
+                    )
+                    me.parent().parent().parent().parent().remove();
+                },
+                error: function(error) {
+                    console.log(error);
+                },
+            });
+        }
+    })
+})
+
 $(document).on("click", ".make-fav", function() {
     me = $(this);
     id = me.data("id");
@@ -93,12 +129,12 @@ $(document).on("click", ".make-fav", function() {
 })
 $(document).on("click", ".open-file", function() {
     var url = $(this).data("url");
-    window.open(`${url}`, '_blank');
+    window.open(`${url}`,'');
 })
 $(document).on("click", ".preview-pdf", function() {
     var url = $(this).data("url");
-    console.log(url);
-    embed.src = url + "#toolbar=0";
+    //console.log(url);
+    embed.src = url + "#toolbar=1"; 
     // window.open(`${url}`, '_blank');
 })
 $(document).on("dblclick", ".db-click", function() {
@@ -198,3 +234,4 @@ $(document).on('click', function(e) {
         $(".my-drop-down").hide();
     }
 });
+

@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}Search...{% endblock %}
+{% block home %}
+
+
+{% if searched %}
+<h1> You have search '{{searched}}' </h1>
+
+<div class="table-responsive" style="padding-bottom:200px;">
+    <table class="table align-middle table-nowrap table-hover mb-0">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date modified</th>
+                <th scope="col">Favourite</th>
+                <th scope="col" colspan="2">Size
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if serfol %}
+            {% for folder in serfol %}
+            <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{folder.id}}"
+                data-name="{{folder.name}}">
+                <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
+                            class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
+                        {{folder}}</a></td>
+                <td>{{folder.date|date:'Y-m-d H:i'}}</td>
+                <td></td>
+                <td>{% if folder.totalFolder == 0 %}Empty{% elif folder.totalFolder > 1 %}{{folder.totalFolder}} Files{% else %}{{folder.totalFolder}} File{% endif %}</td>
+            </tr>
+            <!-- menu -->
+            <div class="panel panel-primary my-drop-down" id="popupRC{{folder.id}}"
+                style=" background-color:whitesmoke; display:none;">
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
+                    data-toggle="modal" data-target="#myModal" href="#">Upload
+                    file</a>
+                <a class="dropdown-item openfolder" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
+                    data-name="{{folder.name}}" href="#">Open</a>
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Create
+                    Folder</a>
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Edit
+                    File</a>
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Enable
+                    Client View</a>
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
+                    href="#">Important
+                    (Mark)</a>
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Mark
+                    favorites to Create Shortcut</a>
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
+                    href="#">Move</a>
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
+                    href="#">Download</a>
+                <a data-id="{{folder.id}}" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
+                    class="dropdown-item remove-folder" href="#">Delete</a>
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Rename
+                </a>
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
+                    href="#">Details/Properties </a>
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Short
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Send
+                    Mail
+                    Notification</a>
+            </div>
+            <script>
+                $(document).ready(function () {
+
+                    $("#dv_rc{{folder.id}}").bind('contextmenu', function (e) {
+                        e.preventDefault(); // prevents default menu 
+
+                        $("#popupRC{{folder.id}}").css({ position: "absolute", top: e.pageY, left: e.pageX, display: "block" });
+                    });
+                    $(document).bind("click", function (event) {
+                        document.getElementsByClassName("popupRC").display = "none";
+                    })
+                });
+
+            </script>
+
+            {% endfor %}
+            {% endif %}
+            {% if serfil %}
+            {% for file in serfil %}
+            <tr data-url="{{file.file.url}}" class="db-click" id="dv_rc1{{file.id}}">
+                <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
+                            class="fa fa-file font-size-16 align-middle text-primary me-2"></i>
+                        {{file}}</a></td>
+                <td>{{file.date|date:'Y-m-d H:i'}}</td>
+                <td><i data-id="{{file.id}}"
+                        class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
+                </td>
+                <td>{{file.file.size|filesizeformat}}</td>
+                <td>
+                    <!-- <div class="dropdown">
+                                                     <a class="font-size-16 text-muted" role="button"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true">
+                                                        <i class="fas fa-ellipsis-h"></i>
+                                                    </a>
+                                                </div> -->
+                    <div class="dropdown-menu dropdown-menu-end my-drop-down" id="popupRC1{{file.id}}">
+                        <a data-url="{{file.file.url}}" onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                            class="dropdown-item preview-pdf" href="#" data-toggle="modal"
+                            data-target="#pdfModal">Preview</a>
+                        <a data-url="{{file.file.url}}" onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                            class="dropdown-item open-file" href="#">Open</a>
+                        <a class="dropdown-item" onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                            href="#">Edit</a>
+                        <a class="dropdown-item" onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                            href="#">Rename</a>
+                        <a data-url="{{file.url}}" onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                            class="dropdown-item share-file" href="#">Share</a>
+                        <a class="dropdown-item" onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                            href="#">permission</a>
+                        <a class="dropdown-item" onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                            href="#">Groups</a>
+                        <div class="dropdown-divider">
+                        </div>
+                        <a data-id="{{file.id}}" onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                            class="dropdown-item remove-file" href="#">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            <script>
+                $(document).ready(function () {
+
+                    $("#dv_rc1{{file.id}}").bind('contextmenu', function (e) {
+                        e.preventDefault(); // prevents default menu 
+
+                        $("#popupRC1{{file.id}}").css({ position: "absolute", top: e.pageY, left: e.pageX, display: "block" });
+
+                    });
+                    // $(document).bind("click", function (event) {
+                    //     document.getElementById("popupRC1{{file.id}}").display = "none";
+                    // })
+                });
+            </script>
+            {% endfor %}
+            {% else %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+            {% else %}
+            <h1> Pls Enter item name on search text box </h1>
+            {% endif %}
+
+
+
+            {% endblock %}
