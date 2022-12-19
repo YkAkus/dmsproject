@@ -1,6 +1,7 @@
 from django.urls import path
-from dmsapp import views
+from dmsapp import views, views_perm
 from django.contrib.auth.decorators import login_required
+from .views_perm import GP
 
 urlpatterns = [
     path('', login_required(views.FileUploader.as_view()),name='index'),
@@ -13,4 +14,6 @@ urlpatterns = [
     path('trash/', views.remFileView, name="trash"),
     path("auth",views.auth,name="auth"),
     path("folder/<str:name>/",views.openFolder,name="folder-data"),
+    path("all/perm/",views_perm.allperm,name="allperm"),
+    path("perm/",GP.as_view(),name="Perm"),
 ]
