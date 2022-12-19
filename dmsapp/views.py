@@ -17,10 +17,10 @@ class FileUploader(View):
         obj = File.objects.filter( is_delete=False)
         pho = Profile.objects.filter(user = request.user)
         folder = Folder.objects.filter( is_delete=False)
-        group = Group.objects.get(name="client")
-        permission = group.permissions.all()
         form = FileForm()
         folderForm = FolderForm()
+        group = Group.objects.get(name="client")
+        permission = group.permissions.all()
         return render(request, 'index.html', {'form': form,'folderform':folderForm, 'files':obj, 'folders':folder,
                                             "pho":pho, "permissions":permission,})
 
