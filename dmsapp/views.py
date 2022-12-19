@@ -68,17 +68,10 @@ class FileUploader(View):
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
 def auth(request):
-    if request.method == 'POST':
         
-        group = request.POST.get('group')
-        user = request.POST.get('user')
-        User.objects.get(id = user).groups.clear()
-        get_group = Group.objects.get(name=group)
-        get_group.user_set.add(user)
         # for i in User.objects.get(id = user).groups.all():
         #     get_group = Group.objects.get(name=i)
         #     user.groups.remove()
-        return redirect("/auth")
     pho=Profile.objects.filter(user = request.user)
     groups=Group.objects.all()
     alluser=User.objects.all()
@@ -96,6 +89,12 @@ def auth(request):
         for i in img:
             obj.img=i
         obj.save()
+        group = request.POST.get('group')
+        user = request.POST.get('user')
+        if group and user != None:
+            User.objects.get(id = user).groups.clear()
+            get_group = Group.objects.get(name=group)
+            get_group.user_set.add(user)
         return redirect("/auth",{"pho":pho})
     try:
         obj= Profile.objects.get(user=request.user)
