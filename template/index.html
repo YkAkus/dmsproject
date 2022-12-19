@@ -185,18 +185,26 @@
                                             Folder</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Edit
                                             File</a>
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Enable
+                                            {% if not request.user|has_group:"client" %}
+                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="{% url 'perm' %}">Enable
                                             Client View</a>
+                                            {% endif %}
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Important
                                             (Mark)</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Mark
                                             favorites to Create Shortcut</a>
+                                        {% if not request.user|has_group:"client" %}
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Move</a>
+                                        {% endif %}
+                                        {% if request.user|has_group:"admin" %}
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Download</a>
                                         <a data-id="{{folder.id}}"  onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" class="dropdown-item remove-folder"  href="#">Delete</a>
+                                        {% endif %}
+                                        {% if not request.user|has_group:"client" %}
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Rename </a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
                                             href="#">Details/Properties </a>
+                                        {% endif %}
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Short </a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Send Mail

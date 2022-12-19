@@ -14,9 +14,9 @@ urlpatterns = [
     path('make-fav/', views.makeFav, name="fav-file"),
     path('restore-file/', views.restoreFile, name="restore-file"),
     path('trash/', views.remFileView, name="trash"),
-    path("auth",views.auth,name="auth"),
-    path("search",views.search,name="search"),
+    path("auth/",views.auth,name="auth"),
+    path("search/",views.search,name="search"),
     path("folder/<str:name>/",views.openFolder,name="folder-data"),
     path("all/perm/",views_perm.allperm,name="allperm"),
-    path("perm/",GP.as_view(),name="Perm"),
+    path("perm/",GP.as_view(),name="perm"),
 ]
