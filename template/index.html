@@ -265,13 +265,22 @@
                                                     <a data-url="{{file.url}}"
                                                         onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
                                                         class="dropdown-item share-file" href="#">Share</a>
-                                                    <a class="dropdown-item"
-                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
-                                                        href="#">permission</a>
-                                                    <a class="dropdown-item"
-                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
-                                                        href="#">Groups</a>
+                                                        <div class="btn-group dropright">
+                                                            <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                            {% comment %} onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });" {% endcomment %}
+                                                            href="#">permission</a>
+                                                            <div class="dropdown-menu">
+                                                                {% for g in groups %}
+                                                                <a class="dropdown-item"
+                                                                onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                                href="#">{{g}}</a>
+                                                                {% endfor %}
+                                                            </div>
+                                                        </div>
                                                         {% if not request.user|has_group:"client" %} 
+                                                    <a class="dropdown-item"
+                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        href="{% url 'perm' %}">Groups</a>
                                                         <div class="dropdown-divider">
                                                         </div>
                                                         <a data-id="{{file.id}}"

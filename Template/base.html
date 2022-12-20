@@ -54,7 +54,7 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" style="height:150px"
-                href="{% url 'index'%}">
+                href="#">
                 <div class="sidebar-brand-icon" style="margin:10px;">
                     <img src="{% static 'img/logo.png' %}" style="width: 60px; height: 60px;">
                 </div>
@@ -69,7 +69,7 @@
             </div>
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="{%url 'index'%}">
+                <a class="nav-link" href="#">
                     <span>Dashboard</span></a>
 
             </li>
@@ -126,7 +126,9 @@
                                 <a href="{%url 'index'%}" class="btn"><i class="fa fa-home" aria-hidden="true"></i></a>
                                 <button onclick="history.back()" class="btn"><i class="fa fa-arrow-left"
                                         aria-hidden="true"></i></button> &nbsp;&nbsp;
-                                <h5>{%if name %}{{name}}{% else %} root {% endif %} </h5>&nbsp;&nbsp;
+                                <a href='/'>
+                                <button onclick="history.back()" class="btn"><i class="fa fa-arrow-up"
+                                        aria-hidden="true"></i></button></a> &nbsp;&nbsp;
                                 <button onclick="history.forward()" class="btn"><i class="fa fa-arrow-right"
                                         aria-hidden="true"></i></button>
                             </div>
@@ -211,14 +213,18 @@
                     </ul>
                 </div>
             <!-- Topbar Navbar -->
+            
             </nav>
             <div class="containor">
                 <div class="breadcrumb">
                     <div class="btn-group dropright">
-                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <a href="{%url 'index'%}">
+                        <button button type="button" class="btn">
                             root
-                    </button>
+                        </button></a>
+                    <button type="button" class="btn  dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        
+                      </button>
                     {% if name %}
                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false"> {{name}}
@@ -233,10 +239,6 @@
                 </div>
             </div>
             <!-- End of Topbar -->
-        
-
-    
-            <!-- End of Footer -->
 
 
             {% block home %}

@@ -21,8 +21,9 @@ class FileUploader(View):
         folderForm = FolderForm()
         group = Group.objects.get(name="client")
         permission = group.permissions.all()
+        groups=Group.objects.all()
         return render(request, 'index.html', {'form': form,'folderform':folderForm, 'files':obj, 'folders':folder,
-                                            "pho":pho, "permissions":permission,})
+                                            "pho":pho, "permissions":permission,'groups':groups})
 
     def post(self, request):
         if not request.user.is_authenticated:
@@ -68,41 +69,41 @@ class FileUploader(View):
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
 def auth(request):
-        
         # for i in User.objects.get(id = user).groups.all():
         #     get_group = Group.objects.get(name=i)
         #     user.groups.remove()
-    tfile=File.objects.filter( is_delete=False).count()
+    tfile = File.objects.filter( is_delete=False).count()
     tfolder = Folder.objects.filter(is_delete=False).count()
+    tuser=User.objects.all().count()
     pho=Profile.objects.filter(user = request.user)
     groups=Group.objects.all()
     alluser=User.objects.all()
+    group = request.POST.get('group')
+    user = request.POST.get('user')
+    if group and user !=None:
+        User.objects.get(id = user).groups.clear()
+        get_group = Group.objects.get(name=group)
+        get_group.user_set.add(user)
     if request.method == "POST":
         u=User.objects.get(username=request.user)
         u.first_name=request.POST.get("firstName",None)
         u.last_name=request.POST.get("lastName",None)
-        u.save()
         try:
             obj= Profile.objects.get(user=request.user)
         except:
             obj= Profile.objects.create(user=request.user)
         obj.mobile=request.POST.get("mobile",None)
-        img=request.FILES.getlist("uploadimg")
+        img=request.FILES.getlist("uploading")
         for i in img:
             obj.img=i
         obj.save()
-        group = request.POST.get('group')
-        user = request.POST.get('user')
-        if group and user != None:
-            User.objects.get(id = user).groups.clear()
-            get_group = Group.objects.get(name=group)
-            get_group.user_set.add(user)
-        return redirect("/auth",{"pho":pho,'tfile':tfile,'tfolder':tfolder})
-    try:
-        obj= Profile.objects.get(user=request.user)
-    except:
-        obj= Profile.objects.create(user=request.user)
-    return render(request,"auth.html",{"pho":pho,"groups":groups,"alluser":alluser,'tfile':tfile,'tfolder':tfolder})
+        if u!=request.user:
+            u.save()
+        try:
+            obj= Profile.objects.get(user=request.user)
+        except:
+            obj= Profile.objects.create(user=request.user)
+    return render(request,"auth.html",{"pho":pho,"groups":groups,"alluser":alluser,'tfile':tfile,'tfolder':tfolder,'tuser':tuser})
 
 def openFolder(request, name):
     pho=Profile.objects.filter(user = request.user)
