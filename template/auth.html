@@ -730,6 +730,7 @@
                         <h2 class="title">Profile<span class="pro-label label label-warning">{{request.user.has_group}}</span></h2>
                         <form class="form-horizontal" enctype="multipart/form-data" method="post" action="">
                             {% csrf_token %}
+                            <input type="hidden" name="form_type" value="profile">
                             <fieldset class="fieldset">
                                 <h3 class="fieldset-title">Personal Info</h3>
                                 <div class="form-group avatar">
@@ -796,12 +797,13 @@
                         <h1> Settings</h1>
                         <form action="" method="post">
                             {% csrf_token %}
+                            <input type="hidden" name="form_type" value="perm">
                             <div class="card" style="width: 36rem; display: flex; flex-direction: row;">
                                 <select class="dropdown-toggle form-control" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="user">
                                     <option class="dropdown-item" value="">Select</option>
                                     {% for au in alluser %}
-                                    <option class="dropdown-item" value="{{au}}">{{au}}</option>
+                                    <option class="dropdown-item" value="{{au.id}}">{{au}}</option>
                                     {% endfor %}
                                 </select>
                                 <select class="dropdown-toggle form-control" id="dropdownMenuButton"
@@ -852,9 +854,10 @@
                     
                     <div class="column">
                       <div class="cardad">
-                        <p><i class="fa fa-coffee"></i></p>
-                        <h3>100+</h3>
-                        <p>Meetings</p>
+                        <p><i class="fa fa-share-alt-square"></i></p>
+                        <h3>{{tshaer}}</h3>
+                        <p>Shear file(View time)</p>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Open</button>
                       </div>
                     </div>
                   </div>
@@ -865,6 +868,40 @@
     </div>
 </div>
 </div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">All Shear Show Data</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <Table class="table">
+            <Tbody>
+                <th> Open By </th><th> Shear By </th><th> File Name </th><th> when Open </th>
+                {% for sh in shear %}
+                <tr>
+                    <td>{{sh.open_by}}</td>
+                    <td>{{sh.user}}</td>
+                    <td>{{sh.shear_file}}</td>
+                    <td>{{sh.opened_when}}</td>
+                </tr>
+                  
+                {% endfor %}
+            </Tbody>
+          </Table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 <script>
     function myFunction() {
         var x = document.getElementById("myInput");

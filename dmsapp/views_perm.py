@@ -43,7 +43,6 @@ class GP(View):
             group_django = Group.objects.get(name=data['groupname'])
             perm_set = Permission.objects.values("codename","id")
             perm_ids = []
-
             for i in perm_set:
                 for perm in p:
                     if perm.split(".")[1] in i["codename"]:
@@ -53,3 +52,6 @@ class GP(View):
             return render(request,'groups.html',{"all_group":all_group,'msg':'Permissions Set'})
         except Exception as e:
             pass
+def user_per(request):
+    
+    return JsonResponse()

@@ -129,7 +129,8 @@ $(document).on("click", ".make-fav", function() {
 })
 $(document).on("click", ".open-file", function() {
     var url = $(this).data("url");
-    window.open(`${url}`,'');
+    // window.open(`${url}`,'_self');
+    window.location.replace(`${url}`);
 })
 $(document).on("click", ".preview-pdf", function() {
     var url = $(this).data("url");

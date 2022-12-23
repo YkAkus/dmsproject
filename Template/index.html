@@ -168,7 +168,7 @@
                                     </thead>
                                     <tbody>
                                 {% for folder in folders %}
-                                        <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
+                                        <tr data-url="{{folder.folder.url}}" class="db-click" id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
                                             <td><input type="checkbox" /></td>
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
                                                     {{folder}}</a></td><td></td>
@@ -247,36 +247,31 @@
                                                         <i class="fas fa-ellipsis-h"></i>
                                                     </a>
                                                 </div> -->
-                                                <div class="dropdown-menu dropdown-menu-end my-drop-down"
+                                                <div class="dropdown-menu dropdown-menu-end my-drop-down openfolder"
                                                     id="popupRC1{{file.id}}">
                                                     <a data-url="{{file.file.url}}"
                                                         onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
                                                         class="dropdown-item preview-pdf" href="#" data-toggle="modal"
                                                         data-target="#pdfModal">Preview</a>
-                                                    <a data-url="{{file.file.url}}"
+                                                        <a data-url="{{file.file.url}}"
                                                         onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
                                                         class="dropdown-item open-file" href="#">Open</a>
-                                                    <a class="dropdown-item"
+                                                        <a class="dropdown-item"
                                                         onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
                                                         href="#">Edit</a>
-                                                    <a class="dropdown-item"
+                                                        <a class="dropdown-item"
                                                         onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
                                                         href="#">Rename</a>
-                                                    <a data-url="{{file.url}}"
+                                                        <a data-url="{{file.url}}"
                                                         onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
                                                         class="dropdown-item share-file" href="#">Share</a>
-                                                        <div class="btn-group dropright">
-                                                            <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                                            {% comment %} onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });" {% endcomment %}
-                                                            href="#">permission</a>
-                                                            <div class="dropdown-menu">
-                                                                {% for g in groups %}
-                                                                <a class="dropdown-item"
-                                                                onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
-                                                                href="#">{{g}}</a>
-                                                                {% endfor %}
-                                                            </div>
-                                                        </div>
+                                                        {% comment %} <a data-url="{{file.url}}"
+                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        class="dropdown-item share-file" href="#">permission</a> {% endcomment %}
+                                                        <a data-url="{{file.file.url}}"
+                                                            onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                            class="dropdown-item" href="#" data-toggle="modal"
+                                                            data-target="#user_perm">permission</a>
                                                         {% if not request.user|has_group:"client" %} 
                                                     <a class="dropdown-item"
                                                         onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
@@ -285,7 +280,8 @@
                                                         </div>
                                                         <a data-id="{{file.id}}"
                                                         onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
-                                                        class="dropdown-item remove-file" href="#">Delete</a>
+                                                        class="dropdown-item remove-file" href="#">Delete
+                                                    </a>
                                                         {% endif %}
                                                     
                                                 </div>

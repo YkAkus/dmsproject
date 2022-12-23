@@ -52,3 +52,12 @@ class File(models.Model):
         if not self.url:
             self.url = create_shortened_url(self)
         super().save(*args, **kwargs)
+
+class Fileview(models.Model):
+    user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE, null=True,blank=True)
+    open_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True,blank=True)
+    shear_file = models.ForeignKey(File,on_delete=models.CASCADE, null=True,blank=True)
+    opened_when= models.DateTimeField(auto_now_add=True, blank=True,null=True,)
+    times_open= models.CharField(max_length=30,blank=True,null=True,) 
+    def __str__(self):
+        return  "%s"  %  (self.shear_file)

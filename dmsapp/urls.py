@@ -18,5 +18,5 @@ urlpatterns = [
     path("search",views.search,name="search"),
     path("folder/<str:name>/",views.openFolder,name="folder-data"),
     path("all/perm/",views_perm.allperm,name="allperm"),
-    path("perm/",GP.as_view(),name="perm"),
+    path("perm/",login_required(GP.as_view()),name="perm"),
 ]
