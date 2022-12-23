@@ -168,7 +168,7 @@
                                     </thead>
                                     <tbody>
                                 {% for folder in folders %}
-                                        <tr data-url="{{folder.folder.url}}" class="db-click" id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
+                                        <tr data-url="{{folder.folder.url}}" class="db-click " id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
                                             <td><input type="checkbox" /></td>
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
                                                     {{folder}}</a></td><td></td>
@@ -176,7 +176,7 @@
                                             <td>{% if folder.totalFolder == 0 %}Empty{% elif folder.totalFolder > 1 %}{{folder.totalFolder}} Files{% else %}{{folder.totalFolder}} File{% endif %}</td>
                                         </tr>
                                         <!-- menu -->
-                                        <div class="panel panel-primary my-drop-down" id="popupRC{{folder.id}}"
+                                        <div class="panel panel-primary my-drop-down " id="popupRC{{folder.id}}"
                                         style=" background-color:whitesmoke; display:none;">
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" data-toggle="modal" data-target="#myModal" href="#">Upload
                                             file</a>
@@ -591,7 +591,7 @@
 
     $(document).on("click", ".openfolder", function () {
         var name = $(this).data("name");
-        window.open("/folder/" + name + "/");
+        window.open("/folder/" + name + "/",'_self');
     })
 </script>
 

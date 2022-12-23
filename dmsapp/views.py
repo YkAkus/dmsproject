@@ -228,12 +228,13 @@ def makeFav(request):
         file.is_fav = True
     file.save()
     return JsonResponse({"data":file.is_fav})
+@login_required
 def search(request):
     pho=Profile.objects.filter(user = request.user)
     if request.method=="POST":
         searched=request.POST['searched']
-        serfol= Folder.objects.filter(name__contains=searched)
-        serfil=File.objects.filter(name__contains=searched)
+        serfol= Folder.objects.filter(user = request.user, is_delete=False,name__contains=searched)
+        serfil=File.objects.filter(user = request.user, is_delete=False,name__contains=searched)
         return render(request,"search.html",{'searched':searched,'serfol':serfol,"serfil":serfil,'pho':pho})
     else:
         return render(request,"search.html")
