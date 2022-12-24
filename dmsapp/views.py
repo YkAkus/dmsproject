@@ -102,12 +102,13 @@ def auth(request):
             get_group = Group.objects.get(name=group)
             get_group.user_set.add(user)
     return render(request,"auth.html",{"pho":pho,"groups":groups,"alluser":alluser,'tfile':tfile,'tfolder':tfolder,'tuser':tuser,'tshaer':tshaer,'shear':shear})
+
+
 def openFolder(request, name):
     pho=Profile.objects.filter(user = request.user)
     if request.method == "POST":
         form = FolderFileForm(request.POST, request.FILES)
         folder = request.POST.get("folder",None)
-        folderForm = FolderForm()
         if form.is_valid():
             frm = form.save(commit=False)
             frm.user = request.user

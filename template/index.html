@@ -168,7 +168,7 @@
                                     </thead>
                                     <tbody>
                                 {% for folder in folders %}
-                                        <tr data-url="{{folder.folder.url}}" class="db-click " id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
+                                        <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
                                             <td><input type="checkbox" /></td>
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
                                                     {{folder}}</a></td><td></td>
@@ -231,23 +231,23 @@
                             {% for file in files %}
                                         <tr data-url="{{file.file.url}}" class="db-click" id= "dv_rc1{{file.id}}">
                                             <td><input type="checkbox" /></td>
-                                            <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
-                                                class="fa fa-file font-size-16 align-middle text-primary me-2"></i>
-                                                    {{file}}</a></td>
-                                            <td>{{file.desc}} </td>
-                                            <td>{{file.date|date:'Y-m-d H:i'}}</td>
-                                            <td><i data-id="{{file.id}}"
-                                                    class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
-                                            </td>
-                                            <td>{{file.file.size|filesizeformat}}</td>
-                                            <td>
-                                                <!-- <div class="dropdown">
+                                                <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
+                                                            class="fas fa-file-document font-size-16 align-middle text-primary me-2"></i>
+                                                        {{file}}</a></td>
+                                                        <td>{{file.desc}} </td>
+                                                <td>{{file.date|date:'Y-m-d H:i'}}</td>
+                                                <td><i data-id="{{file.id}}"
+                                                        class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
+                                                </td>
+                                                <td>{{file.file.size|filesizeformat}}</td>
+                                                <td>
+                                                        <!-- <div class="dropdown">
                                                      <a class="font-size-16 text-muted" role="button"
                                                         data-bs-toggle="dropdown" aria-haspopup="true">
                                                         <i class="fas fa-ellipsis-h"></i>
                                                     </a>
                                                 </div> -->
-                                                <div class="dropdown-menu dropdown-menu-end my-drop-down openfolder"
+                                                <div class="dropdown-menu dropdown-menu-end my-drop-down"
                                                     id="popupRC1{{file.id}}">
                                                     <a data-url="{{file.file.url}}"
                                                         onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
