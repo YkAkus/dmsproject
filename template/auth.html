@@ -798,7 +798,8 @@
                         <form action="" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="form_type" value="perm">
-                            <div class="card" style="width: 36rem; display: flex; flex-direction: row;">
+                            <div class="card" style="width: 50%; display: flex; flex-direction: row;">
+                                <label for="label">select USER</label>
                                 <select class="dropdown-toggle form-control" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="user">
                                     <option class="dropdown-item" value="">Select</option>
