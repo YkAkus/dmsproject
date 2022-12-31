@@ -140,12 +140,13 @@ def auth(request):
             get_group = Group.objects.get(name=group)
             get_group.user_set.add(user)
             print('--------------------------------------',usersta)
+            t=User.objects.get(id=user)
             if usersta=="option1":
-                u.is_active = True
-                u.save()
+                t.is_active = True
+                t.save()
             elif usersta=="option2":
-                u.is_active = False
-                u.save()
+                t.is_active = False
+                t.save()
 
 
     return render(request,"auth.html",{"pho":pho,"groups":groups,"alluser":alluser,'tfile':tfile,'tfolder':tfolder,'tuser':tuser,'tshaer':tshaer,'shear':shear})
