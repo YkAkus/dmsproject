@@ -109,9 +109,10 @@ def auth(request):
     alluser=User.objects.all()
     group = request.POST.get('group')
     user = request.POST.get('user')
+    usersta=request.POST.get('user_status')
+    u=User.objects.get(username=request.user)
     if request.method == "POST":
         if request.POST.get("form_type") == 'profile':
-            u=User.objects.get(username=request.user)
             u.first_name=request.POST.get("firstName",None)
             u.last_name=request.POST.get("lastName",None)
             try:
@@ -133,6 +134,15 @@ def auth(request):
             User.objects.get(id = user).groups.clear()
             get_group = Group.objects.get(name=group)
             get_group.user_set.add(user)
+            print('--------------------------------------',usersta)
+            if usersta=="option1":
+                u.is_active = True
+                u.save()
+            elif usersta=="option2":
+                u.is_active = False
+                u.save()
+
+
     return render(request,"auth.html",{"pho":pho,"groups":groups,"alluser":alluser,'tfile':tfile,'tfolder':tfolder,'tuser':tuser,'tshaer':tshaer,'shear':shear})
 
 
