@@ -34,7 +34,7 @@ class Profile(models.Model):
 
 class Folder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, default='New Folder', unique=True)
+    name = models.CharField(max_length=50, default='New_Folder', unique=True)
     date = models.DateTimeField(auto_now_add=True)
     is_delete = models.BooleanField(default=False)
     is_fav = models.BooleanField(default=False)

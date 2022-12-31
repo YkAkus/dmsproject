@@ -1,0 +1,214 @@
+# 1). Make a class called EmployeeDatabase with two methods. 
+#         - add : this function will accept 3 arguments (id , name and age) and will insert the employee information in an object / list.
+#         - print : this function will print the information of all the employees
+
+
+#2) "sysdescr": "ECS2100-28T",
+        "sysobjectid": "1.3.6.1.4.1.259.10.1.43.104",
+        "sysuptime": "25606482",
+        "syscontact": "9876543210",
+        "sysname": "EDGE CORE",
+        "syslocation": "NOIDA",
+        "interfaces": {
+            "1": {
+                "ifindex": "1",
+                "inOctect": 2080970,
+                "outOctect": 1553009,
+                "inErr": 0,
+                "name": "Ethernet Port on unit 1, port 1",
+                "mtu": "1518",
+                "speed": "1000000000",
+                "mac": [
+                    "60",
+                    "44",
+                    "153",
+                    "200",
+                    "213",
+                    "1"
+                ],
+                "adminstatus": "up",
+                "operstatus": "lowerLayerDown",
+                "description": ""
+            },
+            "2": {
+                "ifindex": "2",
+                "inOctect": 2198972452,
+                "outOctect": 375837382,
+                "inErr": 0,
+                "name": "Ethernet Port on unit 1, port 2",
+                "mtu": "1518",
+                "speed": "1000000000",
+                "mac": [
+                    "60",
+                    "44",
+                    "153",
+                    "200",
+                    "213",
+                    "2"
+                ],
+                "adminstatus": "up",
+                "operstatus": "up",
+                "description": ""
+            },
+            "3": {
+                "ifindex": "3",
+                "inOctect": 2227207412,
+                "outOctect": 4263994755,
+                "inErr": 0,
+                "name": "Ethernet Port on unit 1, port 3",
+                "mtu": "1518",
+                "speed": "1000000000",
+                "mac": [
+                    "60",
+                    "44",
+                    "153",
+                    "200",
+                    "213",
+                    "3"
+                ],
+                "adminstatus": "up",
+                "operstatus": "up",
+                "description": ""
+            },
+            "4": {
+                "ifindex": "4",
+                "inOctect": 0,
+                "outOctect": 0,
+                "inErr": 0,
+                "name": "Ethernet Port on unit 1, port 4",
+                "mtu": "1518",
+                "speed": "1000000000",
+                "mac": [
+                    "60",
+                    "44",
+                    "153",
+                    "200",
+                    "213",
+                    "4"
+                ],
+                "adminstatus": "down",
+                "operstatus": "lowerLayerDown",
+                "description": ""
+            },
+            "5": {
+                "ifindex": "5",
+                "inOctect": 0,
+                "outOctect": 0,
+                "inErr": 0,
+                "name": "Ethernet Port on unit 1, port 5",
+                "mtu": "1518",
+                "speed": "1000000000",
+                "mac": [
+                    "60",
+                    "44",
+                    "153",
+                    "200",
+                    "213",
+                    "5"
+                ],
+                "adminstatus": "down",
+                "operstatus": "lowerLayerDown",
+                "description": ""
+            },
+            "6": {
+                "ifindex": "6",
+                "inOctect": 0,
+                "outOctect": 0,
+                "inErr": 0,
+                "name": "Ethernet Port on unit 1, port 6",
+                "mtu": "1518",
+                "speed": "1000000000",
+                "mac": [
+                    "60",
+                    "44",
+                    "153",
+                    "200",
+                    "213",
+                    "6"
+                ],
+                "adminstatus": "up",
+                "operstatus": "lowerLayerDown",
+                "description": ""
+            },
+            "7": {
+                "ifindex": "7",
+                "inOctect": 320869409,
+                "outOctect": 2156299373,
+                "inErr": 0,
+                "name": "Ethernet Port on unit 1, port 7",
+                "mtu": "1518",
+                "speed": "1000000000",
+                "mac": [
+                    "60",
+                    "44",
+                    "153",
+                    "200",
+                    "213",
+                    "7"
+                ],
+                "adminstatus": "up",
+                "operstatus": "up",
+                "description": ""
+            },
+            "8": {
+                "ifindex": "8",
+                "inOctect": 0,
+                "outOctect": 0,
+                "inErr": 0,
+                "name": "Ethernet Port on unit 1, port 8",
+                "mtu": "1518",
+                "speed": "1000000000",
+                "mac": [
+                    "60",
+                    "44",
+                    "153",
+                    "200",
+                    "213",
+                    "8"
+                ],
+                "adminstatus": "up",
+                "operstatus": "lowerLayerDown",
+                "description": ""
+            },
+            "9": {
+                "ifindex": "9",
+                "inOctect": 0,
+                "outOctect": 0,
+                "inErr": 0,
+                "name": "Ethernet Port on unit 1, port 9",
+                "mtu": "1518",
+                "speed": "1000000000",
+                "mac": [
+                    "60",
+                    "44",
+                    "153",
+                    "200",
+                    "213",
+                    "9"
+                ],
+                "adminstatus": "up",
+                "operstatus": "lowerLayerDown",
+                "description": ""
+            },
+            "10": {
+                "ifindex": "10",
+                "inOctect": 0,
+                "outOctect": 0,
+                "inErr": 0,
+                "name": "Ethernet Port on unit 1, port 10",
+                "mtu": "1518",
+                "speed": "1000000000",
+                "mac": [
+                    "60",
+                    "44",
+                    "153",
+                    "200",
+                    "213",
+                    "10"
+                ],
+                "adminstatus": "up",
+                "operstatus": "lowerLayerDown",
+                "description": ""
+            }
+        }
+print (ifindex,inOctect,outOctect,mac A : B : C : D : E : F  ,adminstatus,adminUp,adminDown)
