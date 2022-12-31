@@ -168,10 +168,10 @@
                                     </thead>
                                     <tbody>
                                 {% for kfo,folder in sdir.items %}
-                                        <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
+                                        <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{folder.id}}" data-name="{{kfo}}">
                                             <td><input type="checkbox" /></td>
-                                            <td><a href="javascript: void(0);" class="text-dark fw-medium"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
-                                                    {{kfo}}</a></td><td>{{folder.atime}}</td>
+                                            <td><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
+                                                    {{kfo}}</td><td>{{folder.atime}}</td>
                                             <td>{{folder.mtime}}</td><td></td>
                                             <td>{% if folder.totalFolder == 0 %}Empty{% elif folder.totalFolder > 1 %}{{folder.totalFolder}} Files{% else %}{{folder.totalFolder}} File{% endif %}</td>
                                         </tr>
@@ -187,7 +187,7 @@
                                         style=" background-color:whitesmoke; display:none;">
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" data-toggle="modal" data-target="#myModal" href="#">Upload
                                             file</a>
-                                        <a class="dropdown-item openfolder" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"  data-name="{{folder.name}}" href="#">Open</a>
+                                        <a class="dropdown-item openfolder" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"  data-name="{{kfo}}" href="#">Open</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Create
                                             Folder</a>
                                         <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Edit
@@ -240,9 +240,7 @@
                             {% for kfile,vfile in sfile.items %} 
                                         <tr data-url="{{file.file.url}}" class="db-click" id= "dv_rc1{{file.id}}">
                                             <td><input type="checkbox" /></td>
-                                                <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
-                                                            class="fa fa-file font-size-16 align-middle text-primary me-2"></i>
-                                                        {{kfile}}</a></td>
+                                                <td><i class="fa fa-file font-size-16 align-middle text-primary me-2"></i>{{kfile}}</td>
                                                         <td>{{vfile.atime}} </td>
                                                 <td>{{vfile.mtime}}</td>
                                                 <td><i data-id="{{file.id}}"
@@ -620,9 +618,33 @@
     });
 
 
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
+};
+
+
     $(document).on("click", ".openfolder", function () {
+        var folder = getUrlParameter('folder');
         var name = $(this).data("name");
-        window.open("/folder/" + name + "/",'_self');
+        if (folder){
+            window.open(window.location.href + "/"+name, '_self');
+        }
+        else{
+            window.open("?folder=" + name,'_self');
+        }
     })
 </script>
 

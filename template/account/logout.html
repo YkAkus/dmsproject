@@ -1,0 +1,56 @@
+{% extends 'logbase.html' %}
+{% load widget_tweaks %}
+{% block title %}Logout{% endblock %}
+{% block content %}
+{% load static %}
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="col-xl-10 col-lg-12 col-md-9">
+                            <h2 class="text-lg-start">Menu:</h2>
+                            <ul class="list-group">
+
+                                <li class="list-group-item" style=" width: 542px;"><a href="/accounts/email/">Change
+                                        E-mail</a></li>
+                                <li class="list-group-item" style=" width: 542px;"><a href="/accounts/logout/">Sign
+                                        Out</a></li>
+
+                            </ul>
+                        </div>
+                        </br></br></br>
+                        <div class="divider" style="display: flex;justify-content: space-between;">
+                            <div class="lead p-2 ">
+                                <h1>Sign Out</h1>
+
+                                <p>Are you sure you want to sign out?</p>
+
+                                <form method="post" action="/accounts/logout/">
+                                    <input type="hidden" name="csrfmiddlewaretoken"
+                                        value="aChOXb2kbkDuSWkrhECoj8xm5B2H9Pyf4fuyqlUvIefDs969Na4bMZ4YCBx1OpNL">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary col-sm-6">Sign Out</button>
+                                </form>
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="{% static 'img\logout.png' %}" class="rounded float-right" width="240px"
+                                    height="240px" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endblock %}

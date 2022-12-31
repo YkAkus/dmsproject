@@ -5,13 +5,16 @@ def time(time):
     import datetime
     return datetime.datetime.fromtimestamp(int(time))
 
-def test(username):
+def test(username, folder=None):
     import pysftp as sftp
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
         print("Connection succesfully stablished ... ")
-        sftp.cwd(f'/JnP/{username}/')
+        if folder:
+            sftp.cwd(f'/JnP/{username}/{folder}/')
+        else:
+            sftp.cwd(f'/JnP/{username}/')
         # sftp.cwd('/akus5/')
         # if sftp.is
         files = sftp.listdir_attr(".")
@@ -25,24 +28,30 @@ def test(username):
             else:
                 fi.update({a.filename:{"size":a.st_size,"mtime":time(a.st_atime),"atime":time(a.st_mtime),"perm":a.st_mode}})
         return fo,fi
-def createfol(username,folname):
+def createfol(username,folname, folder=None):
     import pysftp as sftp
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
         print("Connection succesfully stablished ... ")
-        sftp.cwd(f'/JnP/{username}/')
+        if folder:
+            sftp.cwd(f'/JnP/{username}/{folder}/')
+        else:
+            sftp.cwd(f'/JnP/{username}/')
         sftp.mkdir(folname, mode=777)
         print("Folder created successfully")
     return
 
-def upfile(username,file):
+def upfile(username,file, folder=None):
     import pysftp as sftp
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
         print("Connection succesfully stablished ... ")
-        sftp.cwd(f'/JnP/{username}/')
+        if folder:
+            sftp.cwd(f'/JnP/{username}/{folder}/')
+        else:
+            sftp.cwd(f'/JnP/{username}/')
         sftp.put(file)
         print("File uploading is successfully")
     return

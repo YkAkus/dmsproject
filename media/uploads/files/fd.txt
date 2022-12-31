@@ -1,0 +1,6 @@
+Home  - JnP 
+Folder A,B,C,D
+Folder admin  - 4 
+Operator - B - Client - Subfolder - name 
+C, D Owner 
+

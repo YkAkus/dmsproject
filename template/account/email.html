@@ -1,0 +1,116 @@
+{% extends 'logbase.html' %}
+{% load widget_tweaks %}
+{% block title %}E-mail Addresses{% endblock %}
+{% block content %}
+{% load static %}
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="container">
+
+                            <div>
+                                <strong>Menu:</strong>
+                                <ul class="list-group">
+
+                                    <li class="list-group-item" style=" width: 542px;"><a href="/accounts/email/">Change
+                                            E-mail</a></li>
+                                    <li class="list-group-item" style=" width: 542px;"><a href="/accounts/logout/">Sign
+                                            Out</a></li>
+
+                                </ul>
+                            </div>
+                            <div class="p-2">
+                                <h1>E-mail Addresses</h1>
+
+                                <p>The following e-mail addresses are associated with your account:</p>
+
+                                <form action="/accounts/email/" class="email_list" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="csrfmiddlewaretoken"
+                                        value="y317IXMXQyKOlC4VxvMhY9g1fcxHQcB2lLc6SsllLO25s60rrDmBVpNT3ligZ5of">
+                                    <fieldset class="blockLabels">
+
+
+                                        <div class="ctrlHolder">
+                                            <label for="email_radio_1" class="">
+
+                                                <input id="email_radio_1" type="radio" name="email" checked="checked"
+                                                    value="root@root.com" />
+
+                                                root@root.com
+
+                                                <span class="unverified">Unverified</span>
+
+
+                                            </label>
+                                        </div>
+
+
+                                        <div class="buttonHolder"
+                                            style="display: flex; justify-content: space-between;">
+                                            <button class="btn btn-primary col-sm-3 secondaryAction" type="submit"
+                                                name="action_primary">Make Primary</button>
+                                            <button class="btn btn-primary col-sm-3 secondaryAction" type="submit"
+                                                name="action_send">Re-send Verification</button>
+                                            <button class="btn btn-primary col-sm-3 primaryAction" type="submit"
+                                                name="action_remove">Remove</button>
+                                        </div>
+
+                                    </fieldset>
+                                </form>
+
+
+
+
+                                <h2>Add E-mail Address</h2>
+
+                                <form method="post" action="/accounts/email/" class="add_email">
+                                    <input type="hidden" name="csrfmiddlewaretoken"
+                                        value="y317IXMXQyKOlC4VxvMhY9g1fcxHQcB2lLc6SsllLO25s60rrDmBVpNT3ligZ5of">
+                                    <p>
+                                        <label for="id_email">E-mail:</label>
+                                        <input type="email" name="email" placeholder="E-mail address" required
+                                            id="id_email">
+
+
+
+
+                                    </p>
+                                    <button class="btn btn-primary col-sm-6" name="action_add" type="submit">Add
+                                        E-mail</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript">
+        (function () {
+            var message = "Do you really want to remove the selected e-mail address?";
+            var actions = document.getElementsByName('action_remove');
+            if (actions.length) {
+                actions[0].addEventListener("click", function (e) {
+                    if (!confirm(message)) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        })();
+    </script>
+
+    {% endblock %}
