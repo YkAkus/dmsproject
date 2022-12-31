@@ -24,13 +24,15 @@ class FileUploader(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect("login")
-        
+        r = False
+        if request.user.is_superuser:
+            r = True
         arg = request.GET.get("folder", None)
         obj = File.objects.filter(user = request.user, is_delete=False)
         if arg:
-            sffo,sffi = test(request.user.username, arg)
+            sffo,sffi = test(request.user.username,r, arg)
         else:
-            sffo,sffi = test(request.user.username)
+            sffo,sffi = test(request.user.username, r)
         # print(sffi,sffo)
 
 
@@ -49,6 +51,9 @@ class FileUploader(View):
             arg = False
         if not request.user.is_authenticated:
             return JsonResponse({"data":"Method Not Allowed Here"})
+        r = False
+        if request.user.is_superuser:
+            r = True
         if request.POST.get("form_type") == "folderfrm":
             form = FolderForm(request.POST)
             if form.is_valid():
@@ -57,9 +62,9 @@ class FileUploader(View):
                 frm.user = request.user
                 frm.save()
                 if arg:
-                    createfol(request.user,name, arg.split("?folder=")[1])
+                    createfol(request.user,name,r, arg.split("?folder=")[1])
                 else:
-                    createfol(request.user,name)
+                    createfol(request.user,name, r)
                 return JsonResponse({'status':True,'data':'Folder Created'})
             else:
                 return JsonResponse({'status':False,'data':'Folder with same name already exists'})
@@ -90,9 +95,9 @@ class FileUploader(View):
                 frm.file.name = ext
                 frm.save()
             if arg:
-                upfile(request.user.username,"."+frm.file.url, arg.split("?folder=")[1])
+                upfile(request.user.username,"."+frm.file.url,r, arg.split("?folder=")[1])
             else:
-                upfile(request.user.username,"."+frm.file.url)
+                upfile(request.user.username,"."+frm.file.url,r)
             return JsonResponse({'status':True,'data':'File uploaded'})
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
