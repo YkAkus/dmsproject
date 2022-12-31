@@ -36,7 +36,7 @@
 <div class="d-xl-flex">
     <div class="w-100">
         <div class="d-md-flex">
-            <div class="card filemanager-sidebar me-md-2">
+            <div class="card filemanager-sidebar me-md-2" style="width:15rem;">
                 <div class="card-body">
                     <div class="d-flex flex-column h-100">
                         <div class="mb-4">
@@ -643,6 +643,9 @@ var folder = getUrlParameter('folder');
 
 if (folder){
             $(".curUrl").val(location.href);
+            var t = folder.split("/");
+            for (var i in t)
+                $(".dynamiclnk").append(`<button type="button" class="btn dropdown-toggle dropdown-toggle-split"></button><button button type="button" class="btn">${t[i]}</button>`);
         }
 
     $(document).on("click", ".openfolder", function () {

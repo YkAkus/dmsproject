@@ -55,7 +55,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion active toggled" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" style="height:150px" href="#">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" style="height:150px" href="/">
                 <div class="sidebar-brand-icon" style="margin:10px;">
                     <img src="{% static 'img/logo.png' %}" style="width: 60px; height: 60px;">
                 </div>
@@ -193,10 +193,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{request.user}}</span>
-                                {% for i in pho %}
                                 <img class="img-profile img-circle"
-                                    src="../../../../../../../../../../../../media/{{i.img}}" alt="No profile pic">
-                                {% endfor %}
+                                    src="{% if request.user.profile.img %}{{request.user.profile.img.url}}{% endif %}" alt="No profile pic">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 style="margin-right: 20px;" aria-labelledby="userDropdown">
@@ -222,22 +220,17 @@
                     <div class="btn-group dropright">
                         <a href="{%url 'index'%}">
                             <button button type="button" class="btn">
-                                root
-                            </button></a>
-                        <button type="button" class="btn  dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-
-                        </button>
-                        {% if name %}
-                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> {{name}}
-                            {% endif %}
-                        </button>
-                        <div class="dropdown-menu">
-                            {% for fl in folders %}
-                            <li data-url="{{fl.fl.url}}"><a class="dropdown-item" href="/folder/{{fl.name}}"> {{fl}}
-                                </a></li>
-                            {% endfor %}
+                                JnP
+                            </button>
+                        </a>
+                        {% if request.user.is_authenticated and not request.user.is_superuser %}
+                        <button type="button" class="btn dropdown-toggle dropdown-toggle-split"></button>
+                        <button button type="button" class="btn">
+                                {{request.user.username}}
+                            </button>
+                        {% endif %}
+                        <div class="dynamiclnk">
+                            
                         </div>
                     </div>
                 </div>
