@@ -1,5 +1,6 @@
 from dataclasses import fields
 from django.forms import ModelForm,forms
+from django.forms import ClearableFileInput
 from django import forms
 from .models import File, Folder, FolderFile,Profile
 from django.contrib.auth.models import User
@@ -8,6 +9,9 @@ class FileForm(ModelForm):
     class Meta:
         model = File
         fields = ['name','desc','file']
+        widgets = {
+            'file': ClearableFileInput(attrs={'multiple': True}),
+        }
 
 
 class FolderFileForm(ModelForm):

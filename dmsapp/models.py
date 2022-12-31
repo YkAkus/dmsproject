@@ -2,6 +2,26 @@ import re
 from django.db import models
 from django.contrib.auth.models import User
 from .utils import create_shortened_url
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+
+
+FTP_HOST = "216.48.189.99"
+FTP_USER = "root"
+FTP_PASS = "NHYKXN@sxpkc988"
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    import pysftp as sftp
+    if created:
+        cnopts = sftp.CnOpts()  
+        cnopts.hostkeys = None
+        with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
+            print("Connection succesfully stablished ... ")
+            sftp.cwd('/JnP/')
+            sftp.mkdir(instance.username, mode=777)
+
 
 # Create your models here.
 class Profile(models.Model):

@@ -9,11 +9,19 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from datetime import datetime
 from .models import File, Folder, FolderFile ,Profile ,Fileview
+from .sftp_handler import test,createfol,upfile
+
+
 class FileUploader(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect("login")
+        
         obj = File.objects.filter(user = request.user, is_delete=False)
+        sffo,sffi = test(request.user.username)
+        # print(sffi,sffo)
+
+
         pho = Profile.objects.filter(user = request.user)
         folder = Folder.objects.filter(user = request.user,is_delete=False)
         form = FileForm()
@@ -22,16 +30,17 @@ class FileUploader(View):
         permission = group.permissions.all()
         groups=Group.objects.all()
         return render(request, 'index.html', {'form':form,'folderform':folderForm, 'files':obj, 'folders':folder,
-                                            "pho":pho, "permissions":permission,'groups':groups})
+                                            "pho":pho, "permissions":permission,'groups':groups, 'sdir':sffo,'sfile':sffi})
     def post(self, request):
         if not request.user.is_authenticated:
             return JsonResponse({"data":"Method Not Allowed Here"})
         if request.POST.get("form_type") == "folderfrm":
             form = FolderForm(request.POST)
-            # name = request.POST.get("name", None)
             if form.is_valid():
+                name = request.POST.get("name",None)
                 frm = form.save(commit=False)
                 frm.user = request.user
+                createfol(request.user,name)
                 frm.save()
                 return JsonResponse({'status':True,'data':'Folder Created'})
             else:
@@ -43,29 +52,37 @@ class FileUploader(View):
             frm.user = request.user
             if check == "1":
                 name = request.POST.get("name",None)
+                # path = request.POST.get()
                 if name:
                     ext = ""
                     if "." in frm.file.url:
                         ext = "."+frm.file.url.split(".")[-1]
                     frm.file.name = name+ext
                     frm.save()
-                    return JsonResponse({'status':True,'data':'File uploaded'})
+                    return JsonResponse({'status':True,'data':'File uploaded1'})
                 else:
+                    # file=request.FILE.get("file",None)
+                    # print("------------------------1111",file)
                     ext = ""
                     ext = frm.file.name
                     frm.name = ext
                     frm.file.name = ext
                     frm.save()
-                    return JsonResponse({'status':True,'data':'File uploaded'})
+                    return JsonResponse({'status':True,'data':'File uploaded2'})
             else:
                 ext = ""
-                ext = frm.file.name
+                fil=request.FILES.getlist("file")
+                # ext="./"+frm.file.name
+                # upfile(request.user,ext)
+                ext=frm.file.name
                 frm.name = ext
                 frm.file.name = ext
                 frm.save()
-                return JsonResponse({'status':True,'data':'File uploaded'})
+                return JsonResponse({'status':True,'data':'File uploaded3'})
         else:
             return JsonResponse({'status':False,'data':'Something went wrong!!'})
+
+
 def auth(request):
     tfile = File.objects.filter( is_delete=False).count()
     tfolder = Folder.objects.filter(is_delete=False).count()

@@ -80,7 +80,7 @@
                                                     data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-default">Save</button>
                                             </div>
-                                    </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <label for="myfile">Select a file:</label>
-                                                {% render_field form.file class="form-control" %}<br>
+                                                {% render_field form.file class="form-control"  %}<br>
                                                 <fieldset class="question">
                                                     <label for="coupon_question">Do you want to Edit a file name?</label>
                                                     <input id="coupon_question" type="checkbox" name="coupon_question" value="1" />
@@ -121,7 +121,7 @@
                             </div>
 
                             <ul class="list-unstyled categories-list">
-                                {% for fol in folders %}
+                                {% for fol in sdir %}
                                 <li>
                                     <div class="custom-accordion">
                                         <a href="/folder/{{fol.name}}"
@@ -160,21 +160,28 @@
                                         <tr>
                                             <th scope="col" style="width:120px;"><input type="checkbox" onclick="toggle(this);" /> Select all?<br /></th>
                                             <th scope="col">Name</th>
-                                            <th scope="col">Description</th>
+                                            <th scope="col">Date creation</th>
                                             <th scope="col">Date modified</th>
                                             <th scope="col">Favourite</th>
                                             <th scope="col" colspan="2">Size</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                {% for folder in folders %}
+                                {% for kfo,folder in sdir.items %}
                                         <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
+                                            <td><input type="checkbox" /></td>
+                                            <td><a href="javascript: void(0);" class="text-dark fw-medium"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
+                                                    {{kfo}}</a></td><td>{{folder.atime}}</td>
+                                            <td>{{folder.mtime}}</td><td></td>
+                                            <td>{% if folder.totalFolder == 0 %}Empty{% elif folder.totalFolder > 1 %}{{folder.totalFolder}} Files{% else %}{{folder.totalFolder}} File{% endif %}</td>
+                                        </tr>
+                                        {% comment %} <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{folder.id}}" data-name="{{folder.name}}">
                                             <td><input type="checkbox" /></td>
                                             <td><a href="javascript: void(0);" class="text-dark fw-medium"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
                                                     {{folder}}</a></td><td></td>
                                             <td>{{folder.date|date:'Y-m-d H:i'}}</td><td></td>
                                             <td>{% if folder.totalFolder == 0 %}Empty{% elif folder.totalFolder > 1 %}{{folder.totalFolder}} Files{% else %}{{folder.totalFolder}} File{% endif %}</td>
-                                        </tr>
+                                        </tr> {% endcomment %}
                                         <!-- menu -->
                                         <div class="panel panel-primary my-drop-down " id="popupRC{{folder.id}}"
                                         style=" background-color:whitesmoke; display:none;">
@@ -215,6 +222,7 @@
                                     <script>
                                         $(document).ready(function () {
                                     
+
                                             $("#dv_rc{{folder.id}}").bind('contextmenu', function (e) {
                                                 e.preventDefault(); // prevents default menu 
                                     
@@ -228,11 +236,23 @@
                                     </script>
 
                             {% endfor %}
-                            {% for file in files %}
+
+                            {% for kfile,vfile in sfile.items %} 
                                         <tr data-url="{{file.file.url}}" class="db-click" id= "dv_rc1{{file.id}}">
                                             <td><input type="checkbox" /></td>
                                                 <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
-                                                            class="fas fa-file-document font-size-16 align-middle text-primary me-2"></i>
+                                                            class="fa fa-file font-size-16 align-middle text-primary me-2"></i>
+                                                        {{kfile}}</a></td>
+                                                        <td>{{vfile.atime}} </td>
+                                                <td>{{vfile.mtime}}</td>
+                                                <td><i data-id="{{file.id}}"
+                                                        class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
+                                                </td>
+                                                <td>{{vfile.size|filesizeformat}}</td>
+                                                <td>
+                                            {% comment %} <td><input type="checkbox" /></td>
+                                                <td><a href="javascript: void(0);" class="text-dark fw-medium"><i
+                                                            class="fa fa-file font-size-16 align-middle text-primary me-2"></i>
                                                         {{file}}</a></td>
                                                         <td>{{file.desc}} </td>
                                                 <td>{{file.date|date:'Y-m-d H:i'}}</td>
@@ -240,7 +260,7 @@
                                                         class='fa fa-star make-fav {% if file.is_fav %}text-secondary{% else %}text-warning{% endif %}'></i>
                                                 </td>
                                                 <td>{{file.file.size|filesizeformat}}</td>
-                                                <td>
+                                                <td> {% endcomment %}
                                                         <!-- <div class="dropdown">
                                                      <a class="font-size-16 text-muted" role="button"
                                                         data-bs-toggle="dropdown" aria-haspopup="true">
@@ -502,6 +522,17 @@
 
 </div>
 <!-- END layout-wrapper -->
+
+{% comment %} <script type="text/javascript">
+            var file = document.getElementById("fileUpload");
+            file.addEventListener("change", function() {
+                for (var i = 0; i < file.files.length; i++) {
+                    console.log(file.files[i].name);
+    }
+}, false);
+       
+
+</script> {% endcomment %}
 
 
 <script>
