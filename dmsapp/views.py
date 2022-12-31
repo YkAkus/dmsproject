@@ -10,7 +10,15 @@ from django.shortcuts import get_object_or_404
 from datetime import datetime
 from .models import File, Folder, FolderFile ,Profile ,Fileview
 from .sftp_handler import test,createfol,upfile
+import urllib
 
+
+def redirect_params(url, params=None):
+    response = redirect(url)
+    if params:
+        query_string = urllib.parse.urlencode(params)
+        response['Location'] += '?' + query_string.replace("%20", " ")
+    return response
 
 class FileUploader(View):
     def get(self, request, *args, **kwargs):
@@ -36,7 +44,9 @@ class FileUploader(View):
         
         return render(request, 'index.html', {'form':form,'folderform':folderForm, 'files':obj, 'folders':folder,"pho":pho, "permissions":permission,'groups':groups, 'sdir':sffo,'sfile':sffi})
     def post(self, request):
-        arg = request.GET.get("folder", None)
+        arg = request.POST.get("curUrl", None)
+        if arg == "/":
+            arg = False
         if not request.user.is_authenticated:
             return JsonResponse({"data":"Method Not Allowed Here"})
         if request.POST.get("form_type") == "folderfrm":
@@ -45,11 +55,11 @@ class FileUploader(View):
                 name = request.POST.get("name",None)
                 frm = form.save(commit=False)
                 frm.user = request.user
+                frm.save()
                 if arg:
-                    createfol(request.user,name, arg)
+                    createfol(request.user,name, arg.split("?folder=")[1])
                 else:
                     createfol(request.user,name)
-                frm.save()
                 return JsonResponse({'status':True,'data':'Folder Created'})
             else:
                 return JsonResponse({'status':False,'data':'Folder with same name already exists'})
@@ -80,7 +90,7 @@ class FileUploader(View):
                 frm.file.name = ext
                 frm.save()
             if arg:
-                upfile(request.user.username,"."+frm.file.url, arg)
+                upfile(request.user.username,"."+frm.file.url, arg.split("?folder=")[1])
             else:
                 upfile(request.user.username,"."+frm.file.url)
             return JsonResponse({'status':True,'data':'File uploaded'})

@@ -35,7 +35,7 @@ def createfol(username,folname, folder=None):
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
         print("Connection succesfully stablished ... ")
         if folder:
-            sftp.cwd(f'/JnP/{username}/{folder}/')
+            sftp.cwd(f'/JnP/{username}/{folder.replace("%20", " ")}/')
         else:
             sftp.cwd(f'/JnP/{username}/')
         sftp.mkdir(folname, mode=777)
@@ -49,7 +49,7 @@ def upfile(username,file, folder=None):
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
         print("Connection succesfully stablished ... ")
         if folder:
-            sftp.cwd(f'/JnP/{username}/{folder}/')
+            sftp.cwd(f'/JnP/{username}/{folder.replace("%20", " ")}/')
         else:
             sftp.cwd(f'/JnP/{username}/')
         sftp.put(file)

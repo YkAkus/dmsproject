@@ -66,6 +66,7 @@
                                         <form action="" id="folder-upload-frm">
                                             {% csrf_token %}
                                             <input type="hidden" name="form_type" value="folderfrm">
+                                            <input type="hidden" name="curUrl" class="curUrl">
                                             <div class="modal-header">
                                                 <button type="button" class="close"
                                                     data-dismiss="modal">&times;</button>
@@ -91,6 +92,7 @@
                                     <div class="modal-content">
                                         <form action="" id="file-upload-frm">
                                             {% csrf_token %}
+                                            <input type="hidden" name="curUrl" class="curUrl">
                                             <div class="modal-header">
                                                 <button type="button" class="close"
                                                     data-dismiss="modal">&times;</button>
@@ -539,6 +541,8 @@
     const input_file = document.getElementById('id_file');
     const progress_bar = document.getElementById('file-pb');
 
+    
+
     $("#file-upload-frm").submit(function (e) {
         e.preventDefault();
         $form = $(this)
@@ -576,7 +580,7 @@
                     //$("#fileType").addClass('hide-me')
                     progress_bar.classList.add('hide-me')
                 }, 2000)
-                window.location.href = "/";
+                 location.reload(); 
             },
             error: function (err) {
                 console.log(err);
@@ -602,7 +606,7 @@
             },
             success: function (response) {
                 if (response["status"])
-                    window.location.href = "/";
+                     location.reload(); 
                 $("#err").html(response["data"]);
                 window.setTimeout(function () {
                     $("#err").html("");
@@ -635,6 +639,11 @@ var getUrlParameter = function getUrlParameter(sParam) {
     return false;
 };
 
+var folder = getUrlParameter('folder');
+
+if (folder){
+            $(".curUrl").val(location.href);
+        }
 
     $(document).on("click", ".openfolder", function () {
         var folder = getUrlParameter('folder');
