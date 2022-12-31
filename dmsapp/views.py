@@ -33,10 +33,8 @@ class FileUploader(View):
         group = Group.objects.get(name="client")
         permission = group.permissions.all()
         groups=Group.objects.all()
-        if arg:
-            return redirect('/?folder='+arg)
-        else:
-            return render(request, 'index.html', {'form':form,'folderform':folderForm, 'files':obj, 'folders':folder,"pho":pho, "permissions":permission,'groups':groups, 'sdir':sffo,'sfile':sffi})
+        
+        return render(request, 'index.html', {'form':form,'folderform':folderForm, 'files':obj, 'folders':folder,"pho":pho, "permissions":permission,'groups':groups, 'sdir':sffo,'sfile':sffi})
     def post(self, request):
         arg = request.GET.get("folder", None)
         if not request.user.is_authenticated:
