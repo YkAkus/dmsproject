@@ -187,13 +187,12 @@
                                         <!-- menu -->
                                         <div class="panel panel-primary my-drop-down popupRCfol " 
                                         style=" background-color:whitesmoke; display:none;">
-                                        <a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" data-toggle="modal" data-target="#myModal" href="#">Upload
-                                            file</a>
                                         <a class="dropdown-item openfolder" onClick="$('.popupRCfol').css({ display: 'none' });"  data-name="{{kfo}}" href="#">Open</a>
-                                        <a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" href="#">Create
-                                            Folder</a>
-                                        <a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" href="#">Edit
-                                            File</a>
+                                        <a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" href="#">Rename</a>
+                                             {% comment %}<a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" data-toggle="modal" data-target="#myModal" href="#">Upload
+                                                file</a>
+                                            <a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" href="#">Create
+                                                Folder</a>
                                             {% if not request.user|has_group:"client" %}
                                         <a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" href="{% url 'perm' %}">Enable
                                             Client View</a>
@@ -219,7 +218,7 @@
                                         {% if not request.user|has_group:"client" %}
                                         <a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" href="#">Send Mail
                                             Notification</a>
-                                            {% endif %}
+                                            {% endif %} {% endcomment %}
                                     </div>
                                     <script>
                                         $(document).ready(function () {
