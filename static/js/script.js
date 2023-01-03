@@ -32,9 +32,10 @@ $(document).on("click", ".logout", function() {
 })
 
 
-$(document).on(" click ", ".remove-file", function() {
+$(document).on("click ", ".remove-file", function() {
     me = $(this);
-    id = me.data("id");
+    id = me.data("name");
+    console.log(id)
     Swal.fire({
         title: 'Are you sure?',
         text: "You can remove your file from Trash!",

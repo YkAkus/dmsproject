@@ -261,7 +261,8 @@
             <div id="txt"></div>
             <div class="text-left my-auto" style="text-align:right;">
                <label for=""> User Name: {{request.user}}||
-                {% if request.user|has_group:"client" %} Client {% elif request.user|has_group:"admin" %} Admin {% else %} Operator {% endif %}&nbsp</label>
+                {% if request.user|has_group:"client" %} Client {% elif request.user|has_group:"admin" %} Admin {% elif request.user|has_group:"Operator" %} Operator {% elif request.user|has_group:"Rh_operator" %} Rh_Operator {% elif request.user|has_group:"Rp_operator" %} Rp_Operator {% else %} Group not defined {% endif %}&nbsp
+            </label>
             </div>
             <div class="copyright text-center my-auto">
                 <span>&copy;2022 All Rights Reserved by āKüs™ </span>

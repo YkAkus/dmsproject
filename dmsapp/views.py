@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from datetime import datetime
 from .models import File, Folder, FolderFile ,Profile ,Fileview
-from .sftp_handler import test,createfol,upfile
+from .sftp_handler import test,createfol,upfile,search,filedelete
 import urllib
 
 
@@ -24,9 +24,13 @@ class FileUploader(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect("login")
-        r = False
+        r = ""
         if request.user.is_superuser:
-            r = True
+            r = "admin"
+        elif request.user.groups.values_list('name', flat=True).first() == "Rh_operator":
+            r='Rh_operator'
+        elif request.user.groups.values_list('name', flat=True).first() == "Rp_operator":
+            r='Rp_operator'
         arg = request.GET.get("folder", None)
         obj = File.objects.filter(user = request.user, is_delete=False)
         if arg:
@@ -51,9 +55,13 @@ class FileUploader(View):
             arg = False
         if not request.user.is_authenticated:
             return JsonResponse({"data":"Method Not Allowed Here"})
-        r = False
+        r = ""
         if request.user.is_superuser:
-            r = True
+            r ="admin"
+        elif request.user.groups.values_list('name', flat=True).first() == "Rh_operator":
+            r='Rh_operator'
+        elif request.user.groups.values_list('name', flat=True).first() == "Rp_operator":
+            r='Rp_operator'
         if request.POST.get("form_type") == "folderfrm":
             form = FolderForm(request.POST)
             if form.is_valid():
@@ -147,8 +155,6 @@ def auth(request):
             elif usersta=="option2":
                 t.is_active = False
                 t.save()
-
-
     return render(request,"auth.html",{"pho":pho,"groups":groups,"alluser":alluser,'tfile':tfile,'tfolder':tfolder,'tuser':tuser,'tshaer':tshaer,'shear':shear})
 
 
@@ -237,19 +243,24 @@ def removeFile(request):
     file.is_delete = True
     file.save()
     return JsonResponse({"data":True})
+
+
 @login_required
 def removeFolder(request):
     fid = request.POST["id", False]
-    fol = Folder.objects.get(id = id)
-    fol.is_delete = True
-    fol.save()
+    # fol = Folder.objects.get(id = id)
+    # fol.is_delete = True
+    # fol.save()
     return JsonResponse({"data":True})
 
 @login_required
 def deleteFile(request):
-    id = request.POST["id"]
-    file = File.objects.get(id = id)
-    file.delete()
+    name = request.POST["id"]
+    print("----------------------------------------------------",name)
+    delete=filedelete(request.user,name)
+    print("-------------------------------------------------------------",delete)
+    # file = File.objects.get(id = id)
+    # file.delete()
     return JsonResponse({"data":True})
 @login_required
 def deleteFolder(request):
@@ -277,16 +288,18 @@ def makeFav(request):
         file.is_fav = True
     file.save()
     return JsonResponse({"data":file.is_fav})
+
 @login_required
 def search(request):
-    pho=Profile.objects.filter(user = request.user)
     if request.method=="POST":
         searched=request.POST['searched']
-        serfol= Folder.objects.filter(user = request.user, is_delete=False,name__contains=searched)
-        serfil=File.objects.filter(user = request.user, is_delete=False,name__contains=searched)
-        return render(request,"search.html",{'searched':searched,'serfol':serfol,"serfil":serfil,'pho':pho})
+        print("---------------------------------------------",request.user,searched)
+        sdir,sfile= search(request.user,searched)
+        # serfol= Folder.objects.filter(user = request.user, is_delete=False,name__contains=searched)
+        # serfil=File.objects.filter(user = request.user, is_delete=False,name__contains=searched)
+        return render(request,"index.html",{'searched':searched,'serfol':sdir,"serfil":sfile})
     else:
-        return render(request,"search.html")
+        return render(request,"index.html")
 def fifo_auth(request):
     
     return render

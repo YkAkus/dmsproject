@@ -160,7 +160,7 @@
                                 <table class="table align-middle table-nowrap table-hover mb-0">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width:120px;"><input type="checkbox" onclick="toggle(this);" /> Select all?<br /></th>
+                                            <th scope="col" style="width:120px;"><input type="checkbox" onclick="toggle(this);" /> Select all<br /></th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Date creation</th>
                                             <th scope="col">Date modified</th>
@@ -240,7 +240,7 @@
                             {% endfor %}
 
                             {% for kfile,vfile in sfile.items %} 
-                                        <tr data-url="{{file.file.url}}" class="db-click dv_rc1">
+                                        <tr data-url="{{file.file.url}}" class="db-click dv_rc1" data-id={{kfile}} >
                                             <td><input type="checkbox" /></td>
                                                 <td><i class="fa fa-file font-size-16 align-middle text-primary me-2"></i>{{kfile}}</td>
                                                         <td>{{vfile.atime}} </td>
@@ -286,21 +286,20 @@
                                                         class="dropdown-item share-file" href="#">Share</a>
                                                         {% comment %} <a data-url="{{file.url}}"
                                                         onClick="$('.popupRC1').css({ display: 'none' });"
-                                                        class="dropdown-item share-file" href="#">permission</a> {% endcomment %}
+                                                        class="dropdown-item share-file" href="#">permission</a> 
                                                         <a data-url="{{file.file.url}}"
                                                             onClick="$('.popupRC1').css({ display: 'none' });"
                                                             class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#user_perm">permission</a>
+                                                            data-target="#user_perm">permission</a>{% endcomment %}
                                                         {% if not request.user|has_group:"client" %} 
-                                                    <a class="dropdown-item"
+                                                    {% comment %} <a class="dropdown-item"
                                                         onClick="$('.popupRC1').css({ display: 'none' });"
-                                                        href="{% url 'perm' %}">Groups</a>
+                                                        href="{% url 'perm' %}">Groups</a> {% endcomment %}
                                                         <div class="dropdown-divider">
                                                         </div>
-                                                        <a data-id="{{file.id}}"
+                                                        <a data-name="{{kfile}}"
                                                         onClick="$('.popupRC1').css({ display: 'none' });"
-                                                        class="dropdown-item remove-file" href="#">Delete
-                                                    </a>
+                                                        class="dropdown-item remove-file" href="#">Delete</a>
                                                         {% endif %}
                                                     
                                                 </div>
