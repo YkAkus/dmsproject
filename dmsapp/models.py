@@ -6,7 +6,6 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 
-
 FTP_HOST = "216.48.190.85"
 FTP_USER = "root"
 FTP_PASS = "EXSRXF@deuku725"

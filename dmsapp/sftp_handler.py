@@ -41,6 +41,8 @@ def test(username, r, folder=None):
             else:
                 fi.update({a.filename:{"size":a.st_size,"mtime":time(a.st_atime),"atime":time(a.st_mtime),"perm":a.st_mode}})
         return fo,fi
+
+
 def createfol(username,folname,r, folder=None):
     import pysftp as sftp
     cnopts = sftp.CnOpts()
