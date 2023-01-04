@@ -1,6 +1,9 @@
-FTP_HOST = "216.48.189.99"
+FTP_HOST = "216.48.190.85"
 FTP_USER = "root"
-FTP_PASS = "NHYKXN@sxpkc988"
+FTP_PASS = "EXSRXF@deuku725"
+# FTP_HOST = "216.48.189.99"
+# FTP_USER = "root"
+# FTP_PASS = "NHYKXN@sxpkc988"
 def time(time):
     import datetime
     return datetime.datetime.fromtimestamp(int(time))
@@ -69,4 +72,50 @@ def upfile(username,file,r, folder=None):
         print("File uploading is successfully")
     return
 
+def delfile(username, r, file, folder=None):
+    import pysftp as sftp
+    cnopts = sftp.CnOpts()
+    cnopts.hostkeys = None
+    with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
+        print("Connection succesfully stablished ... ")
+        if r:
+            if folder:
+                sftp.cwd(f'/JnP/{folder.replace("%20", " ")}/')
+            else:
+                sftp.cwd(f'/JnP/')
+        else:
+            if folder:
+                sftp.cwd(f'/JnP/{username}/{folder}/')
+            else:
+                sftp.cwd(f'/JnP/{username}/')
+        sftp.remove(file)
+    return
 
+def delfolder(username, r,id, folder=None):
+    import pysftp as sftp
+    cnopts = sftp.CnOpts()
+    cnopts.hostkeys = None
+    con = sftp.Connection(FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts)
+    # print(id, folder)
+    if r:
+        if folder:
+            dirs = [f'/JnP/{folder.replace("%20", " ")}/{id}/']
+        else:
+            dirs = [f'/JnP/{id}/']
+    else:
+        if folder:
+            dirs = [f'/JnP/{username}/{folder}/{id}/']
+        else:
+            dirs = [f'/JnP/{username}/{id}/']
+
+    # print(dirs[0])
+    con.walktree(dirs[0], fcallback=con.remove, dcallback=dirs.append, ucallback=con.remove, recurse=True)
+
+    # print(dirs)
+
+    for d in reversed(dirs):
+        # print("Delete directory", d)
+        con.rmdir(d)
+        
+    con.close()
+    return

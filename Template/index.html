@@ -170,7 +170,7 @@
                                     </thead>
                                     <tbody>
                                 {% for kfo,folder in sdir.items %}
-                                        <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{folder.id}}" data-name="{{kfo}}">
+                                        <tr data-url="{{folder.folder.url}}" class="db-click openfolder" id="dv_rc{{forloop.counter}}" data-name="{{kfo}}">
                                             <td><input type="checkbox" /></td>
                                             <td><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
                                                     {{kfo}}</td><td>{{folder.atime}}</td>
@@ -185,53 +185,24 @@
                                             <td>{% if folder.totalFolder == 0 %}Empty{% elif folder.totalFolder > 1 %}{{folder.totalFolder}} Files{% else %}{{folder.totalFolder}} File{% endif %}</td>
                                         </tr> {% endcomment %}
                                         <!-- menu -->
-                                        <div class="panel panel-primary my-drop-down " id="popupRC{{folder.id}}"
+                                        <div class="panel panel-primary my-drop-down " id="popupRC{{forloop.counter}}"
                                         style=" background-color:whitesmoke; display:none;">
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" data-toggle="modal" data-target="#myModal" href="#">Upload
-                                            file</a>
-                                        <a class="dropdown-item openfolder" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"  data-name="{{kfo}}" href="#">Open</a>
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Create
-                                            Folder</a>
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Edit
-                                            File</a>
-                                            {% if not request.user|has_group:"client" %}
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="{% url 'perm' %}">Enable
-                                            Client View</a>
-                                            {% endif %}
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Important
-                                            (Mark)</a>
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Mark
-                                            favorites to Create Shortcut</a>
-                                        {% if not request.user|has_group:"client" %}
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Move</a>
-                                        {% endif %}
-                                        {% if request.user|has_group:"admin" %}
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Download</a>
-                                        <a data-id="{{folder.id}}"  onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" class="dropdown-item remove-folder"  href="#">Delete</a>
-                                        {% endif %}
-                                        {% if not request.user|has_group:"client" %}
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Rename </a>
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });"
-                                            href="#">Details/Properties </a>
-                                        {% endif %}
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Short <i class="fa fa-arrow-up" aria-hidden="true"></i><i class="fa fa-arrow-down" aria-hidden="true"></i> </a>
-                                        <div class="dropdown-divider"></div>
-                                        {% if not request.user|has_group:"client" %}
-                                        <a class="dropdown-item" onClick="$('#popupRC{{folder.id}}').css({ display: 'none' });" href="#">Send Mail
-                                            Notification</a>
-                                            {% endif %}
+                                        <a class="dropdown-item openfolder" onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });"  data-name="{{kfo}}" href="#">Open</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });" href="#">Download</a>
+                                        <a data-name="{{kfo}}"  onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });" class="dropdown-item remove-folder"  href="#">Delete</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });" href="#">Rename </a>
                                     </div>
                                     <script>
                                         $(document).ready(function () {
                                     
 
-                                            $("#dv_rc{{folder.id}}").bind('contextmenu', function (e) {
+                                            $("#dv_rc{{forloop.counter}}").bind('contextmenu', function (e) {
                                                 e.preventDefault(); // prevents default menu 
                                     
-                                                $("#popupRC{{folder.id}}").css({ position: "absolute", top: e.pageY-145, left: e.pageX-250, display: "block" });
+                                                $("#popupRC{{forloop.counter}}").css({ position: "absolute", top: e.pageY-145, left: e.pageX-250, display: "block" });
                                             });
                                             $(document).bind("click", function (event) {
-                                                document.getElementsByClassName("popupRC").display = "none";
+                                                document.getElementById("popupRC{{forloop.counter}}").display = "none";
                                             })
                                         });
                                     
@@ -239,8 +210,8 @@
 
                             {% endfor %}
 
-                            {% for kfile,vfile in sfile.items %} 
-                                        <tr data-url="{{file.file.url}}" class="db-click" id= "dv_rc1{{file.id}}">
+                            {% for kfile,vfile in sfile.items %}
+                                        <tr data-url="{{file.file.url}}" class="db-click" id= "dv_rc1{{forloop.counter}}">
                                             <td><input type="checkbox" /></td>
                                                 <td><i class="fa fa-file font-size-16 align-middle text-primary me-2"></i>{{kfile}}</td>
                                                         <td>{{vfile.atime}} </td>
@@ -268,38 +239,38 @@
                                                     </a>
                                                 </div> -->
                                                 <div class="dropdown-menu dropdown-menu-end my-drop-down"
-                                                    id="popupRC1{{file.id}}">
+                                                    id="popupRC1{{forloop.counter}}">
                                                     <a data-url="{{file.file.url}}"
-                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
                                                         class="dropdown-item preview-pdf" href="#" data-toggle="modal"
                                                         data-target="#pdfModal">Preview</a>
                                                         <a data-url="{{file.file.url}}"
-                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
                                                         class="dropdown-item open-file" href="#">Open</a>
                                                         <a class="dropdown-item"
-                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
                                                         href="#">Edit</a>
                                                         <a class="dropdown-item"
-                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
                                                         href="#">Rename</a>
                                                         <a data-url="{{file.url}}"
-                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
                                                         class="dropdown-item share-file" href="#">Share</a>
                                                         {% comment %} <a data-url="{{file.url}}"
-                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
                                                         class="dropdown-item share-file" href="#">permission</a> {% endcomment %}
                                                         <a data-url="{{file.file.url}}"
-                                                            onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                            onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
                                                             class="dropdown-item" href="#" data-toggle="modal"
                                                             data-target="#user_perm">permission</a>
                                                         {% if not request.user|has_group:"client" %} 
                                                     <a class="dropdown-item"
-                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
                                                         href="{% url 'perm' %}">Groups</a>
                                                         <div class="dropdown-divider">
                                                         </div>
-                                                        <a data-id="{{file.id}}"
-                                                        onClick="$('#popupRC1{{file.id}}').css({ display: 'none' });"
+                                                        <a data-id="{{forloop.counter}}" data-name="{{kfile}}"
+                                                        onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
                                                         class="dropdown-item remove-file" href="#">Delete
                                                     </a>
                                                         {% endif %}
@@ -310,10 +281,10 @@
                                         <script>
                                             $(document).ready(function () {
     
-                                                $("#dv_rc1{{file.id}}").bind('contextmenu', function (e) {
+                                                $("#dv_rc1{{forloop.counter}}").bind('contextmenu', function (e) {
                                                     e.preventDefault(); // prevents default menu 
     
-                                                    $("#popupRC1{{file.id}}").css({ position: "absolute", top: e.pageY-145, left: e.pageX-250, display: "block" });
+                                                    $("#popupRC1{{forloop.counter}}").css({ position: "absolute", top: e.pageY-145, left: e.pageX-250, display: "block" });
     
                                                 });
                                                 // $(document).bind("click", function (event) {
@@ -643,13 +614,14 @@ var folder = getUrlParameter('folder');
 
 if (folder){
             $(".curUrl").val(location.href);
+            $(".remove-file").attr("data-curUrl",location.href);
+            $(".remove-folder").attr("data-curUrl",location.href);
             var t = folder.split("/");
             for (var i in t)
                 $(".dynamiclnk").append(`<button type="button" class="btn dropdown-toggle dropdown-toggle-split"></button><button button type="button" class="btn">${t[i]}</button>`);
         }
 
     $(document).on("click", ".openfolder", function () {
-        var folder = getUrlParameter('folder');
         var name = $(this).data("name");
         if (folder){
             window.open(window.location.href + "/"+name, '_self');

@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from datetime import datetime
 from .models import File, Folder, FolderFile ,Profile ,Fileview
-from .sftp_handler import test,createfol,upfile
+from .sftp_handler import test,createfol,upfile, delfile, delfolder
 import urllib
 
 
@@ -222,17 +222,34 @@ def remFileView(request):
 @login_required
 def removeFile(request):
     id = request.POST["id"]
-    file = File.objects.get(id = id)
-    file.is_delete = True
-    file.save()
-    return JsonResponse({"data":True})
+    arg = request.POST.get("url", None)
+    print(id, arg)
+    if arg == "/":
+        arg = False
+
+    r = False
+    if request.user.is_superuser:
+        r = True
+    if arg:
+        delfile(request.user,r,id, arg.split("?folder=")[1])
+    else:
+        delfile(request.user, r, id)
+    return JsonResponse({'status':True,'data':'File uploaded'})
 @login_required
 def removeFolder(request):
-    fid = request.POST["id", False]
-    fol = Folder.objects.get(id = id)
-    fol.is_delete = True
-    fol.save()
-    return JsonResponse({"data":True})
+    id = request.POST.get("id", False)
+    arg = request.POST.get("url", None)
+    if arg == "/":
+        arg = False
+
+    r = False
+    if request.user.is_superuser:
+        r = True
+    if arg:
+        delfolder(request.user,r, id,arg.split("?folder=")[1])
+    else:
+        delfolder(request.user, r, id)
+    return JsonResponse({'status':True,'data':'File uploaded'})
 
 @login_required
 def deleteFile(request):
