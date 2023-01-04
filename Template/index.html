@@ -31,6 +31,18 @@
         }
     }
 </script>
+<script>
+    $(document).ready(function(){
+      $("#hide").click(function(){
+        $("#ab").hide();
+        $("#ba").show();
+      });
+      $("#show").click(function(){
+        $("#ab").show();
+        $("#ba").hide();
+      });
+    });
+    </script>
 <!-- jQuery should be at least version 1.7 -->
 
 <div class="d-xl-flex">
@@ -170,10 +182,11 @@
                                     </thead>
                                     <tbody>
                                 {% for kfo,folder in sdir.items %}
-                                        <tr data-url="{{folder.folder.url}}" class="db-click openfolder dv_rcfol" id="" data-name="{{kfo}}">
+                                        <tr data-url="{{folder.folder.url}}" class="openfolder dv_rcfol" id="" data-name="{{kfo}}">
                                             <td><input type="checkbox" /></td>
-                                            <td><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>
-                                                    {{kfo}}</td><td>{{folder.atime}}</td>
+                                            <td id="ba"><i class="fa fa-folder font-size-16 align-middle text-warning me-2" aria-hidden="true"></i>{{kfo}}</td>
+                                            <form action="" method="post"> {% csrf_token %} <td style="display:none;" id="ab"><input type="text" placeholder="Enter Any Name" value="{{kfo}}"><button id="hide" type="button">Save</button></td></form>
+                                            <td>{{folder.atime}}</td>
                                             <td>{{folder.mtime}}</td><td></td>
                                             <td>{% if folder.totalFolder == 0 %}Empty{% elif folder.totalFolder > 1 %}{{folder.totalFolder}} Files{% else %}{{folder.totalFolder}} File{% endif %}</td>
                                         </tr>
@@ -188,7 +201,7 @@
                                         <div class="panel panel-primary my-drop-down popupRCfol " 
                                         style=" background-color:whitesmoke; display:none;">
                                         <a class="dropdown-item openfolder" onClick="$('.popupRCfol').css({ display: 'none' });"  data-name="{{kfo}}" href="#">Open</a>
-                                        <a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" href="#">Rename</a>
+                                        <a class="dropdown-item" id="show" onClick="$('.popupRCfol').css({ display: 'none' });" href="#">Rename</a>
                                         {% comment %}<a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" data-toggle="modal" data-target="#myModal" href="#">Upload
                                                 file</a>
                                             <a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" href="#">Create
@@ -643,7 +656,7 @@ if (folder){
                 $(".dynamiclnk").append(`<button type="button" class="btn dropdown-toggle dropdown-toggle-split"></button><button button type="button" class="btn">${t[i]}</button>`);
         }
 
-    $(document).on("click", ".openfolder", function () {
+    $(document).on("dblclick", ".openfolder", function () {
         var folder = getUrlParameter('folder');
         var name = $(this).data("name");
         if (folder){
