@@ -12,7 +12,6 @@ from .models import File, Folder, FolderFile ,Profile ,Fileview
 from .sftp_handler import test,createfol,upfile, delfile, delfolder
 import urllib
 
-
 def redirect_params(url, params=None):
     response = redirect(url)
     if params:
@@ -240,13 +239,17 @@ def remFileView(request):
 def removeFile(request):
     id = request.POST["id"]
     arg = request.POST.get("url", None)
-    print(id, arg)
     if arg == "/":
         arg = False
 
-    r = False
+    r = ""
     if request.user.is_superuser:
-        r = True
+        r ="admin"
+    elif request.user.groups.values_list('name', flat=True).first() == "Rh_operator":
+        r='Rh_operator'
+    elif request.user.groups.values_list('name', flat=True).first() == "Rp_operator":
+        r='Rp_operator'
+
     if arg:
         delfile(request.user,r,id, arg.split("?folder=")[1])
     else:
@@ -259,9 +262,13 @@ def removeFolder(request):
     if arg == "/":
         arg = False
 
-    r = False
+    r = ""
     if request.user.is_superuser:
-        r = True
+        r ="admin"
+    elif request.user.groups.values_list('name', flat=True).first() == "Rh_operator":
+        r='Rh_operator'
+    elif request.user.groups.values_list('name', flat=True).first() == "Rp_operator":
+        r='Rp_operator'
     if arg:
         delfolder(request.user,r, id,arg.split("?folder=")[1])
     else:

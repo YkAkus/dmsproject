@@ -49,11 +49,11 @@
                                     </button>
                                     
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal1" href="#"><i
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal1" ><i
                                                 class="fa fa-folder me-1"></i> Folder</a>
                                         <!-- <button type="button" class="btn btn-info btn-lg"
                                             data-toggle="modal" data-target="#myModal">Open Modal</button> -->
-                                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="#">
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal" >
                                             <i class="fa fa-file me-1"></i> File</a>
                                     </div>
                                 </div>
@@ -126,8 +126,8 @@
                                 {% for fol in sdir %}
                                 <li>
                                     <div class="custom-accordion">
-                                        <a href="/folder/{{fol.name}}"
-                                            class="text-body fw-medium py-1 d-flex align-items-center btn btn-light w-100">
+                                        <a data-name="{{fol}}"
+                                            class="text-body fw-medium py-1 d-flex align-items-center btn btn-light w-100 openfolder">
                                             <i class="fas fa-folder font-size-16 text-warning me-2"></i>
                                             {{fol}}</i>
                                         </a>
@@ -187,10 +187,10 @@
                                         <!-- menu -->
                                         <div class="panel panel-primary my-drop-down " id="popupRC{{forloop.counter}}"
                                         style=" background-color:whitesmoke; display:none;">
-                                        <a class="dropdown-item openfolder" onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });"  data-name="{{kfo}}" href="#">Open</a>
-                                        <a class="dropdown-item" onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });" href="#">Download</a>
-                                        <a data-name="{{kfo}}"  onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });" class="dropdown-item remove-folder"  href="#">Delete</a>
-                                        <a class="dropdown-item" onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });" href="#">Rename </a>
+                                        <a class="dropdown-item openfolder" onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });"  data-name="{{kfo}}" >Open</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });" >Download</a>
+                                        <a data-name="{{kfo}}"  onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });" class="dropdown-item remove-folder">Delete</a>
+                                        <a class="dropdown-item" onClick="$('#popupRC{{forloop.counter}}').css({ display: 'none' });" >Rename </a>
                                     </div>
                                     <script>
                                         $(document).ready(function () {
@@ -242,38 +242,23 @@
                                                     id="popupRC1{{forloop.counter}}">
                                                     <a data-url="{{file.file.url}}"
                                                         onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
-                                                        class="dropdown-item preview-pdf" href="#" data-toggle="modal"
+                                                        class="dropdown-item preview-pdf"  data-toggle="modal"
                                                         data-target="#pdfModal">Preview</a>
                                                         <a data-url="{{file.file.url}}"
                                                         onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
-                                                        class="dropdown-item open-file" href="#">Open</a>
+                                                        class="dropdown-item open-file" >Open</a>
                                                         <a class="dropdown-item"
                                                         onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
-                                                        href="#">Edit</a>
-                                                        <a class="dropdown-item"
-                                                        onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
-                                                        href="#">Rename</a>
+                                                        >Rename</a>
                                                         <a data-url="{{file.url}}"
                                                         onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
-                                                        class="dropdown-item share-file" href="#">Share</a>
-                                                        {% comment %} <a data-url="{{file.url}}"
-                                                        onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
-                                                        class="dropdown-item share-file" href="#">permission</a> {% endcomment %}
-                                                        <a data-url="{{file.file.url}}"
-                                                            onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
-                                                            class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#user_perm">permission</a>{% endcomment %}
-                                                        {% if not request.user|has_group:"client" %} 
-                                                    <a class="dropdown-item"
-                                                        onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
-                                                        href="{% url 'perm' %}">Groups</a>
+                                                        class="dropdown-item share-file" >Share</a>                                                        
                                                         <div class="dropdown-divider">
                                                         </div>
                                                         <a data-id="{{forloop.counter}}" data-name="{{kfile}}"
                                                         onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
-                                                        class="dropdown-item remove-file" href="#">Delete
+                                                        class="dropdown-item remove-file" >Delete
                                                     </a>
-                                                        {% endif %}
                                                     
                                                 </div>
                                             </td>
@@ -331,7 +316,7 @@
                                 </div>
                                 {% empty %}
                                 <div class="col">
-                                    <a class="dropdown-item" data-toggle="modal" data-target="#myModal1" href="#"><i
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#myModal1" ><i
                                             class="fa fa-plus me-1"></i>Create Folder</a>
                                 </div>
                                 {% endfor %}
@@ -380,28 +365,28 @@
                     <!-- menu -->
                     {% comment %} <div class="panel panel-primary my-drop-down popupRC "
                         style=" background-color:whitesmoke; display:none;">
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Upload
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Upload
                             file</a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Open</a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Create
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Open</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Create
                             Folder</a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Edit
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Edit
                             File</a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Enable
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Enable
                             Client View</a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Important
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Important
                             (Mark)</a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Mark
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Mark
                             favorites to Create Shortcut</a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Move</a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Download</a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Delete</a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Rename </a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Move</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Download</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Delete</a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Rename </a>
                         <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });"
-                            href="#">Details/Properties </a>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Short </a>
+                            >Details/Properties </a>
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Short </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" href="#">Send Mail
+                        <a class="dropdown-item" onClick="$('.popupRC').css({ display: 'none' });" >Send Mail
                             Notification</a>
                     </div>
                     <script>
@@ -424,25 +409,25 @@
                     <div class="dropdown-menu dropdown-menu-end my-drop-down popupRC1">
                         <a data-url="{{file.file.url}}"
                             onClick="$('.popupRC1').css({ display: 'none' });"
-                            class="dropdown-item preview-pdf" href="#" data-toggle="modal"
+                            class="dropdown-item preview-pdf"  data-toggle="modal"
                             data-target="#pdfModal">Preview</a>
                         <a data-url="{{file.file.url}}"
                             onClick="$('.popupRC1').css({ display: 'none' });"
-                            class="dropdown-item open-file" href="#">Open</a>
+                            class="dropdown-item open-file" >Open</a>
                         <a class="dropdown-item"
                             onClick="$('.popupRC1').css({ display: 'none' });"
-                            href="#">Edit</a>
+                            >Edit</a>
                         <a class="dropdown-item"
                             onClick="$('.popupRC1').css({ display: 'none' });"
-                            href="#">Rename</a>
+                            >Rename</a>
                         <a data-url="{{file.url}}"
                             onClick="$('.popupRC1').css({ display: 'none' });"
-                            class="dropdown-item share-file" href="#">Share</a>
+                            class="dropdown-item share-file" >Share</a>
                         <div class="dropdown-divider">
                         </div>
                         <a data-id="{{file.id}}"
                             onClick="$('.popupRC1{{file.id}}').css({ display: 'none' });"
-                            class="dropdown-item remove-file" href="#">Remove</a>
+                            class="dropdown-item remove-file" >Remove</a>
                     </div>
                     <script>
                         $(document).ready(function () {

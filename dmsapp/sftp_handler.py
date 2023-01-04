@@ -13,7 +13,6 @@ def test(username, r, folder=None):
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
-        print("Connection succesfully stablished ... ")
         if r=='admin':
             if folder:
                 sftp.cwd(f'/JnP/{folder}/')
@@ -47,7 +46,7 @@ def createfol(username,folname,r, folder=None):
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
-        print("Connection succesfully stablished ... ")
+        
         if r=='admin':
             if folder:
                 sftp.cwd(f'/JnP/{folder}/')
@@ -77,7 +76,7 @@ def upfile(username,file,r, folder=None):
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
-        print("Connection succesfully stablished ... ")
+        
         if r=='admin':
             if folder:
                 sftp.cwd(f'/JnP/{folder.replace("%20", " ")}/')
@@ -85,17 +84,17 @@ def upfile(username,file,r, folder=None):
                 sftp.cwd(f'/JnP/')
         elif r=='Rh_operator':
             if folder:
-                sftp.cwd(f'/JnP/B/{folder}/')
+                sftp.cwd(f'/JnP/B/{folder.replace("%20", " ")}/')
             else:
                 sftp.cwd(f'/JnP/B/')
         elif r=='Rp_operator':
             if folder:
-                sftp.cwd(f'/JnP/A/{folder}/')
+                sftp.cwd(f'/JnP/A/{folder.replace("%20", " ")}/')
             else:
                 sftp.cwd(f'/JnP/A/')
         else:
             if folder:
-                sftp.cwd(f'/JnP/{username}/{folder}/')
+                sftp.cwd(f'/JnP/{username}/{folder.replace("%20", " ")}/')
             else:
                 sftp.cwd(f'/JnP/{username}/')
         sftp.put(file)
@@ -107,15 +106,25 @@ def delfile(username, r, file, folder=None):
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
-        print("Connection succesfully stablished ... ")
-        if r:
+        
+        if r=='admin':
             if folder:
                 sftp.cwd(f'/JnP/{folder.replace("%20", " ")}/')
             else:
                 sftp.cwd(f'/JnP/')
+        elif r=='Rh_operator':
+            if folder:
+                sftp.cwd(f'/JnP/B/{folder.replace("%20", " ")}/')
+            else:
+                sftp.cwd(f'/JnP/B/')
+        elif r=='Rp_operator':
+            if folder:
+                sftp.cwd(f'/JnP/A/{folder.replace("%20", " ")}/')
+            else:
+                sftp.cwd(f'/JnP/A/')
         else:
             if folder:
-                sftp.cwd(f'/JnP/{username}/{folder}/')
+                sftp.cwd(f'/JnP/{username}/{folder.replace("%20", " ")}/')
             else:
                 sftp.cwd(f'/JnP/{username}/')
         sftp.remove(file)
@@ -126,15 +135,35 @@ def delfolder(username, r,id, folder=None):
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
     con = sftp.Connection(FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts)
-    # print(id, folder)
-    if r:
+    # if r:
+    #     if folder:
+    #         dirs = [f'/JnP/{folder.replace("%20", " ")}/{id}/']
+    #     else:
+    #         dirs = [f'/JnP/{id}/']
+    # else:
+    #     if folder:
+    #         dirs = [f'/JnP/{username}/{folder}/{id}/']
+    #     else:
+    #         dirs = [f'/JnP/{username}/{id}/']
+    
+    if r=='admin':
         if folder:
             dirs = [f'/JnP/{folder.replace("%20", " ")}/{id}/']
         else:
             dirs = [f'/JnP/{id}/']
+    elif r=='Rh_operator':
+        if folder:
+            dirs = [f'/JnP/B/{folder.replace("%20", " ")}/{id}/']
+        else:
+            dirs = [f'/JnP/B/{id}/']
+    elif r=='Rp_operator':
+        if folder:
+            dirs = [f'/JnP/A/{folder.replace("%20", " ")}/{id}/']
+        else:
+            dirs = [f'/JnP/A/{id}/']
     else:
         if folder:
-            dirs = [f'/JnP/{username}/{folder}/{id}/']
+            dirs = [f'/JnP/{username}/{folder.replace("%20", " ")}/{id}/']
         else:
             dirs = [f'/JnP/{username}/{id}/']
 
