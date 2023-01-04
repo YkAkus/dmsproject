@@ -104,45 +104,50 @@ def upfile(username,file,r, folder=None):
         print("File uploading is successfully")
     return
 
-
-def filedelete(username,file):
+def delfile(username, r, file, folder=None):
     import pysftp as sftp
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
         print("Connection succesfully stablished ... ")
-        sftp.cwd(f'/JnP/{username}/')
+        if r:
+            if folder:
+                sftp.cwd(f'/JnP/{folder.replace("%20", " ")}/')
+            else:
+                sftp.cwd(f'/JnP/')
+        else:
+            if folder:
+                sftp.cwd(f'/JnP/{username}/{folder}/')
+            else:
+                sftp.cwd(f'/JnP/{username}/')
         sftp.remove(file)
-    return(("File is remove successfully"))
+    return
 
-
-
-def search(username, searched, r=None, folder=None):
+def delfolder(username, r,id, folder=None):
     import pysftp as sftp
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
-    with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
-        sftp.cwd(f'/JnP/{username}/')
-        print("Connection succesfully stablished ... for search ")
-        # if r:
-        #     if folder:
-        #         sftp.cwd(f'/JnP/{folder}/')
-        #     else:
-        #         sftp.cwd(f'/JnP/')
-        # else:
-        #     if folder:
-        #         sftp.cwd(f'/JnP/{username}/{folder}/')
-        #     else:
-        #         sftp.cwd(f'/JnP/{username}/')
-        fo={}
-        fi={}
-        for a in sftp.listdir_attr():
-            temp=""
-            temp=a.filename.find(searched)
-            print(temp)
-            if temp != -1:
-                if sftp.isdir(a.filename)==True:
-                    fo.update({a.filename:{"size":a.st_size,"mtime":time(a.st_atime),"atime":time(a.st_mtime),"perm":a.st_mode}})
-                else:
-                    fi.update({a.filename:{"size":a.st_size,"mtime":time(a.st_atime),"atime":time(a.st_mtime),"perm":a.st_mode}})
-        return fo,fi
+    con = sftp.Connection(FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts)
+    # print(id, folder)
+    if r:
+        if folder:
+            dirs = [f'/JnP/{folder.replace("%20", " ")}/{id}/']
+        else:
+            dirs = [f'/JnP/{id}/']
+    else:
+        if folder:
+            dirs = [f'/JnP/{username}/{folder}/{id}/']
+        else:
+            dirs = [f'/JnP/{username}/{id}/']
+
+    # print(dirs[0])
+    con.walktree(dirs[0], fcallback=con.remove, dcallback=dirs.append, ucallback=con.remove, recurse=True)
+
+    # print(dirs)
+
+    for d in reversed(dirs):
+        # print("Delete directory", d)
+        con.rmdir(d)
+        
+    con.close()
+    return

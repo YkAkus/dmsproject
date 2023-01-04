@@ -35,7 +35,7 @@ $(document).on("click", ".logout", function() {
 $(document).on("click ", ".remove-file", function() {
     me = $(this);
     id = me.data("name");
-    console.log(id)
+    url = me.data("cururl");
     Swal.fire({
         title: 'Are you sure?',
         text: "You can remove your file from Trash!",
@@ -51,7 +51,8 @@ $(document).on("click ", ".remove-file", function() {
                 "type": "POST",
                 "data": {
                     "csrfmiddlewaretoken": csrfcookie(),
-                    "id": id
+                    "id": id,
+                    "url": url,
                 },
                 success: function(response) {
                     Swal.fire(
@@ -59,7 +60,7 @@ $(document).on("click ", ".remove-file", function() {
                         'Your file has been deleted.',
                         'success'
                     )
-                    me.parent().parent().parent().parent().remove();
+                    location.reload();
                 },
                 error: function(error) {
                     console.log(error);
@@ -70,7 +71,8 @@ $(document).on("click ", ".remove-file", function() {
 })
 $(document).on(" click ", ".remove-folder", function() {
     me = $(this);
-    id = me.data("id");
+    id = me.data("name");
+    url = me.data("cururl");
     Swal.fire({
         title: 'Are you sure?',
         text: "You can remove your folder from Trash!",
@@ -86,7 +88,8 @@ $(document).on(" click ", ".remove-folder", function() {
                 "type": "POST",
                 "data": {
                     "csrfmiddlewaretoken": csrfcookie(),
-                    "id": id
+                    "id": id,
+                    "url": url,
                 },
                 success: function(response) {
                     Swal.fire(
@@ -94,7 +97,7 @@ $(document).on(" click ", ".remove-folder", function() {
                         'Your folder has been deleted.',
                         'success'
                     )
-                    me.parent().parent().parent().parent().remove();
+                    location.reload();
                 },
                 error: function(error) {
                     console.log(error);
@@ -130,13 +133,13 @@ $(document).on("click", ".make-fav", function() {
 })
 $(document).on("click", ".open-file", function() {
     var url = $(this).data("url");
-    window.open(`${url}`,'_blank');
+    window.open(`${url}`, '_blank');
     // window.location.replace(`${url}`);
 })
 $(document).on("click", ".preview-pdf", function() {
     var url = $(this).data("url");
     //console.log(url);
-    embed.src = url + "#toolbar=1"; 
+    embed.src = url + "#toolbar=1";
     // window.open(`${url}`, '_blank');
 })
 $(document).on("dblclick", ".db-click", function() {
@@ -236,4 +239,3 @@ $(document).on('click', function(e) {
         $(".my-drop-down").hide();
     }
 });
-
