@@ -6,12 +6,12 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 
-FTP_HOST = "216.48.190.85"
-FTP_USER = "root"
-FTP_PASS = "EXSRXF@deuku725"
-# FTP_HOST = "216.48.189.99"
+# FTP_HOST = "216.48.190.85"
 # FTP_USER = "root"
-# FTP_PASS = "NHYKXN@sxpkc988"
+# FTP_PASS = "EXSRXF@deuku725"
+FTP_HOST = "216.48.189.99"
+FTP_USER = "root"
+FTP_PASS = "NHYKXN@sxpkc988"
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

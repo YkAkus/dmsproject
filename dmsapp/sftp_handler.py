@@ -1,9 +1,9 @@
-FTP_HOST = "216.48.190.85"
-FTP_USER = "root"
-FTP_PASS = "EXSRXF@deuku725"
-# FTP_HOST = "216.48.189.99"
+# FTP_HOST = "216.48.190.85"
 # FTP_USER = "root"
-# FTP_PASS = "NHYKXN@sxpkc988"
+# FTP_PASS = "EXSRXF@deuku725"
+FTP_HOST = "216.48.189.99"
+FTP_USER = "root"
+FTP_PASS = "NHYKXN@sxpkc988"
 def time(time):
     import datetime
     return datetime.datetime.fromtimestamp(int(time))
@@ -144,5 +144,3 @@ def search(username, searched, r=None, folder=None):
                 else:
                     fi.update({a.filename:{"size":a.st_size,"mtime":time(a.st_atime),"atime":time(a.st_mtime),"perm":a.st_mode}})
         return fo,fi
-
-

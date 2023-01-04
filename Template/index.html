@@ -189,7 +189,7 @@
                                         style=" background-color:whitesmoke; display:none;">
                                         <a class="dropdown-item openfolder" onClick="$('.popupRCfol').css({ display: 'none' });"  data-name="{{kfo}}" href="#">Open</a>
                                         <a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" href="#">Rename</a>
-                                             {% comment %}<a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" data-toggle="modal" data-target="#myModal" href="#">Upload
+                                        {% comment %}<a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" data-toggle="modal" data-target="#myModal" href="#">Upload
                                                 file</a>
                                             <a class="dropdown-item" onClick="$('.popupRCfol').css({ display: 'none' });" href="#">Create
                                                 Folder</a>
@@ -296,7 +296,7 @@
                                                         href="{% url 'perm' %}">Groups</a> {% endcomment %}
                                                         <div class="dropdown-divider">
                                                         </div>
-                                                        <a data-name="{{kfile}}"
+                                                        <a data-id="{{kfile}}"
                                                         onClick="$('.popupRC1').css({ display: 'none' });"
                                                         class="dropdown-item remove-file" href="#">Delete</a>
                                                         {% endif %}
@@ -309,9 +309,7 @@
     
                                                 $(".dv_rc1").bind('contextmenu', function (e) {
                                                     e.preventDefault(); // prevents default menu 
-    
                                                     $(".popupRC1").css({ position: "absolute", top: e.pageY-145, left: e.pageX-315, display: "block" });
-    
                                                 });
                                                 // $(document).bind("click", function (event) {
                                                 //     document.getElementById("popupRC1{{file.id}}").display = "none";
