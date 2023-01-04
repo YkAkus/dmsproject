@@ -268,21 +268,21 @@ def removeFolder(request):
         delfolder(request.user, r, id)
     return JsonResponse({'status':True,'data':'File uploaded'})
 
-@login_required
-def deleteFile(request):
-    name = request.POST["id"]
-    print("----------------------------------------------------",name)
-    delete=filedelete(request.user,name)
-    print("-------------------------------------------------------------",delete)
-    # file = File.objects.get(id = id)
-    # file.delete()
-    return JsonResponse({"data":True})
-@login_required
-def deleteFolder(request):
-    id = request.POST["id"]
-    folder = Folder.objects.get(id = id)
-    folder.delete()
-    return JsonResponse({"data":True})
+# @login_required
+# def deleteFile(request):
+#     name = request.POST["id"]
+#     print("----------------------------------------------------",name)
+#     delete=filedelete(request.user,name)
+#     print("-------------------------------------------------------------",delete)
+#     # file = File.objects.get(id = id)
+#     # file.delete()
+#     return JsonResponse({"data":True})
+# @login_required
+# def deleteFolder(request):
+#     id = request.POST["id"]
+#     folder = Folder.objects.get(id = id)
+#     folder.delete()
+#     return JsonResponse({"data":True})
 
 @login_required
 def restoreFile(request):
