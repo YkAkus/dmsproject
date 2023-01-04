@@ -160,7 +160,7 @@
                                 <table class="table align-middle table-nowrap table-hover mb-0">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width:120px;"><input type="checkbox" onclick="toggle(this);" /> Select all?<br /></th>
+                                            <th scope="col" style="width:120px;"><input type="checkbox" onclick="toggle(this);" /> Select all<br /></th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Date creation</th>
                                             <th scope="col">Date modified</th>
@@ -262,7 +262,7 @@
                                                         <a data-url="{{file.file.url}}"
                                                             onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"
                                                             class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#user_perm">permission</a>
+                                                            data-target="#user_perm">permission</a>{% endcomment %}
                                                         {% if not request.user|has_group:"client" %} 
                                                     <a class="dropdown-item"
                                                         onClick="$('#popupRC1{{forloop.counter}}').css({ display: 'none' });"

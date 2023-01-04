@@ -32,7 +32,7 @@ $(document).on("click", ".logout", function() {
 })
 
 
-$(document).on(" click ", ".remove-file", function() {
+$(document).on("click ", ".remove-file", function() {
     me = $(this);
     id = me.data("name");
     url = me.data("cururl");

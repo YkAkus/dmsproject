@@ -8,17 +8,27 @@ def time(time):
     import datetime
     return datetime.datetime.fromtimestamp(int(time))
 
-def test(username,r, folder=None):
+def test(username, r, folder=None):
     import pysftp as sftp
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
         print("Connection succesfully stablished ... ")
-        if r:
+        if r=='admin':
             if folder:
                 sftp.cwd(f'/JnP/{folder}/')
             else:
                 sftp.cwd(f'/JnP/')
+        elif r=='Rh_operator':
+            if folder:
+                sftp.cwd(f'/JnP/B/{folder}/')
+            else:
+                sftp.cwd(f'/JnP/B/')
+        elif r=='Rp_operator':
+            if folder:
+                sftp.cwd(f'/JnP/A/{folder}/')
+            else:
+                sftp.cwd(f'/JnP/A/')
         else:
             if folder:
                 sftp.cwd(f'/JnP/{username}/{folder}/')
@@ -38,11 +48,21 @@ def createfol(username,folname,r, folder=None):
     cnopts.hostkeys = None
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
         print("Connection succesfully stablished ... ")
-        if r:
+        if r=='admin':
             if folder:
-                sftp.cwd(f'/JnP/{folder.replace("%20", " ")}/')
+                sftp.cwd(f'/JnP/{folder}/')
             else:
                 sftp.cwd(f'/JnP/')
+        elif r=='Rh_operator':
+            if folder:
+                sftp.cwd(f'/JnP/B/{folder}/')
+            else:
+                sftp.cwd(f'/JnP/B/')
+        elif r=='Rp_operator':
+            if folder:
+                sftp.cwd(f'/JnP/A/{folder}/')
+            else:
+                sftp.cwd(f'/JnP/A/')
         else:
             if folder:
                 sftp.cwd(f'/JnP/{username}/{folder}/')
@@ -58,11 +78,21 @@ def upfile(username,file,r, folder=None):
     cnopts.hostkeys = None
     with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
         print("Connection succesfully stablished ... ")
-        if r:
+        if r=='admin':
             if folder:
                 sftp.cwd(f'/JnP/{folder.replace("%20", " ")}/')
             else:
                 sftp.cwd(f'/JnP/')
+        elif r=='Rh_operator':
+            if folder:
+                sftp.cwd(f'/JnP/B/{folder}/')
+            else:
+                sftp.cwd(f'/JnP/B/')
+        elif r=='Rp_operator':
+            if folder:
+                sftp.cwd(f'/JnP/A/{folder}/')
+            else:
+                sftp.cwd(f'/JnP/A/')
         else:
             if folder:
                 sftp.cwd(f'/JnP/{username}/{folder}/')

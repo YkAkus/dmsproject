@@ -24,9 +24,13 @@ class FileUploader(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect("login")
-        r = False
+        r = ""
         if request.user.is_superuser:
-            r = True
+            r = "admin"
+        elif request.user.groups.values_list('name', flat=True).first() == "Rh_operator":
+            r='Rh_operator'
+        elif request.user.groups.values_list('name', flat=True).first() == "Rp_operator":
+            r='Rp_operator'
         arg = request.GET.get("folder", None)
         obj = File.objects.filter(user = request.user, is_delete=False)
         if arg:
@@ -51,9 +55,13 @@ class FileUploader(View):
             arg = False
         if not request.user.is_authenticated:
             return JsonResponse({"data":"Method Not Allowed Here"})
-        r = False
+        r = ""
         if request.user.is_superuser:
-            r = True
+            r ="admin"
+        elif request.user.groups.values_list('name', flat=True).first() == "Rh_operator":
+            r='Rh_operator'
+        elif request.user.groups.values_list('name', flat=True).first() == "Rp_operator":
+            r='Rp_operator'
         if request.POST.get("form_type") == "folderfrm":
             form = FolderForm(request.POST)
             if form.is_valid():
@@ -114,9 +122,10 @@ def auth(request):
     alluser=User.objects.all()
     group = request.POST.get('group')
     user = request.POST.get('user')
+    usersta=request.POST.get('user_status')
+    u=User.objects.get(username=request.user)
     if request.method == "POST":
         if request.POST.get("form_type") == 'profile':
-            u=User.objects.get(username=request.user)
             u.first_name=request.POST.get("firstName",None)
             u.last_name=request.POST.get("lastName",None)
             try:
@@ -138,6 +147,14 @@ def auth(request):
             User.objects.get(id = user).groups.clear()
             get_group = Group.objects.get(name=group)
             get_group.user_set.add(user)
+            print('--------------------------------------',usersta)
+            t=User.objects.get(id=user)
+            if usersta=="option1":
+                t.is_active = True
+                t.save()
+            elif usersta=="option2":
+                t.is_active = False
+                t.save()
     return render(request,"auth.html",{"pho":pho,"groups":groups,"alluser":alluser,'tfile':tfile,'tfolder':tfolder,'tuser':tuser,'tshaer':tshaer,'shear':shear})
 
 
@@ -253,9 +270,12 @@ def removeFolder(request):
 
 @login_required
 def deleteFile(request):
-    id = request.POST["id"]
-    file = File.objects.get(id = id)
-    file.delete()
+    name = request.POST["id"]
+    print("----------------------------------------------------",name)
+    delete=filedelete(request.user,name)
+    print("-------------------------------------------------------------",delete)
+    # file = File.objects.get(id = id)
+    # file.delete()
     return JsonResponse({"data":True})
 @login_required
 def deleteFolder(request):
@@ -283,16 +303,18 @@ def makeFav(request):
         file.is_fav = True
     file.save()
     return JsonResponse({"data":file.is_fav})
+
 @login_required
 def search(request):
-    pho=Profile.objects.filter(user = request.user)
     if request.method=="POST":
         searched=request.POST['searched']
-        serfol= Folder.objects.filter(user = request.user, is_delete=False,name__contains=searched)
-        serfil=File.objects.filter(user = request.user, is_delete=False,name__contains=searched)
-        return render(request,"search.html",{'searched':searched,'serfol':serfol,"serfil":serfil,'pho':pho})
+        print("---------------------------------------------",request.user,searched)
+        sdir,sfile= search(request.user,searched)
+        # serfol= Folder.objects.filter(user = request.user, is_delete=False,name__contains=searched)
+        # serfil=File.objects.filter(user = request.user, is_delete=False,name__contains=searched)
+        return render(request,"index.html",{'searched':searched,'serfol':sdir,"serfil":sfile})
     else:
-        return render(request,"search.html")
+        return render(request,"index.html")
 def fifo_auth(request):
     
     return render

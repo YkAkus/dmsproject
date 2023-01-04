@@ -800,14 +800,14 @@
                             <input type="hidden" name="form_type" value="perm">
                             <div class="card" style="width: 70%; display: flex;flex-direction: row;justify-content: space-between;">
                                 <label for="label">Select USER</label>
-                                <select class="dropdown-toggle form-control " style="width: 300px;" id="dropdownMenuButton"
+                                <select class="dropdown-toggle form-control " required style="width: 300px;" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="user">
                                     <option class="dropdown-item" value="">Select</option>
                                     {% for au in alluser %}
                                     <option class="dropdown-item" value="{{au.id}}">{{au}}</option>
                                     {% endfor %}
                                 </select>
-                                <select class="dropdown-toggle form-control" style="width: 300px;" id="dropdownMenuButton"
+                                <select class="dropdown-toggle form-control" required style="width: 300px;" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="group">
                                     <option class="dropdown-item" value="">Select</option>
                                     {% for gr in groups %}
@@ -815,7 +815,20 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            </br></br></br></br></br></br>
+                            </br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="user_status" id="exampleRadios1" value="option1">
+                                <label class="form-check-label" for="exampleRadios1">
+                                  Active
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="user_status" id="exampleRadios2" value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                  Deactivate
+                                </label>
+                              </div>
+                        </br></br></br></br></br>
                             <div class="btn" style="width: 40%;">
                             <button type="submit" class="btn btn-success" >Save</button>
                             </div>
