@@ -137,17 +137,6 @@ def delfolder(username, r,id, folder=None):
     cnopts = sftp.CnOpts()
     cnopts.hostkeys = None
     con = sftp.Connection(FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts)
-    # if r:
-    #     if folder:
-    #         dirs = [f'/JnP/{folder.replace("%20", " ")}/{id}/']
-    #     else:
-    #         dirs = [f'/JnP/{id}/']
-    # else:
-    #     if folder:
-    #         dirs = [f'/JnP/{username}/{folder}/{id}/']
-    #     else:
-    #         dirs = [f'/JnP/{username}/{id}/']
-    
     if r=='admin':
         if folder:
             dirs = [f'/JnP/{folder.replace("%20", " ")}/{id}/']
@@ -180,3 +169,40 @@ def delfolder(username, r,id, folder=None):
         
     con.close()
     return
+
+def fsearch(username, searched, r, folder=None):
+    import pysftp as sftp
+    cnopts = sftp.CnOpts()
+    cnopts.hostkeys = None
+    with sftp.Connection(host=FTP_HOST, username=FTP_USER, password=FTP_PASS, cnopts=cnopts) as sftp:
+
+        if r=='admin':
+            if folder:
+                sftp.cwd(f'/JnP/{folder.replace("%20", " ")}/')
+            else:
+                sftp.cwd(f'/JnP/')
+        elif r=='Rh_operator':
+            if folder:
+                sftp.cwd(f'/JnP/B/{folder.replace("%20", " ")}/')
+            else:
+                sftp.cwd(f'/JnP/B/')
+        elif r=='Rp_operator':
+            if folder:
+                sftp.cwd(f'/JnP/A/{folder.replace("%20", " ")}/')
+            else:
+                sftp.cwd(f'/JnP/A/')
+        else:
+            if folder:
+                sftp.cwd(f'/JnP/{username}/{folder.replace("%20", " ")}/')
+            else:
+                sftp.cwd(f'/JnP/{username}/')
+        print("Connection succesfully stablished ... for search ")
+        fo={}
+        fi={}
+        for a in sftp.listdir_attr():
+            if searched in a.filename:
+                if sftp.isdir(a.filename)==True:
+                    fo.update({a.filename:{"size":a.st_size,"mtime":time(a.st_atime),"atime":time(a.st_mtime),"perm":a.st_mode}})
+                else:
+                    fi.update({a.filename:{"size":a.st_size,"mtime":time(a.st_atime),"atime":time(a.st_mtime),"perm":a.st_mode}})
+        return fo,fi

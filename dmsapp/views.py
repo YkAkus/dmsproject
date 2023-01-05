@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from datetime import datetime
 from .models import File, Folder, FolderFile ,Profile ,Fileview
-from .sftp_handler import test,createfol,upfile, delfile, delfolder
+from .sftp_handler import test,createfol,upfile, delfile, delfolder,fsearch
 import urllib
 
 def redirect_params(url, params=None):
@@ -261,7 +261,6 @@ def removeFolder(request):
     arg = request.POST.get("url", None)
     if arg == "/":
         arg = False
-
     r = ""
     if request.user.is_superuser:
         r ="admin"
@@ -315,11 +314,19 @@ def makeFav(request):
 def search(request):
     if request.method=="POST":
         searched=request.POST['searched']
-        print("---------------------------------------------",request.user,searched)
-        sdir,sfile= search(request.user,searched)
+        r = ""
+        if request.user.is_superuser:
+            r ="admin"
+        elif request.user.groups.values_list('name', flat=True).first() == "Rh_operator":
+            r='Rh_operator'
+        elif request.user.groups.values_list('name', flat=True).first() == "Rp_operator":
+            r='Rp_operator'
+        sdir,sfile= fsearch(request.user,searched,r)
+        print("---------------------------------------------",sdir,sfile)
         # serfol= Folder.objects.filter(user = request.user, is_delete=False,name__contains=searched)
         # serfil=File.objects.filter(user = request.user, is_delete=False,name__contains=searched)
-        return render(request,"index.html",{'searched':searched,'serfol':sdir,"serfil":sfile})
+        
+        return render(request,"index.html",{'searched':searched,'sdir':sdir,"sfile":sfile})
     else:
         return render(request,"index.html")
 def fifo_auth(request):
